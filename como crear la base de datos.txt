@@ -1,0 +1,5 @@
+1. ir a services
+2. click derecho en java DB -> create database -> fasa
+3. location en derby
+4. click derecho en connect en el que dice jdbc:derby ... fasa.
+5. click derecho en jdbc.. execute command, pegar el script y darle a execute.
