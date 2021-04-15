@@ -58,6 +58,11 @@ button.margin-left{
     background-color: #335c79;
 }
 
+.btn-largo{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
 .btn-PrussianBlue{
     color: #fff;
     background-color: #1D3557;
@@ -96,4 +101,27 @@ button.margin-left{
 
 .wrapper-center {
     text-align: center;
+}
+
+.containerBorder{
+    border-radius: 1rem;
+    box-shadow: 7px 7px 20px 0px #adadad;
+}
+
+.center{
+    align-items: center;
+    position: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.center-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.margin-banner{
+    margin-top: 15px;
 }
