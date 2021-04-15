@@ -53,6 +53,11 @@ button.margin-left{
     background-color: #457B9D;
 }
 
+.btn-CeladonBlue:hover{
+    color: white;
+    background-color: #335c79;
+}
+
 .btn-PrussianBlue{
     color: #fff;
     background-color: #1D3557;
@@ -65,7 +70,7 @@ button.margin-left{
 }
 
 .btn-MellowApricot:hover{
-    background-color: #b3874c;
+    background-color: #e2a758;
 }
 
 .bg-PrussianBlue{
