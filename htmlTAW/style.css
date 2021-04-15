@@ -1,0 +1,94 @@
+button.margin-top{
+    margin-top: 10px;
+}
+
+button.margin-bottom{
+    margin-bottom: 10px;
+}
+
+.padding-form {
+    padding-top: 100px;
+    padding-right: 750px;
+    padding-bottom: 50px;
+    padding-left: 750px;
+}
+
+
+button.margin-left{
+    margin-top: 10px;
+}
+
+.margin-bottom{
+    padding-bottom: 12px;
+}
+
+.margin-top{
+    padding-top: 12px;
+}
+
+
+.margin-bottom-title{
+    padding-bottom: 30px;
+}
+
+.btn-imperialRed{
+    color: #fff;
+    background-color: #E63946;
+}
+
+.btn-honeyDew{
+    background-color: #F1FAEE;
+}
+
+.btn-honeyDew:hover{
+    background-color: #bcc5b9;
+}
+
+.btn-PowederBlue{
+    background-color: #A8DADC;
+}
+
+.btn-CeladonBlue{
+    color: white;
+    background-color: #457B9D;
+}
+
+.btn-PrussianBlue{
+    color: #fff;
+    background-color: #1D3557;
+}
+
+
+
+.btn-MellowApricot{
+    background-color: #FFBF69;
+}
+
+.btn-MellowApricot:hover{
+    background-color: #b3874c;
+}
+
+.bg-PrussianBlue{
+    color: white;
+    background-color: #1D3557;
+}
+
+.bg-honeyDew{
+    background-color: #F1FAEE;
+}
+
+.fnt-HoneyDew{
+    color: #F1FAEE;
+}
+
+.fnt-PrussianBlue{
+   color: #1D3557;
+
+}
+.header-hr{
+    border: 1px;
+}
+
+.wrapper-center {
+    text-align: center;
+}
