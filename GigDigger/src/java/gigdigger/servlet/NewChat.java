@@ -53,34 +53,33 @@ public class NewChat extends HttpServlet {
         Usuario prueba = new Usuario();
         prueba.setId(id);
         
-        //  Query query = em.createNamedQuery("Country.findAll"); 
-        //Query query;
+          //Query query = em.createNamedQuery("Country.findAll"); 
+        Query query;
         
-        /*query = em.createNamedQuery("Chat.CurrentChat")
-                .setParameter("idUser", "%" + id + "%");
+        query = em.createNamedQuery("Chat.CurrentChat")
+                .setParameter("idUser",id);
         
-        List results = query.getResultList();*/
+        //List results = query.getResultList();
+        
+        
         
         /*
          TypedQuery<Country> query = em.createQuery(
         "SELECT c FROM Country c WHERE c.name = :name", Country.class);
     return query.setParameter("name", name).getSingleResult();
         */
-        
-        TypedQuery<Chat> query=em.createQuery(
-        "SELECT c FROM Chat c WHERE c.idUsuario = :idUser AND c.fechaFin IS NULL", Chat.class);
-        List results = query.setParameter("idUser", id).getResultList();
+       
                 
                 
-        String msg = "msg";
+        String msg = "idUser= "+id.toString()+"// query= " + query.toString();
         
-        if(results.isEmpty()){
+        /*if(results.isEmpty()){
             
             msg ="No se han encontrado chats";
         }else{
             
             msg ="se han encontrado chats";
-        }
+        }*/
         
         session.setAttribute("msg", msg);
         
