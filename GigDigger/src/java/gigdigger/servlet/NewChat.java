@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package estudianteswebapp.servlet;
-
+package gigdigger.servlet;
+        
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,14 +13,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+import gigdigger.entity.*;
+import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jesus
  */
+
+
 @WebServlet(name = "NewChat", urlPatterns = {"/NewChat"})
 public class NewChat extends HttpServlet {
 
+    private EntityManager em;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,7 +40,25 @@ public class NewChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+
+        Integer id = Integer.parseInt(request.getParameter("id"));
         
+         TypedQuery<Chat> query =
+        em.createNamedQuery("Chat.CurrentChat", Chat.class).setParameter(id, System.currentTimeMillis());
+        List<Chat> results = query.getResultList();
+        
+        String msg = null;
+        
+        if(results.isEmpty()){
+            
+            msg ="No se han encontrado chats";
+        }else{
+            
+            msg ="se han encontrado chats";
+        }
+        
+        session.setAttribute("msg", msg);
         
         RequestDispatcher rd = request.getRequestDispatcher("chatTeleopera.jsp");
         rd.forward(request, response);

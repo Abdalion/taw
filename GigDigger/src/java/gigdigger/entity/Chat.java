@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Date;
 
 /**
  *
@@ -31,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c")
-    , @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id")})
+    , @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id"), 
+        @NamedQuery(name ="Chat.CurrentChat", query = "SELECT c FROM Chat c WHERE c.idUsuario = :idUsuario AND c.fechaFin IS NULL")})
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +50,13 @@ public class Chat implements Serializable {
     private Usuario idUsuario;
     @OneToMany(mappedBy = "idChat")
     private List<Mensaje> mensajeList;
-
+    @Column (name = "FECHA_INI")
+    private Date fechaIni;
+    
+    @Column (name = "FECHA_FIN")
+    private Date fechaFin;
+    
+    
     public Chat() {
     }
 

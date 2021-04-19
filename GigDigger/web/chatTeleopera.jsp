@@ -4,6 +4,8 @@
     Author     : jesus
 --%>
 
+<%@page import="gigdigger.entity.Chat"%>
+<%@page import="gigdigger.servlet.NewChat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,5 +15,8 @@
     </head>
     <body>
         <h1>En esta página iria el chat</h1>
+        
+        <%String mensaje = (String) request.getAttribute("msg");%>
+        <h3><%=mensaje%></h3>
     </body>
 </html>
