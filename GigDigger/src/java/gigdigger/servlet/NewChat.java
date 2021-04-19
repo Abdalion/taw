@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "NewChat", urlPatterns = {"/NewChat"})
 public class NewChat extends HttpServlet {
 
-    private EntityManager em;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,23 +40,31 @@ public class NewChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        /*EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("UnidadChat");
+        EntityManager em = emf.createEntityManager();*/
+        
+        
         HttpSession session = request.getSession();
 
-        Integer id = Integer.parseInt(request.getParameter("id"));
+        /*Integer id = Integer.parseInt(request.getParameter("id"));
         
-         TypedQuery<Chat> query;
-        query = em.createNamedQuery("Chat.CurrentChat", Chat.class).setParameter(Integer.toString(id), System.currentTimeMillis());
-        List<Chat> results = query.getResultList();
+        TypedQuery<Chat> query;
+         
+        query = em.createNamedQuery("Chat.CurrentChat", Chat.class)
+                .setParameter("idUsuario", Integer.toString(id));
         
-        String msg = null;
+        List<Chat> results = query.getResultList();*/
         
-        if(results.isEmpty()){
+        String msg = "msg";
+        
+        /*if(results.isEmpty()){
             
             msg ="No se han encontrado chats";
         }else{
             
             msg ="se han encontrado chats";
-        }
+        }*/
         
         session.setAttribute("msg", msg);
         
