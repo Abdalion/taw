@@ -44,8 +44,8 @@ public class NewChat extends HttpServlet {
 
         Integer id = Integer.parseInt(request.getParameter("id"));
         
-         TypedQuery<Chat> query =
-        em.createNamedQuery("Chat.CurrentChat", Chat.class).setParameter(id, System.currentTimeMillis());
+         TypedQuery<Chat> query;
+        query = em.createNamedQuery("Chat.CurrentChat", Chat.class).setParameter(Integer.toString(id), System.currentTimeMillis());
         List<Chat> results = query.getResultList();
         
         String msg = null;
