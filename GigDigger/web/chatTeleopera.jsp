@@ -16,7 +16,8 @@
     <body>
         <h1>En esta página iria el chat</h1>
         
-        <%String mensaje = (String) request.getAttribute("msg");%>
-        <h3><%=mensaje%></h3>
+        <%String msg = (String) session.getAttribute("msg");%>
+        
+        <h3><%=msg%></h3>
     </body>
 </html>

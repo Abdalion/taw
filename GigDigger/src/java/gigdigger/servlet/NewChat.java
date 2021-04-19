@@ -40,31 +40,47 @@ public class NewChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        /*EntityManagerFactory emf =
-        Persistence.createEntityManagerFactory("UnidadChat");
-        EntityManager em = emf.createEntityManager();*/
+        EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("GigDiggerPU");
+        EntityManager em = emf.createEntityManager();
         
         
         HttpSession session = request.getSession();
 
-        /*Integer id = Integer.parseInt(request.getParameter("id"));
+        Integer id = Integer.parseInt(request.getParameter("id"));
         
-        TypedQuery<Chat> query;
-         
-        query = em.createNamedQuery("Chat.CurrentChat", Chat.class)
-                .setParameter("idUsuario", Integer.toString(id));
         
-        List<Chat> results = query.getResultList();*/
+        Usuario prueba = new Usuario();
+        prueba.setId(id);
         
+        //  Query query = em.createNamedQuery("Country.findAll"); 
+        //Query query;
+        
+        /*query = em.createNamedQuery("Chat.CurrentChat")
+                .setParameter("idUser", "%" + id + "%");
+        
+        List results = query.getResultList();*/
+        
+        /*
+         TypedQuery<Country> query = em.createQuery(
+        "SELECT c FROM Country c WHERE c.name = :name", Country.class);
+    return query.setParameter("name", name).getSingleResult();
+        */
+        
+        TypedQuery<Chat> query=em.createQuery(
+        "SELECT c FROM Chat c WHERE c.idUsuario = :idUser AND c.fechaFin IS NULL", Chat.class);
+        List results = query.setParameter("idUser", id).getResultList();
+                
+                
         String msg = "msg";
         
-        /*if(results.isEmpty()){
+        if(results.isEmpty()){
             
             msg ="No se han encontrado chats";
         }else{
             
             msg ="se han encontrado chats";
-        }*/
+        }
         
         session.setAttribute("msg", msg);
         
