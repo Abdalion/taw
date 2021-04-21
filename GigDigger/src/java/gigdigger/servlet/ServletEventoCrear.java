@@ -44,7 +44,7 @@ public class ServletEventoCrear extends HttpServlet {
         
         request.setAttribute("listaEventos", listaEventos);
                 
-        RequestDispatcher rd = request.getRequestDispatcher("ListaEventos.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("EventoCrear.jsp");
         rd.forward(request, response);   
     }
 
