@@ -6,7 +6,9 @@
 package gigdigger.servlet;
 
 import gigdigger.dao.EventoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,14 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
-@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/EventoCrear"})
-public class ServletEventoCrear extends HttpServlet {
+@WebServlet(name = "ServletPanelAdministrador", urlPatterns = {"/PanelAdministrador"})
+public class PanelAdministrador extends HttpServlet {
+
     
     @EJB
     private EventoFacade eventoFacade;
-
+    @EJB
+    private UsuarioFacade usuarioFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,12 +43,14 @@ public class ServletEventoCrear extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         List<Evento> listaEventos = this.eventoFacade.findAll();
-        
+        List<Usuario> listaUsuarios = usuarioFacade.findAll();
+       
         request.setAttribute("listaEventos", listaEventos);
+        request.setAttribute("listaUsuarios", listaUsuarios);
                 
-        RequestDispatcher rd = request.getRequestDispatcher("EventoCrear.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("PanelAdministrador.jsp");
+        
         rd.forward(request, response);   
     }
 
@@ -74,6 +80,22 @@ public class ServletEventoCrear extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        
+/*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
+        usuarioFacade.create(nuevoUsuario);
+  */
+        Usuario u = new Usuario();
+        u.setNombreUsuario(name);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setRol(role);
+        this.usuarioFacade.create(u);
+        
         processRequest(request, response);
     }
 

@@ -6,9 +6,7 @@
 package gigdigger.servlet;
 
 import gigdigger.dao.EventoFacade;
-import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Evento;
-import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -22,16 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author egonb
+ * @author ruben
  */
-@WebServlet(name = "ServletPanelAdministrador", urlPatterns = {"/PanelAdministrador"})
-public class ServletPanelAdministrador extends HttpServlet {
-
+@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/EventoCrear"})
+public class EventoCrear extends HttpServlet {
     
     @EJB
     private EventoFacade eventoFacade;
-    @EJB
-    private UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,13 +39,10 @@ public class ServletPanelAdministrador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Evento> listaEventos = this.eventoFacade.findAll();
-        List<Usuario> listaUsuarios = usuarioFacade.findAll();
-       
-        request.setAttribute("listaEventos", listaEventos);
-        request.setAttribute("listaUsuarios", listaUsuarios);
+        
+
                 
-        RequestDispatcher rd = request.getRequestDispatcher("PanelAdministrador.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("EventoCrear.jsp");
         rd.forward(request, response);   
     }
 

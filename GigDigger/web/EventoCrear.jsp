@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Datos del Evento</h1>
-        <form method="get" action="ServletEventoCrear" name="datos" accept-charset="UTF-8">
+        <form method="get" action="EventoCrear" name="datos" accept-charset="UTF-8">
             <table>
                 <tr>
                     <td>Título: </td>

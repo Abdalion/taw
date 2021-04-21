@@ -20,7 +20,7 @@
         List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
     %>        
         <h1>Lista de usuarios</h1>
-        <table style="width:30%">
+        <table >
             <tr>
               <th>USUARIO</th>
               <th>ROLES</th>
@@ -42,9 +42,37 @@
             %>
             </table>
             <br>
-            <input type="submit" value="Crear usuario" action="UsuarioCrear.jsp"/>
+            <input type="submit" value="Crear usuario" onClick="toggleCrearUsuarioForm()"/>
+            
+            <div id="crearUsuarioDiv">
+            <h1>Datos del usuario</h1>
+                <form method="post" action="PanelAdministrador" name="crearUsuario" accept-charset="UTF-8">
+                    <table>
+                        <tr>
+                            <td>NOMBRE </td>
+                            <td><input type="text" name="name" maxlength="40"/></td>
+                        </tr>
+                        <tr>
+                            <td>CORREO </td>
+                            <td><input type="text" name="email" maxlength="40"/></td>
+                        </tr>
+                        <tr>
+                            <td>CONTRASEÑA </td>
+                            <td><input type="text" name="password" maxlength="40"/></td>
+                        </tr>
+                        <tr>
+                            <td>ROL (CREADOR/ADMINISTRADOR/TELEOPERADOR)</td>
+                            <td><input type="text" name="role" maxlength="40"/></td>
+                        </tr>
+                    </table>
+                <br/>
+                    <input type="submit" value="Enviar">
+                </form>
+
+            </div>
+            
         <h1>Lista de eventos</h1>
-        <table style="width:30%">
+        <table>
             <tr>
               <th>TITULO</th>
               <th>DESCRIPCION</th>
@@ -71,9 +99,9 @@
         body {
           font-family: arial, sans-serif;
         }
-        table {
+        table{
           border-collapse: collapse;
-          width: 100%;
+          width: 30%;
         }
 
         td, th {
@@ -86,4 +114,16 @@
           background-color: #dddddd;
         }
 </style>
+
+<script>
+    function toggleCrearUsuarioForm() {
+    var x = document.getElementById("crearUsuarioDiv");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  toggleCrearUsuarioForm();
+</script>
 </html>
