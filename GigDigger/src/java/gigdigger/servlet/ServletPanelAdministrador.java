@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author egonb
  */
-@WebServlet(name = "ServletPanelAdministrador", urlPatterns = {"/ServletPanelAdministrador"})
+@WebServlet(name = "ServletPanelAdministrador", urlPatterns = {"/PanelAdministrador"})
 public class ServletPanelAdministrador extends HttpServlet {
 
     

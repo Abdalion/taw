@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ruben
  */
-@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/ServletEventoCrear"})
+@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/EventoCrear"})
 public class ServletEventoCrear extends HttpServlet {
     
     @EJB
