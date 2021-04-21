@@ -5,14 +5,16 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.EventoFacade;
 import gigdigger.dao.UsuarioFacade;
-import gigdigger.entity.Evento;
 import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,14 +26,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author egonb
  */
-@WebServlet(name = "PanelAdministrador", urlPatterns = {"/PanelAdministrador"})
-public class PanelAdministrador extends HttpServlet {
-
+@WebServlet(name = "UsuarioEliminar", urlPatterns = {"/UsuarioEliminar"})
+public class UsuarioEliminar extends HttpServlet {
     
-    @EJB
-    private EventoFacade eventoFacade;
-    @EJB
+    
+        @EJB
     private UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,14 +44,18 @@ public class PanelAdministrador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Evento> listaEventos = this.eventoFacade.findAll();
-        List<Usuario> listaUsuarios = usuarioFacade.findAll();
-       
-        request.setAttribute("listaEventos", listaEventos);
-        request.setAttribute("listaUsuarios", listaUsuarios);
-                
-        RequestDispatcher rd = request.getRequestDispatcher("PanelAdministrador.jsp");
-        rd.forward(request, response);   
+        EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("GigDiggerPU");
+        EntityManager em = emf.createEntityManager();
+        String id = request.getParameter("id");
+        
+          /*Query query = em.createNamedQuery("Usuario.findById").setParameter("id", Integer.parseInt(id));
+          List results = query.getResultList();*/
+          Usuario u = usuarioFacade.find(Integer.parseInt(id));
+        
+        usuarioFacade.remove(u);
+        
+        response.sendRedirect("PanelAdministrador");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,22 +84,6 @@ public class PanelAdministrador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String role = request.getParameter("role");
-        
-/*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
-        usuarioFacade.create(nuevoUsuario);
-  */
-        Usuario u = new Usuario();
-        u.setNombreUsuario(name);
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setRol(role);
-        this.usuarioFacade.create(u);
-        
         processRequest(request, response);
     }
 
