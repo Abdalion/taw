@@ -3,7 +3,8 @@
     Created on : 19-abr-2021, 13:49:41
     Author     : jesus
 --%>
-
+<%@page import="gigdigger.entity.Mensaje"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="gigdigger.entity.Chat"%>
 <%@page import="gigdigger.servlet.NewChat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,6 +17,9 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css">
 
     </head>
+    <%
+    ArrayList<Mensaje> listaMensajes = (ArrayList)session.getAttribute("mensajes");
+    %>
     <body>
         <br>
         <h1 class="center">Página chat (v.alpha 0.1)</h1>
@@ -23,50 +27,30 @@
         <div class="row">
             <div class="col-4 chat-border">
                 <h4 class="center">Conversaciones</h4>
-                <hr>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                a
-                
-                
-                
+                <p>ninguna ahora mismo brode no ralles</p>
+
+
+
             </div>
             <div class="col-8">
                 <h4 class="center">Chat con fulanito</h4>
                 <hr>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                a
+                <%
+
+                   for(Mensaje men : listaMensajes){
+                  %>
+
+                  <div>
+
+                      <p>IDchat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%></p>
+
+                  </div>
+
+
+                  <%
+                   } 
+
+                %>
             </div>
 
         </div>

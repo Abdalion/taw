@@ -54,10 +54,11 @@ public class NewChat extends HttpServlet {
         prueba.setId(id);
         
           //Query query = em.createNamedQuery("Country.findAll"); 
-        Query query;
-        
-        query = em.createNamedQuery("Chat.CurrentChat")
-                .setParameter("idUser",id);
+        TypedQuery<Chat> query;
+
+        String consulta = "SELECT c FROM Chat c WHERE c.idUsuario.id = :idUser AND c.fechaFin IS NULL";
+        query = em.createQuery(consulta, Chat.class).
+               setParameter("idUser",id);
         
         List<Chat> results = query.getResultList(); 
         
@@ -86,17 +87,18 @@ public class NewChat extends HttpServlet {
             
                 nuevoChat.setMensajeList(new ArrayList());
 
-                List<Mensaje> mensajes = nuevoChat.getMensajeList();
+                ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) nuevoChat.getMensajeList();
 
                 session.setAttribute("mensajes", mensajes);
             }
             
         }else{
             
-           Chat chat = (Chat) results.get(0);
+           Chat chat = results.get(0);
             
-            List<Mensaje> mensajes = chat.getMensajeList();
+            //ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) chat.getMensajeList();
             
+            ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>(chat.getMensajeList());
             session.setAttribute("mensajes", mensajes);
         }
         
