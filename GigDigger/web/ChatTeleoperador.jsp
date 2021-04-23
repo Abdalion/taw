@@ -51,6 +51,17 @@
                    } 
 
                 %>
+                <hr>
+                <br>
+                
+                
+                <form name="nuevoMensaje" method="POST" action="/NewChat">
+                    <div>
+                        <label for="texto"><p>Nuevo mensaje</p></label>
+                        <textarea name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."/>
+                        <button type="submit">Enviar mensaje</button>
+                    <div>
+                </form>
             </div>
 
         </div>

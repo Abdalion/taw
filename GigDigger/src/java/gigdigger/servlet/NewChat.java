@@ -35,6 +35,7 @@ public class NewChat extends HttpServlet {
     
     @EJB
     private ChatFacade chatFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -59,7 +60,7 @@ public class NewChat extends HttpServlet {
         
         //Buscamos al user por su id
         Usuario user;
-        user = this.usuarioFacade.find(id);
+        user = this.usuarioFacade.findByID(id);
 
 
         //Buscamos conversacion activa del usutario
