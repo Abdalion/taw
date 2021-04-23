@@ -42,7 +42,7 @@
 
                   <div>
 
-                      <p>IDChat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%></p>
+                      <p>IDChat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%> | Fecha : <%=men.getFecha()%> | Hora : <%=men.getHora()%></p>
 
                   </div>
 
@@ -57,8 +57,14 @@
                 
                 <form name="nuevoMensaje" method="POST" action="/NewChat">
                     <div>
+                        <label>
+                        idUsuario
+                        </label>
+                        <input type="text" name="id" placeholder="id" value="2">
                         <label for="texto"><p>Nuevo mensaje</p></label>
-                        <textarea name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
+                        <br>
+                        <textarea class="form-control" name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
+                        <br>
                         <button type="submit">Enviar mensaje</button>
                     <div>
                 </form>

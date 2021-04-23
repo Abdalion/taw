@@ -57,7 +57,7 @@ public class NewChat extends HttpServlet {
 
         //Conseguimos la id usuario (TODO: cuando pedro haga lo suyo cambiarlo)
         Integer id = Integer.parseInt(request.getParameter("id"));
-        
+        //session.setAttribute("id", id);
         //Buscamos al user por su id
         Usuario user;
         user = this.usuarioFacade.findByID(id);
@@ -117,7 +117,10 @@ public class NewChat extends HttpServlet {
         newMensaje.setIdChat(idChat);
         newMensaje.setIdEmisor(idEmisor);
         newMensaje.setTexto(texto);
-        //TODO FECHA Y HORA
+        System.out.println(texto);
+        Date date = new Date(System.currentTimeMillis());
+        newMensaje.setFecha(date);
+        newMensaje.setHora(date);
         idChat.addMensaje(newMensaje);
         
     }
