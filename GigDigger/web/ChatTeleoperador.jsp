@@ -42,7 +42,7 @@
 
                   <div>
 
-                      <p>IDchat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%></p>
+                      <p>IDChat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%></p>
 
                   </div>
 
