@@ -59,7 +59,7 @@ public class NewChat extends HttpServlet {
         query = em.createNamedQuery("Chat.CurrentChat")
                 .setParameter("idUser",id);
         
-        //List results = query.getResultList();
+        List results = query.getResultList();
         
         
         
@@ -73,13 +73,13 @@ public class NewChat extends HttpServlet {
                 
         String msg = "idUser= "+id.toString()+"// query= " + query.toString();
         
-        /*if(results.isEmpty()){
+        if(results.isEmpty()){
             
             msg ="No se han encontrado chats";
         }else{
             
             msg ="se han encontrado chats";
-        }*/
+        }
         
         session.setAttribute("msg", msg);
         

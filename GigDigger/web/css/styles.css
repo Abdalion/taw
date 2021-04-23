@@ -1,0 +1,11 @@
+.center {
+    align-items: center;
+    position: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.chat-border{
+    border-right: 1px solid #ccc;
+}
