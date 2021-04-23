@@ -93,7 +93,7 @@ public class NewChat extends HttpServlet {
             
         }else{
             
-           Chat chat = results.get(0);
+           Chat chat = (Chat) results.get(0);
             
             List<Mensaje> mensajes = chat.getMensajeList();
             
