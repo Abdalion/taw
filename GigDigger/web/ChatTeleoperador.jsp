@@ -11,13 +11,64 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Chat teleoperador</title>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="css/styles.css" rel="stylesheet" type="text/css">
+
     </head>
     <body>
-        <h1>En esta página iria el chat</h1>
-        
-        <%String msg = (String) session.getAttribute("msg");%>
-        
-        <h3><%=msg%></h3>
+        <br>
+        <h1 class="center">Página chat (v.alpha 0.1)</h1>
+        <hr>
+        <div class="row">
+            <div class="col-4 chat-border">
+                <h4 class="center">Conversaciones</h4>
+                <hr>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                a
+                
+                
+                
+            </div>
+            <div class="col-8">
+                <h4 class="center">Chat con fulanito</h4>
+                <hr>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                a
+            </div>
+
+        </div>
     </body>
 </html>
