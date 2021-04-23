@@ -9,6 +9,7 @@ import gigdigger.entity.Chat;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +30,19 @@ public class ChatFacade extends AbstractFacade<Chat> {
         super(Chat.class);
     }
     
+    public Chat findCurrentChat (Integer idUser){
+        Query q;
+        q = em.createQuery("SELECT c FROM Chat c WHERE c.idUsuario.id = :idUser AND c.fechaFin IS NULL");
+        q.setParameter("idUser", idUser);
+        
+        return (Chat) q.getResultList().get(0);
+    }
+    
+    public Chat findById (Integer id){
+        Query q;
+        q = em.createQuery("SELECT c FROM Chat c WHERE c.id = :id");
+        q.setParameter("id", id);
+        
+        return (Chat) q.getResultList().get(0);        
+    }
 }

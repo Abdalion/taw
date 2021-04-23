@@ -5,6 +5,7 @@
  */
 package gigdigger.servlet;
         
+import gigdigger.dao.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import gigdigger.entity.*;
+import javax.ejb.EJB;
 import javax.persistence.*;
 import javax.servlet.http.HttpSession;
 
@@ -28,6 +30,11 @@ import javax.servlet.http.HttpSession;
 public class NewChat extends HttpServlet {
 
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private ChatFacade chatFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,65 +54,70 @@ public class NewChat extends HttpServlet {
         
         HttpSession session = request.getSession();
 
+        //Conseguimos la id usuario (TODO: cuando pedro haga lo suyo cambiarlo)
         Integer id = Integer.parseInt(request.getParameter("id"));
         
-        
-        Usuario prueba = new Usuario();
-        prueba.setId(id);
-        
-          //Query query = em.createNamedQuery("Country.findAll"); 
-        TypedQuery<Chat> query;
+        //Buscamos al user por su id
+        Usuario user;
+        user = this.usuarioFacade.find(id);
 
-        String consulta = "SELECT c FROM Chat c WHERE c.idUsuario.id = :idUser AND c.fechaFin IS NULL";
-        query = em.createQuery(consulta, Chat.class).
-               setParameter("idUser",id);
+
+        //Buscamos conversacion activa del usutario
+        Chat chatActivo = this.chatFacade.findCurrentChat(id);
         
-        List<Chat> results = query.getResultList(); 
-        
-        if(results.isEmpty()){
+        //Si no tiene activa, la creamos (solo si hay teleoperadores libres)
+        if(chatActivo == null){
             
             
-            Query queryTele = em.createNamedQuery("Usuario.findTeleoperadorLibre");
+            Usuario telFree = this.usuarioFacade.findTeleoperadorLibre();
             
-            List teleoperadores = queryTele.getResultList();
             
-            if(teleoperadores.isEmpty()){
+            if(telFree == null){ //si no hay teleoperadores libres: error
                 
                 //TODO: CONTROLAR ERROR EN JSP
                 String msg = "No hay teleoperadores disponibles";
                 session.setAttribute("msg", msg);
-            }else{
-                Query queryId = em.createNamedQuery("Usuario.findById")
-                .setParameter("id",id);
-            
-                List<Usuario> resultado = queryId.getResultList();
+                
+            }else{ //si hay teleoperadores libres: ok, la creamos
 
                 Chat nuevoChat = new Chat();
-                nuevoChat.setIdUsuario(resultado.get(0));
+                
+                nuevoChat.setIdUsuario(user);
             
-                nuevoChat.setIdTeleoperador((Usuario)teleoperadores.get(0));
-            
-                nuevoChat.setMensajeList(new ArrayList());
+                nuevoChat.setIdTeleoperador(telFree);
 
-                ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) nuevoChat.getMensajeList();
+                ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
 
                 session.setAttribute("mensajes", mensajes);
+                
+                crearMensaje(request, response, nuevoChat, user);
             }
+        
             
-        }else{
-            
-           Chat chat = results.get(0);
-            
-            //ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) chat.getMensajeList();
-            
-            ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>(chat.getMensajeList());
+        }else{ //Si tiene conversacion activa le redirigimos a ella
+
+            ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
             session.setAttribute("mensajes", mensajes);
+            crearMensaje(request, response, chatActivo, user);
         }
         
-        //session.setAttribute("msg", msg);
         
         RequestDispatcher rd = request.getRequestDispatcher("ChatTeleoperador.jsp");
         rd.forward(request, response);
+        
+    }
+    
+    private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
+        //mensaje: idchat, idemisor, texto
+        String texto = request.getParameter("texto");
+        
+        Mensaje newMensaje = new Mensaje();
+        
+        newMensaje.setIdChat(idChat);
+        newMensaje.setIdEmisor(idEmisor);
+        newMensaje.setTexto(texto);
+        //TODO FECHA Y HORA
+        idChat.addMensaje(newMensaje);
         
     }
 
