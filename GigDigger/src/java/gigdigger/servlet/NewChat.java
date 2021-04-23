@@ -54,13 +54,6 @@ public class NewChat extends HttpServlet {
         prueba.setId(id);
         
           //Query query = em.createNamedQuery("Country.findAll"); 
-        Query query;
-        
-        query = em.createNamedQuery("Chat.CurrentChat")
-                .setParameter("idUser",id);
-        
-        //List results = query.getResultList();
-        
         
         
         /*
@@ -68,20 +61,55 @@ public class NewChat extends HttpServlet {
         "SELECT c FROM Country c WHERE c.name = :name", Country.class);
     return query.setParameter("name", name).getSingleResult();
         */
-       
-                
-                
-        String msg = "idUser= "+id.toString()+"// query= " + query.toString();
+       Query query;
         
-        /*if(results.isEmpty()){
+            query = em.createNamedQuery("Chat.CurrentChat")
+                    .setParameter("idUser",id);
+                
+        List<Chat> results = query.getResultList();        
+        //String msg = "idUser= "+id.toString()+"// query= " + query.toString();
+        
+        if(results.isEmpty()){
             
-            msg ="No se han encontrado chats";
+            Query queryId = em.createNamedQuery("Usuario.findById")
+                .setParameter("id",id);
+            
+            List resultado = queryId.getResultList();
+            
+            Chat nuevoChat = new Chat();
+            nuevoChat.setIdUsuario((Usuario)resultado.get(0));
+            
+            Query queryTele = em.createNamedQuery("Usuario.findTeleoperador");
+            
+            List teleoperadores = queryTele.getResultList();
+            
+            if(teleoperadores.isEmpty()){
+                
+                String msg = "No hay teleoperadores disponibles";
+                session.setAttribute("msg", msg);
+            }else{
+                
+                nuevoChat.setIdTeleoperador((Usuario)teleoperadores.get(0));
+            
+            nuevoChat.setMensajeList(new ArrayList());
+            
+            List<Mensaje> mensajes = nuevoChat.getMensajeList();
+            
+            session.setAttribute("mensajes", mensajes);
+            }
+            
         }else{
             
-            msg ="se han encontrado chats";
-        }*/
+          
+            Chat chat = results.get(0);
+            
+            List<Mensaje> mensajes = chat.getMensajeList();
+            
+            session.setAttribute("mensajes", mensajes);
+            
+        }
         
-        session.setAttribute("msg", msg);
+        //session.setAttribute("msg", msg);
         
         RequestDispatcher rd = request.getRequestDispatcher("ChatTeleoperador.jsp");
         rd.forward(request, response);

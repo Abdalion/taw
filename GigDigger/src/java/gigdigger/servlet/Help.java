@@ -33,7 +33,7 @@ public class Help extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher rd = request.getRequestDispatcher("ayuda.html");
+        RequestDispatcher rd = request.getRequestDispatcher("Ayuda.html");
         rd.forward(request, response);
     }
 
