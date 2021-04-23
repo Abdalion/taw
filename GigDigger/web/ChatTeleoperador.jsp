@@ -58,7 +58,7 @@
                 <form name="nuevoMensaje" method="POST" action="/NewChat">
                     <div>
                         <label for="texto"><p>Nuevo mensaje</p></label>
-                        <textarea name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."/>
+                        <textarea name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
                         <button type="submit">Enviar mensaje</button>
                     <div>
                 </form>

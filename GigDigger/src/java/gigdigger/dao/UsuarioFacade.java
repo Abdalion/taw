@@ -44,7 +44,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public Usuario findByID (Integer id){
         Query q;
         q = em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id");
-        q.setParameter("id", "%" + id + "%");
+        q.setParameter("id", id);
         
         return (Usuario) q.getResultList().get(0);
     }
