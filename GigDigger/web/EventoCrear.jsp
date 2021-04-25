@@ -9,10 +9,12 @@ and open the template in the editor.
         <title>Datos del Evento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
+
     </head>
     <body>
         <h1>Datos del Evento</h1>
-        <form method="get" action="EventoCrear" name="datos" accept-charset="UTF-8">
+        <form method="post" action="ServletEventoGuardar" name="crearEvento" accept-charset="UTF-8">
             <table>
                 <tr>
                     <td>Título: </td>
@@ -23,19 +25,19 @@ and open the template in the editor.
                     <td><input type="text" name="descripcion" maxlength="200" size="50"/></td>
                 </tr>
                 <tr>
-                    <td>Fecha del Evento: </td>
-                    <td><input type="text" name="fecha" maxlength="20" size="20"/></td>
+                    <td>Fecha del evento: </td>
+                    <td><input type="date" name="fecha" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Fecha límite para comprar la entrada: </td>
-                    <td><input type="text" name="fechaLimite" maxlength="20" size="20"/></td>
+                    <td><input type="date" name="fechaLimite" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Precio: </td>
                     <td><input type="text" name="precio" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
-                    <td>Hay aforo?: </td>
+                    <td>¿Hay aforo? </td>
                     <td>
                     <label class="switch">
                     <input type="checkbox">
@@ -44,15 +46,23 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>Aforo: </td>
-                    <td><input type="text" name="aforo" maxlength="20" size="20"/></td>
+                    <td><input type="number" name="aforo" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Límite de entradas que se puede llevar un usuario: </td>
-                    <td><input type="text" name="limiteEntradas" maxlength="20" size="20"/></td>
+                    <td><input type="number" name="limiteEntradas" maxlength="20" size="20"/></td>
+                </tr>
+                <tr>
+                    <td>Número de filas: </td>
+                    <td><input type="number" name="nFilas" maxlength="20" size="20"/></td>
+                </tr>
+                <tr>
+                    <td>Numero de asientos por fila: </td>
+                    <td><input type="number" name="nAsientosFila" maxlength="20" size="20"/></td>
                 </tr>
             </table>
             <br/>
-            <button>Enviar</button>
+            <input type="submit" value="Crear evento" class="btn btn-info" >
 
         </form>
     </body>

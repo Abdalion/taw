@@ -9,9 +9,7 @@ import gigdigger.dao.EventoFacade;
 import gigdigger.entity.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ruben
  */
-@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/EventoCrear"})
-public class EventoCrear extends HttpServlet {
-    
-    @EJB
-    private EventoFacade eventoFacade;
+@WebServlet(name = "ServletEventoEliminar", urlPatterns = {"/ServletEventoEliminar"})
+public class ServletEventoEliminar extends HttpServlet {
 
+    @EJB
+    private EventoFacade eventoFacade;  
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,10 +38,13 @@ public class EventoCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-
-                
-        RequestDispatcher rd = request.getRequestDispatcher("EventoCrear.jsp");
-        rd.forward(request, response);   
+        String id = request.getParameter("id");
+        
+        Evento evento = eventoFacade.find(new Integer(id));
+        eventoFacade.remove(evento);
+        
+        response.sendRedirect("ServletEventoListar");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
