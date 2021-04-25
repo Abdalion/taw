@@ -16,9 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import gigdigger.entity.*;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.persistence.*;
+import javax.servlet.AsyncContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import static jdk.management.resource.internal.SimpleResourceContext.contexts;
 
 /**
  *
@@ -30,6 +34,9 @@ import javax.servlet.http.HttpSession;
 public class NewChat extends HttpServlet {
 
 
+    private List<AsyncContext> contexts = new LinkedList<>();
+    private static final Logger LOG = Logger.getLogger(NewChat.class.getName());
+    
     @EJB
     private UsuarioFacade usuarioFacade;
     
@@ -48,10 +55,50 @@ public class NewChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        EntityManagerFactory emf =
-        Persistence.createEntityManagerFactory("GigDiggerPU");
-        EntityManager em = emf.createEntityManager();
+        RequestDispatcher rd = request.getRequestDispatcher("ChatTeleoperador.jsp");
+        rd.forward(request, response);
         
+    }
+    
+    private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
+        //mensaje: idchat, idemisor, texto
+        String texto = request.getParameter("texto");
+        
+        MensajeFacade mensajeFacade = new MensajeFacade();
+        Mensaje newMensaje = new Mensaje();
+        
+        newMensaje.setIdChat(idChat);
+        newMensaje.setIdEmisor(idEmisor);
+        newMensaje.setTexto(texto);
+        System.out.println(texto);
+        Date date = new Date(System.currentTimeMillis());
+        newMensaje.setFecha(date);
+        newMensaje.setHora(date);
+        idChat.addMensaje(newMensaje);
+        mensajeFacade.create(newMensaje);
+        
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        /*EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("GigDiggerPU");
+        EntityManager em = emf.createEntityManager();*/
+        
+        final AsyncContext asyncContext = request.startAsync(request, response);
+        asyncContext.setTimeout(10 * 60 * 1000);
+        contexts.add(asyncContext);
         
         HttpSession session = request.getSession();
 
@@ -91,7 +138,7 @@ public class NewChat extends HttpServlet {
 
                 session.setAttribute("mensajes", mensajes);
                 
-                crearMensaje(request, response, nuevoChat, user);
+                //crearMensaje(request, response, nuevoChat, user);
             }
         
             
@@ -99,44 +146,9 @@ public class NewChat extends HttpServlet {
 
             ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
             session.setAttribute("mensajes", mensajes);
-            crearMensaje(request, response, chatActivo, user);
+            //crearMensaje(request, response, chatActivo, user);
         }
         
-        
-        RequestDispatcher rd = request.getRequestDispatcher("ChatTeleoperador.jsp");
-        rd.forward(request, response);
-        
-    }
-    
-    private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
-        //mensaje: idchat, idemisor, texto
-        String texto = request.getParameter("texto");
-        
-        Mensaje newMensaje = new Mensaje();
-        
-        newMensaje.setIdChat(idChat);
-        newMensaje.setIdEmisor(idEmisor);
-        newMensaje.setTexto(texto);
-        System.out.println(texto);
-        Date date = new Date(System.currentTimeMillis());
-        newMensaje.setFecha(date);
-        newMensaje.setHora(date);
-        idChat.addMensaje(newMensaje);
-        
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -151,6 +163,38 @@ public class NewChat extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        List<AsyncContext> asyncContexts = new ArrayList<>(this.contexts);
+        this.contexts.clear();
+        
+        String message = request.getParameter("message");
+        Integer idChat = Integer.parseInt(request.getParameter("idChat"));
+        Integer idUser = Integer.parseInt(request.getParameter("idUser"));
+        
+        Chat chat = chatFacade.findById(idChat);
+        Usuario user = usuarioFacade.findByID(idUser);
+ 
+        crearMensaje(request, response, chat, user);
+        
+        ServletContext application = request.getServletContext();
+        
+        /*if (application.getAttribute("messages") == null) {
+            application.setAttribute("messages", message);
+        } else {
+            String currentMessages = (String) application.getAttribute("messages");
+            application.setAttribute("messages", message + currentMessages);
+        }*/
+        
+        for (AsyncContext asyncContext : asyncContexts) {
+            try (PrintWriter writer = asyncContext.getResponse().getWriter()) {
+                writer.println(message);
+                writer.flush();
+                asyncContext.complete();
+            } catch (Exception ex) {
+                LOG.severe("Se ha producido la siguiente excepcion: " + ex.getMessage());
+            }
+        }
+        
         processRequest(request, response);
     }
 
