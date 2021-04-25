@@ -6,14 +6,12 @@
 package gigdigger.servlet;
 
 import gigdigger.dao.EventoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,14 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
-@WebServlet(name = "ServletEventoCrear", urlPatterns = {"/ServletEventoCrear"})
-public class ServletEventoCrear extends HttpServlet {
+@WebServlet(name = "PanelAdministrador", urlPatterns = {"/PanelAdministrador"})
+public class PanelAdministrador extends HttpServlet {
+
     
     @EJB
     private EventoFacade eventoFacade;
-
+    @EJB
+    private UsuarioFacade usuarioFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,43 +42,14 @@ public class ServletEventoCrear extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-        String titulo, descripcion, fecha, fechaLimite, aforo, precio, limiteEntradas, nFilas, nAsientosFila;
-        
-        titulo = request.getParameter("titulo");
-        descripcion = request.getParameter("descripcion");
-        fecha = request.getParameter("fecha");
-        fechaLimite = request.getParameter("fechaLimite");
-        aforo = request.getParameter("aforo");
-        precio = request.getParameter("precio");
-        limiteEntradas = request.getParameter("limiteEntradas");
-        nFilas = request.getParameter("nFilas");
-        nAsientosFila = request.getParameter("nAsientosFila");
-        
-        
-        Evento nuevoEvento = new Evento();
-        
-        nuevoEvento.setTitulo(titulo);
-        nuevoEvento.setDescripcion(descripcion);
-        nuevoEvento.setFechaEvento(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
-        //nuevoEvento.setFechaEvento(new SimpleDateFormat("dd/MM/yyyy").parse("02/03/2021"));
-        nuevoEvento.setFechaLimite(new SimpleDateFormat("yyyy-MM-dd").parse(fechaLimite));
-        //nuevoEvento.setFechaLimite(new SimpleDateFormat("dd/MM/yyyy").parse("05/04/2021"));
-        nuevoEvento.setAforo(Integer.parseInt(aforo));
-        nuevoEvento.setPrecio(Double.parseDouble(precio));
-        nuevoEvento.setLimiteUsuario(Integer.parseInt(limiteEntradas));
-        nuevoEvento.setNFilas(Integer.parseInt(nFilas));
-        nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
-        
-        this.eventoFacade.create(nuevoEvento);
-        
+            throws ServletException, IOException {
         List<Evento> listaEventos = this.eventoFacade.findAll();
-        
+        List<Usuario> listaUsuarios = usuarioFacade.findAll();
+       
         request.setAttribute("listaEventos", listaEventos);
-        
-        //response.sendRedirect("eventos_list.jsp");
+        request.setAttribute("listaUsuarios", listaUsuarios);
                 
-        RequestDispatcher rd = request.getRequestDispatcher("eventos_list.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("PanelAdministrador.jsp");
         rd.forward(request, response);   
     }
 
@@ -94,11 +65,7 @@ public class ServletEventoCrear extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletEventoCrear.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -112,11 +79,23 @@ public class ServletEventoCrear extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ServletEventoCrear.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        
+/*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
+        usuarioFacade.create(nuevoUsuario);
+  */
+        Usuario u = new Usuario();
+        u.setNombreUsuario(name);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setRol(role);
+        this.usuarioFacade.create(u);
+        
+        processRequest(request, response);
     }
 
     /**
