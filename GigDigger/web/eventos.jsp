@@ -23,12 +23,12 @@ and open the template in the editor.
                     <td><input type="text" name="descripcion" maxlength="200" size="50"/></td>
                 </tr>
                 <tr>
-                    <td>Fecha del Evento: </td>
-                    <td><input type="text" name="fecha" maxlength="20" size="20"/></td>
+                    <td>Fecha del evento: </td>
+                    <td><input type="date" name="fecha" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Fecha límite para comprar la entrada: </td>
-                    <td><input type="text" name="fechaLimite" maxlength="20" size="20"/></td>
+                    <td><input type="date" name="fechaLimite" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Precio: </td>
@@ -36,11 +36,19 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>Aforo: </td>
-                    <td><input type="text" name="aforo" maxlength="20" size="20"/></td>
+                    <td><input type="number" name="aforo" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
                     <td>Límite de entradas que se puede llevar un usuario: </td>
-                    <td><input type="text" name="limiteEntradas" maxlength="20" size="20"/></td>
+                    <td><input type="number" name="limiteEntradas" maxlength="20" size="20"/></td>
+                </tr>
+                <tr>
+                    <td>Número de filas: </td>
+                    <td><input type="number" name="nFilas" maxlength="20" size="20"/></td>
+                </tr>
+                <tr>
+                    <td>Numero de asientos por fila: </td>
+                    <td><input type="number" name="nAsientosFila" maxlength="20" size="20"/></td>
                 </tr>
             </table>
             <br/>
