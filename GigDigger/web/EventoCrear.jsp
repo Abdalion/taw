@@ -9,10 +9,12 @@ and open the template in the editor.
         <title>Datos del Evento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
+
     </head>
     <body>
         <h1>Datos del Evento</h1>
-        <form method="get" action="EventoCrear" name="datos" accept-charset="UTF-8">
+        <form method="post" action="ServletEventoGuardar" name="crearEvento" accept-charset="UTF-8">
             <table>
                 <tr>
                     <td>Título: </td>
@@ -35,7 +37,7 @@ and open the template in the editor.
                     <td><input type="text" name="precio" maxlength="20" size="20"/></td>
                 </tr>
                 <tr>
-                    <td>Hay aforo?: </td>
+                    <td>¿Hay aforo? </td>
                     <td>
                     <label class="switch">
                     <input type="checkbox">
@@ -60,7 +62,7 @@ and open the template in the editor.
                 </tr>
             </table>
             <br/>
-            <button>Enviar</button>
+            <input type="submit" value="Crear evento" class="btn btn-info" >
 
         </form>
     </body>

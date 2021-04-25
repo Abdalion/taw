@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ruben
  */
 @WebServlet(name = "ServletEventoCrear", urlPatterns = {"/EventoCrear"})
-public class EventoCrear extends HttpServlet {
+public class ServletEventoGuardar extends HttpServlet {
     
     @EJB
     private EventoFacade eventoFacade;
@@ -76,10 +76,7 @@ public class EventoCrear extends HttpServlet {
         
         request.setAttribute("listaEventos", listaEventos);
         
-        //response.sendRedirect("eventos_list.jsp");
-                
-        RequestDispatcher rd = request.getRequestDispatcher("EventoCrear.jsp");
-        rd.forward(request, response);   
+        response.sendRedirect("ServletEventoListar");  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -97,7 +94,7 @@ public class EventoCrear extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletEventoCrear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEventoGuardar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,7 +112,7 @@ public class EventoCrear extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(ServletEventoCrear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEventoGuardar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

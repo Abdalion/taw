@@ -12,3 +12,16 @@ os.arch=x86_64
 os.version=10.15.7
 derby.system.home=/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
+----------------------------------------------------------------
+Sun Apr 25 11:30:28 CEST 2021:
+ Iniciando instancia f85e01f1-0178-e0c5-8701-ffff97a6d16f de Derby, versión The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): 
+en el directorio de base de datos /Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/sampleTAW con el cargador de clases sun.misc.Launcher$AppClassLoader@66d3c617
+Cargado desde file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/db-derby-10.12.1.1-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_111-b14
+user.dir=/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/db-derby-10.12.1.1-bin
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.15.7
+derby.system.home=/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby
+Cargador de clases de base de datos iniciado - derby.database.classpath=''

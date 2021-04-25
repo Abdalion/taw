@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado de Eventos</title>
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
         <style>
             table, th, td {
             border: 1px solid black;
@@ -31,7 +31,8 @@
     
     <body>
         <h1>Listado de Eventos</h1>
-        <table>
+        <table class="table">
+            <thead class="thead-dark">
             <tr>
                 <th>Título</th>
                 <th>Descripción</th>
@@ -43,6 +44,9 @@
                 <th>Número de filas</th>
                 <th>Número de asientos por fila</th>
             </tr>
+            </thead>
+            
+            <tbody>
             
             <%
                 for(Evento evento: listaEventos){      
@@ -61,7 +65,7 @@
                 <td><%= evento.getDescripcion() %></td>
                 <td><%= evento.getFechaEvento() %></td>
                 <td><%= evento.getFechaLimite() %></td>
-                <td><%= evento.getPrecio() %></td>
+                <td><%= evento.getPrecio() %>€</td>
                 <td><%= evento.getAforo() %></td>
                 <td><%= evento.getLimiteUsuario() %></td>
                 <td><%= evento.getNFilas() %></td>
@@ -73,7 +77,9 @@
             <%
                 }
             %>
-            
+            </tbody>  
         </table>
+            <br>
+            <a href="/EventoCrear.jsp" class="btn btn-info">Nuevo evento</a>
     </body>
 </html>
