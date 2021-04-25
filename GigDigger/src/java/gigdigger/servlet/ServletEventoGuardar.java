@@ -40,6 +40,7 @@ public class ServletEventoGuardar extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
@@ -70,11 +71,7 @@ public class ServletEventoGuardar extends HttpServlet {
         nuevoEvento.setNFilas(Integer.parseInt(nFilas));
         nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
         
-        this.eventoFacade.create(nuevoEvento);
-        
-        List<Evento> listaEventos = this.eventoFacade.findAll();
-        
-        request.setAttribute("listaEventos", listaEventos);
+        this.eventoFacade.create(nuevoEvento);        
         
         response.sendRedirect("ServletEventoListar");  
     }
