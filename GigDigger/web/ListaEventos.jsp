@@ -4,6 +4,8 @@
     Author     : ruben
 --%>
 
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -50,21 +52,18 @@
             
             <%
                 for(Evento evento: listaEventos){      
-                /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 
-                String strDate = dateFormat.format(evento.getFechaEvento());
-                Date fecha = sdf.parse(strDate);
+                String fecha = formatter.format(evento.getFechaEvento());
+                String fechaLimite = formatter.format(evento.getFechaLimite());
                 
-                String strLimitDate = dateFormat.format(evento.getFechaLimite());
-                Date fechaLimite = sdf.parse(strLimitDate);*/
             %>
             
             <tr>
                 <td><%= evento.getTitulo() %></td>
                 <td><%= evento.getDescripcion() %></td>
-                <td><%= evento.getFechaEvento() %></td>
-                <td><%= evento.getFechaLimite() %></td>
+                <td><%= fecha %></td>
+                <td><%= fechaLimite %></td>
                 <td><%= evento.getPrecio() %>€</td>
                 <td><%= evento.getAforo() %></td>
                 <td><%= evento.getLimiteUsuario() %></td>
