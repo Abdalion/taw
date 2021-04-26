@@ -1,3 +1,5 @@
+<%@page import="gigdigger.entity.Etiqueta"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -12,6 +14,11 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
 
     </head>
+    
+    <%
+        List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
+    %>
+    
     <body>
         <h1>Datos del Evento</h1>
         <form method="post" action="ServletEventoGuardar" name="crearEvento" accept-charset="UTF-8">
@@ -36,6 +43,23 @@ and open the template in the editor.
                     <td>Precio: </td>
                     <td><input type="text" name="precio" maxlength="20" size="20"/></td>
                 </tr>
+                
+                <tr>
+                    <td>Etiquetas: </td>
+                    <td><select multiple class="form-control" id="exampleFormControlSelect1">
+                            <%
+                            for(Etiqueta e: listaEtiquetas){
+                            %>
+                            
+                            <option><%=e.getEtiqueta()%></option>
+                            
+                            <%
+                            }
+                            %>
+                            
+                        </select></td>
+                </tr>
+                
                 <tr>
                     <td>¿Hay aforo? </td>
                     <td>

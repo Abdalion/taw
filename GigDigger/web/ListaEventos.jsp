@@ -79,6 +79,6 @@
             </tbody>  
         </table>
             <br>
-            <a href="/EventoCrear.jsp" class="btn btn-info">Nuevo evento</a>
+            <a href="ServletEventoCrear" class="btn btn-info">Nuevo evento</a>
     </body>
 </html>
