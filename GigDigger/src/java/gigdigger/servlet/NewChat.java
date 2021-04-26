@@ -42,6 +42,9 @@ public class NewChat extends HttpServlet {
     @EJB
     private ChatFacade chatFacade;
     
+    @EJB
+    private MensajeFacade mensajeFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,18 +66,23 @@ public class NewChat extends HttpServlet {
         //mensaje: idchat, idemisor, texto
         String texto = request.getParameter("texto");
         
-        MensajeFacade mensajeFacade = new MensajeFacade();
+        
         Mensaje newMensaje = new Mensaje();
+        
         
         newMensaje.setIdChat(idChat);
         newMensaje.setIdEmisor(idEmisor);
         newMensaje.setTexto(texto);
+        System.out.println(idChat);
+        System.out.println(idEmisor);
         System.out.println(texto);
         Date date = new Date(System.currentTimeMillis());
         newMensaje.setFecha(date);
         newMensaje.setHora(date);
-        idChat.addMensaje(newMensaje);
+        //TODO: meter el mensaje luego desps de verlo en la BD
+        //idChat.addMensaje(newMensaje);
         mensajeFacade.create(newMensaje);
+        
         
     }
 
@@ -95,9 +103,9 @@ public class NewChat extends HttpServlet {
         Persistence.createEntityManagerFactory("GigDiggerPU");
         EntityManager em = emf.createEntityManager();*/
         
-        final AsyncContext asyncContext = request.startAsync(request, response);
-        asyncContext.setTimeout(10 * 60 * 1000);
-        contexts.add(asyncContext);
+        //final AsyncContext asyncContext = request.startAsync(request, response);
+        //asyncContext.setTimeout(10 * 60 * 1000);
+        //contexts.add(asyncContext);
         
         HttpSession session = request.getSession();
 
@@ -168,8 +176,8 @@ public class NewChat extends HttpServlet {
         
         String message = request.getParameter("message");
         Integer idChat = Integer.parseInt(request.getParameter("idChat"));
+        System.out.println("IdChat: " + idChat);
         Integer idUser = Integer.parseInt(request.getParameter("idUser"));
-        
         Chat chat = chatFacade.findById(idChat);
         Usuario user = usuarioFacade.findByID(idUser);
  
