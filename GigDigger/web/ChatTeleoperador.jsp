@@ -19,6 +19,7 @@
     </head>
     <%
     ArrayList<Mensaje> listaMensajes = (ArrayList)session.getAttribute("mensajes");
+    
     %>
     <body>
         <br>
@@ -55,21 +56,52 @@
                 <br>
                 
                 
-                <form name="nuevoMensaje" method="POST" action="/NewChat">
-                    <div>
-                        <label>
-                        idUsuario
-                        </label>
-                        <input type="text" name="id" placeholder="id" value="2">
-                        <label for="texto"><p>Nuevo mensaje</p></label>
+                <div>
+                    <label>idChat</label>
+                    <input id="idChat" type="text" name="id" placeholder="id" value="2">
+                    
+                    <label>idUsuario</label>
+                    <input id="idUsuario" type="text" name="id" placeholder="id" value="2">
+                    
+                    <label for="texto"><p>Nuevo mensaje</p></label>
                         <br>
-                        <textarea class="form-control" name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
+                        <textarea id="texto" class="form-control" name="texto" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
                         <br>
-                        <button type="submit">Enviar mensaje</button>
-                    <div>
-                </form>
+                    <input type="button" onclick="postMessage();" value="Enviar">
+                </div>
             </div>
 
         </div>
+        <script>
+            function postMessage() {
+                var xmlhttp = new XMLHttpRequest();
+                //xmlhttp.open("POST", "shoutServlet?t="+new Date(), false);
+                xmlhttp.open("POST", "NewChat", false);
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var idChat = escape(document.getElementById("idChat").value);
+                var idUsuario = escape(document.getElementById("idUsuario").value);
+                var texto = escape(document.getElementById("texto").value);
+                document.getElementById("texto").value = "";
+                xmlhttp.send("idChat="+idChat+"&idUser="+idUsuario+"&texto="+texto);
+            }
+            var messagesWaiting = false;
+            function getMessages(){
+                if(!messagesWaiting){
+                    messagesWaiting = true;
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange=function(){
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                            messagesWaiting = false;
+                            var contentElement = document.getElementById("content");
+                            contentElement.innerHTML = xmlhttp.responseText + contentElement.innerHTML;
+                        }
+                    }
+                    //xmlhttp.open("GET", "shoutServlet?t="+new Date(), true);
+                    xmlhttp.open("GET", "newChat", true);
+                    xmlhttp.send();
+                }
+            }
+            setInterval(getMessages, 1000);
+        </script>
     </body>
 </html>
