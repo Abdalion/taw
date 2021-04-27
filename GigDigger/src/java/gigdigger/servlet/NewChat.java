@@ -82,7 +82,7 @@ public class NewChat extends HttpServlet {
         //TODO: meter el mensaje luego desps de verlo en la BD
         //idChat.addMensaje(newMensaje);
         mensajeFacade.create(newMensaje);
-        
+        idChat.addMensaje(newMensaje);
         
     }
 
