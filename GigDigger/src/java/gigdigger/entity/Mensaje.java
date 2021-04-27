@@ -44,13 +44,13 @@ public class Mensaje implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 200)
-    @Column(name = "TEXTO")
+
+    @Column(name = "TEXTO", nullable = false, length = 200)
     private String texto;
-    @Column(name = "FECHA")
+    @Column(name = "FECHA", updatable = false, nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Column(name = "HORA")
+    @Column(name = "HORA", updatable = false, nullable = false)
     @Temporal(TemporalType.TIME)
     private Date hora;
     @JoinColumn(name = "ID_CHAT", referencedColumnName = "ID")
