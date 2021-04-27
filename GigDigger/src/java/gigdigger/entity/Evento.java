@@ -50,14 +50,10 @@ public class Evento implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "TITULO")
+    @Column(name = "TITULO", nullable = false, length = 20)
     private String titulo;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "DESCRIPCION")
+    @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
     @Column(name = "FECHA_EVENTO")
     @Temporal(TemporalType.DATE)

@@ -3,7 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/entity/Etiqueta.java</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/entity/Evento.java</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/EventoCrear.jsp</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/entity/EtiquetaEvento.java</file>
             <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/servlet/ServletEventoListar.java</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/entity/Entrada.java</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/dao/EventoFacade.java</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/ListaEventos.jsp</file>
+            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/servlet/ServletEventoGuardar.java</file>
         </group>
     </open-files>
 </project-private>
