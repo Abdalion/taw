@@ -6,18 +6,21 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,25 +31,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Etiqueta.findAll", query = "SELECT e FROM Etiqueta e")
+    , @NamedQuery(name = "Etiqueta.findById", query = "SELECT e FROM Etiqueta e WHERE e.id = :id")
     , @NamedQuery(name = "Etiqueta.findByEtiqueta", query = "SELECT e FROM Etiqueta e WHERE e.etiqueta = :etiqueta")})
 public class Etiqueta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "ETIQUETA")
     private String etiqueta;
-    @JoinColumn(name = "ID_EVENTO", referencedColumnName = "ID")
-    @ManyToOne
-    private Evento idEvento;
+    @OneToMany(mappedBy = "idEtiqueta")
+    private Collection<EtiquetaEvento> etiquetaEventoCollection;
 
     public Etiqueta() {
     }
 
-    public Etiqueta(String etiqueta) {
+    public Etiqueta(Integer id) {
+        this.id = id;
+    }
+
+    public Etiqueta(Integer id, String etiqueta) {
+        this.id = id;
         this.etiqueta = etiqueta;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEtiqueta() {
@@ -57,18 +77,19 @@ public class Etiqueta implements Serializable {
         this.etiqueta = etiqueta;
     }
 
-    public Evento getIdEvento() {
-        return idEvento;
+    @XmlTransient
+    public Collection<EtiquetaEvento> getEtiquetaEventoCollection() {
+        return etiquetaEventoCollection;
     }
 
-    public void setIdEvento(Evento idEvento) {
-        this.idEvento = idEvento;
+    public void setEtiquetaEventoCollection(Collection<EtiquetaEvento> etiquetaEventoCollection) {
+        this.etiquetaEventoCollection = etiquetaEventoCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (etiqueta != null ? etiqueta.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +100,7 @@ public class Etiqueta implements Serializable {
             return false;
         }
         Etiqueta other = (Etiqueta) object;
-        if ((this.etiqueta == null && other.etiqueta != null) || (this.etiqueta != null && !this.etiqueta.equals(other.etiqueta))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -87,7 +108,7 @@ public class Etiqueta implements Serializable {
 
     @Override
     public String toString() {
-        return "gigdigger.entity.Etiqueta[ etiqueta=" + etiqueta + " ]";
+        return "gigdigger.entity.Etiqueta[ id=" + id + " ]";
     }
     
 }

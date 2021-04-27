@@ -7,7 +7,6 @@ package gigdigger.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -79,10 +76,6 @@ public class Evento implements Serializable {
     private Integer nFilas;
     @Column(name = "N_ASIENTOS_FILA")
     private Integer nAsientosFila;
-    @OneToMany(mappedBy = "idEvento")
-    private List<Entrada> entradaList;
-    @OneToMany(mappedBy = "idEvento")
-    private List<Etiqueta> etiquetaList;
 
     public Evento() {
     }
@@ -175,24 +168,6 @@ public class Evento implements Serializable {
 
     public void setNAsientosFila(Integer nAsientosFila) {
         this.nAsientosFila = nAsientosFila;
-    }
-
-    @XmlTransient
-    public List<Entrada> getEntradaList() {
-        return entradaList;
-    }
-
-    public void setEntradaList(List<Entrada> entradaList) {
-        this.entradaList = entradaList;
-    }
-
-    @XmlTransient
-    public List<Etiqueta> getEtiquetaList() {
-        return etiquetaList;
-    }
-
-    public void setEtiquetaList(List<Etiqueta> etiquetaList) {
-        this.etiquetaList = etiquetaList;
     }
 
     @Override
