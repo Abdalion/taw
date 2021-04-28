@@ -8,6 +8,7 @@ package gigdigger.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,11 +43,9 @@ public class Etiqueta implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "ETIQUETA")
+    @Column(name = "ETIQUETA", nullable = false, length = 50)
     private String etiqueta;
-    @OneToMany(mappedBy = "idEtiqueta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEtiqueta")
     private Collection<EtiquetaEvento> etiquetaEventoCollection;
 
     public Etiqueta() {

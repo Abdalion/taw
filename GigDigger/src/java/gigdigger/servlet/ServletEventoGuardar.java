@@ -5,7 +5,11 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EtiquetaEventoFacade;
+import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.entity.Etiqueta;
+import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,6 +35,12 @@ public class ServletEventoGuardar extends HttpServlet {
     
     @EJB
     private EventoFacade eventoFacade;
+    
+    @EJB
+    private EtiquetaFacade etiquetaFacade;
+    
+    @EJB
+    private EtiquetaEventoFacade etiquetaEventoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,6 +55,7 @@ public class ServletEventoGuardar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         String titulo, descripcion, fecha, fechaLimite, aforo, precio, limiteEntradas, nFilas, nAsientosFila;
+        String[] listaEtiquetasSeleccionadas = request.getParameterValues("etiquetasSeleccionadas");
         
         titulo = request.getParameter("titulo");
         descripcion = request.getParameter("descripcion");
@@ -55,7 +66,6 @@ public class ServletEventoGuardar extends HttpServlet {
         limiteEntradas = request.getParameter("limiteEntradas");
         nFilas = request.getParameter("nFilas");
         nAsientosFila = request.getParameter("nAsientosFila");
-        
         
         Evento nuevoEvento = new Evento();
         
@@ -71,7 +81,24 @@ public class ServletEventoGuardar extends HttpServlet {
         nuevoEvento.setNFilas(Integer.parseInt(nFilas));
         nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
         
-        this.eventoFacade.create(nuevoEvento);        
+        this.eventoFacade.create(nuevoEvento);
+        
+        System.out.println("ID:"+nuevoEvento.getId());
+        
+        List<Etiqueta> etiquetas = etiquetaFacade.findAll();
+        for(String e: listaEtiquetasSeleccionadas){
+            System.out.println("ENTRADA:"+e);
+            for(Etiqueta etiqueta: etiquetas){
+                System.out.println("BD:"+etiqueta.getEtiqueta());
+                if(e.equalsIgnoreCase(etiqueta.getEtiqueta())){
+                    EtiquetaEvento nuevaEtiquetaEvento = new EtiquetaEvento();
+                    nuevaEtiquetaEvento.setIdEtiqueta(etiqueta);
+                    nuevaEtiquetaEvento.setIdEvento(nuevoEvento);
+                    etiquetaEventoFacade.create(nuevaEtiquetaEvento);
+                }
+            }
+            
+        }
         
         response.sendRedirect("ServletEventoListar");  
     }

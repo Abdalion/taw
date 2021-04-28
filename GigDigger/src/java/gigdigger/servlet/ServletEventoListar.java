@@ -5,7 +5,11 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EtiquetaEventoFacade;
+import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.entity.Etiqueta;
+import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +30,12 @@ public class ServletEventoListar extends HttpServlet {
     
     @EJB
     private EventoFacade eventoFacade;
+    
+    @EJB
+    private EtiquetaFacade etiquetaFacade;
+    
+    @EJB
+    private EtiquetaEventoFacade etiquetaEventoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +50,13 @@ public class ServletEventoListar extends HttpServlet {
             throws ServletException, IOException {
      
         List<Evento> listaEventos = eventoFacade.findAll();
+        List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();
+        List<EtiquetaEvento> listaEtiquetasEventos = etiquetaEventoFacade.findAll();
+
+
         request.setAttribute("listaEventos", listaEventos);
+        request.setAttribute("listaEtiquetas", listaEtiquetas);
+        request.setAttribute("listaEtiquetasEventos", listaEtiquetasEventos);
         
         RequestDispatcher rd = request.getRequestDispatcher("ListaEventos.jsp");
         rd.forward(request, response);
