@@ -48,7 +48,7 @@
                 <th>Precio</th>
                 <th>Etiquetas</th>
                 <th>Aforo</th>
-                <th>Límite de usuarios</th>
+                <th>Entradas/usuario</th>
                 <th>Número de filas</th>
                 <th>Número de asientos por fila</th>
             </tr>
@@ -78,7 +78,7 @@
                         if(etiquetaEvento.getIdEvento().getId() == evento.getId()){
                         
                 %>
-                            <%= etiquetaEvento.getIdEtiqueta().getEtiqueta() %>
+                            #<%= etiquetaEvento.getIdEtiqueta().getEtiqueta() %>
                 <%
                         }
                     }
