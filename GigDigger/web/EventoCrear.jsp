@@ -1,3 +1,5 @@
+<%@page import="gigdigger.entity.Evento"%>
+<%@page import="gigdigger.entity.Evento"%>
 <%@page import="gigdigger.entity.Etiqueta"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -17,7 +19,9 @@ and open the template in the editor.
     
     <%
         List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
-    %>
+
+    %>  
+    
     
     <body>
         <h1>Datos del Evento</h1>
@@ -46,7 +50,7 @@ and open the template in the editor.
                 
                 <tr>
                     <td>Etiquetas: </td>
-                    <td><select multiple class="form-control" id="exampleFormControlSelect1">
+                    <td><select multiple class="form-control" name="etiquetasSeleccionadas">
                             <%
                             for(Etiqueta e: listaEtiquetas){
                             %>

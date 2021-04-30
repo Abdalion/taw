@@ -4,6 +4,8 @@
     Author     : ruben
 --%>
 
+<%@page import="gigdigger.entity.EtiquetaEvento"%>
+<%@page import="gigdigger.entity.Etiqueta"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.DateFormat"%>
@@ -29,6 +31,9 @@
     
     <%
         List<Evento> listaEventos = (List)request.getAttribute("listaEventos");
+        List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
+        List<EtiquetaEvento> listaEtiquetasEventos = (List)request.getAttribute("listaEtiquetasEventos");
+
     %>
     
     <body>
@@ -41,6 +46,7 @@
                 <th>Fecha del Evento</th>
                 <th>Fecha límite de reserva</th>
                 <th>Precio</th>
+                <th>Etiquetas</th>
                 <th>Aforo</th>
                 <th>Límite de usuarios</th>
                 <th>Número de filas</th>
@@ -65,6 +71,20 @@
                 <td><%= fecha %></td>
                 <td><%= fechaLimite %></td>
                 <td><%= evento.getPrecio() %>€</td>
+                
+                <td>
+                <%
+                    for(EtiquetaEvento etiquetaEvento: listaEtiquetasEventos){
+                        if(etiquetaEvento.getIdEvento().getId() == evento.getId()){
+                        
+                %>
+                            <%= etiquetaEvento.getIdEtiqueta().getEtiqueta() %>
+                <%
+                        }
+                    }
+                %>
+                </td>
+                
                 <td><%= evento.getAforo() %></td>
                 <td><%= evento.getLimiteUsuario() %></td>
                 <td><%= evento.getNFilas() %></td>
