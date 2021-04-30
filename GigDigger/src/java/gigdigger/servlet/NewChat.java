@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 
 
-@WebServlet(name = "NewChat", urlPatterns = {"/NewChat"})
+@WebServlet(name = "NewChat", urlPatterns = {"/NewChat"}, asyncSupported=true)
 public class NewChat extends HttpServlet {
 
 
@@ -156,7 +156,9 @@ public class NewChat extends HttpServlet {
             //crearMensaje(request, response, chatActivo, user);
         }
         
-        processRequest(request, response);
+        final AsyncContext asyncContext = request.startAsync(request, response);
+        asyncContext.setTimeout(10 * 60 * 1000);
+        contexts.add(asyncContext);
     }
 
     /**

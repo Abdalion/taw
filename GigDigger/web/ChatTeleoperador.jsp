@@ -36,22 +36,22 @@
             <div class="col-8">
                 <h4 class="center">Chat con fulanito</h4>
                 <hr>
+                <div id="content">
                 <%
 
                    for(Mensaje men : listaMensajes){
                   %>
 
-                  <div>
 
                       <p>IDChat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%> | Fecha : <%=men.getFecha()%> | Hora : <%=men.getHora()%></p>
 
-                  </div>
-
+                  
 
                   <%
                    } 
 
                 %>
+                </div>
                 <hr>
                 <br>
                 
@@ -97,7 +97,7 @@
                         }
                     }
                     //xmlhttp.open("GET", "shoutServlet?t="+new Date(), true);
-                    xmlhttp.open("GET", "newChat", true);
+                    xmlhttp.open("GET", "NewChat", true);
                     xmlhttp.send();
                 }
             }
