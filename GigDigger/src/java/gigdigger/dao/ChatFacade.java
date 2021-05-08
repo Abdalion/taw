@@ -6,6 +6,8 @@
 package gigdigger.dao;
 
 import gigdigger.entity.Chat;
+import gigdigger.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,5 +46,18 @@ public class ChatFacade extends AbstractFacade<Chat> {
         q.setParameter("id", id);
         
         return (Chat) q.getResultList().get(0);        
+    }
+    
+    public List<Chat> findByTeleoperador (Integer idUser){
+        Query q;
+        q = em.createQuery("SELECT c FROM Chat c WHERE c.idTeleoperador.id = :idUser AND c.fechaFin IS NULL");
+        q.setParameter("idUser", idUser);
+        
+        if (q.getResultList().isEmpty()){
+            return null;
+        }else{
+            return q.getResultList();
+        }
+                
     }
 }

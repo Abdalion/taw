@@ -7,6 +7,7 @@ package gigdigger.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,21 +21,25 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.Date;
 
 /**
  *
- * @author ruben
+ * @author jesus
  */
 @Entity
 @Table(name = "CHAT")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c")
-    , @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id"), 
-        @NamedQuery(name ="Chat.CurrentChat", query = "SELECT c FROM Chat c WHERE c.idUsuario.id = :idUser AND c.fechaFin IS NULL")})
+    , @NamedQuery(name = "Chat.findById", query = "SELECT c FROM Chat c WHERE c.id = :id")
+    , @NamedQuery(name = "Chat.findByFechaIni", query = "SELECT c FROM Chat c WHERE c.fechaIni = :fechaIni")
+    , @NamedQuery(name = "Chat.findByFechaFin", query = "SELECT c FROM Chat c WHERE c.fechaFin = :fechaFin")
+    , @NamedQuery(name = "Chat.findByNotificaciones", query = "SELECT c FROM Chat c WHERE c.notificaciones = :notificaciones")})
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +48,16 @@ public class Chat implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Column(name = "FECHA_INI")
+    @Temporal(TemporalType.DATE)
+    private Date fechaIni;
+    @Column(name = "FECHA_FIN")
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NOTIFICACIONES")
+    private int notificaciones;
     @JoinColumn(name = "ID_TELEOPERADOR", referencedColumnName = "ID")
     @ManyToOne
     private Usuario idTeleoperador;
@@ -51,19 +66,17 @@ public class Chat implements Serializable {
     private Usuario idUsuario;
     @OneToMany(mappedBy = "idChat")
     private List<Mensaje> mensajeList;
-    @Column (name = "FECHA_INI")
-    private Date fechaIni;
-    
-    @Column (name = "FECHA_FIN")
-    private Date fechaFin;
-    
-    
+
     public Chat() {
-        mensajeList = new ArrayList<>();
     }
 
     public Chat(Integer id) {
         this.id = id;
+    }
+
+    public Chat(Integer id, int notificaciones) {
+        this.id = id;
+        this.notificaciones = notificaciones;
     }
 
     public Integer getId() {
@@ -72,6 +85,30 @@ public class Chat implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getFechaIni() {
+        return fechaIni;
+    }
+
+    public void setFechaIni(Date fechaIni) {
+        this.fechaIni = fechaIni;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public int getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(int notificaciones) {
+        this.notificaciones = notificaciones;
     }
 
     public Usuario getIdTeleoperador() {
@@ -95,11 +132,13 @@ public class Chat implements Serializable {
         ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>(mensajeList);
         return mensajes;
     }
-    
-    public void addMensaje (Mensaje newMensaje){
-        mensajeList.add(newMensaje);
-    }
 
+    public void addMensaje (Mensaje newMensaje){
+        List<Mensaje> newList = this.getMensajeList();
+        newList.add(newMensaje);
+        this.setMensajeList(newList);
+    }
+    
     public void setMensajeList(List<Mensaje> mensajeList) {
         this.mensajeList = mensajeList;
     }

@@ -17,10 +17,7 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css">
 
     </head>
-    <%
-    ArrayList<Mensaje> listaMensajes = (ArrayList)session.getAttribute("mensajes");
-    
-    %>
+
     <body>
         <br>
         <h1 class="center">Página chat (v.alpha 0.1)</h1>
@@ -37,20 +34,16 @@
                 <h4 class="center">Chat con fulanito</h4>
                 <hr>
                 <div id="content">
-                <%
-
-                   for(Mensaje men : listaMensajes){
-                  %>
-
+                    <%
+                       ArrayList<Mensaje> listaMensajes = (ArrayList)session.getAttribute("mensajes");
+                       for(Mensaje men : listaMensajes){
+                      %>
 
                       <p>IDChat: <%=men.getIdChat()%> | IDmensaje: <%=men.getId()%> | IDEmisor: <%=men.getIdEmisor()%> | Texto : <%=men.getTexto()%> | Fecha : <%=men.getFecha()%> | Hora : <%=men.getHora()%></p>
-
-                  
-
-                  <%
-                   } 
-
-                %>
+                      
+                      <%
+                       } 
+                    %>
                 </div>
                 <hr>
                 <br>
