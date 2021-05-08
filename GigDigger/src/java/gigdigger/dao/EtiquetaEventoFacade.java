@@ -6,9 +6,11 @@
 package gigdigger.dao;
 
 import gigdigger.entity.EtiquetaEvento;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,17 @@ public class EtiquetaEventoFacade extends AbstractFacade<EtiquetaEvento> {
     public EtiquetaEventoFacade() {
         super(EtiquetaEvento.class);
     }
+
+    /**
+     *
+     * @param id
+     */
+    public void removeByIdEvento(Integer id) {
+        Query q;
+        
+        q = em.createNativeQuery("DELETE FROM FASA.ETIQUETA_EVENTO WHERE ID_EVENTO = "+id);
+        
+        q.executeUpdate();
+    }    
     
 }

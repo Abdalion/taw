@@ -82,14 +82,10 @@ public class ServletEventoGuardar extends HttpServlet {
         nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
         
         this.eventoFacade.create(nuevoEvento);
-        
-        System.out.println("ID:"+nuevoEvento.getId());
-        
+                
         List<Etiqueta> etiquetas = etiquetaFacade.findAll();
         for(String e: listaEtiquetasSeleccionadas){
-            System.out.println("ENTRADA:"+e);
             for(Etiqueta etiqueta: etiquetas){
-                System.out.println("BD:"+etiqueta.getEtiqueta());
                 if(e.equalsIgnoreCase(etiqueta.getEtiqueta())){
                     EtiquetaEvento nuevaEtiquetaEvento = new EtiquetaEvento();
                     nuevaEtiquetaEvento.setIdEtiqueta(etiqueta);
@@ -97,7 +93,6 @@ public class ServletEventoGuardar extends HttpServlet {
                     etiquetaEventoFacade.create(nuevaEtiquetaEvento);
                 }
             }
-            
         }
         
         response.sendRedirect("ServletEventoListar");  
