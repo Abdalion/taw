@@ -138,6 +138,14 @@ public class NewChat extends HttpServlet {
         Chat chat = chatFacade.findById(idChat);
         Usuario user = usuarioFacade.findByID(idUser);
  
+        String rol = user.getRol();
+        
+        if(rol.equalsIgnoreCase("AUTOREGISTRADO")){
+            int notificaciones = chat.getNotificaciones();
+            notificaciones++;
+            chat.setNotificaciones(notificaciones);
+            chatFacade.edit(chat);
+        }
         crearMensaje(request, response, chat, user);
         
         
