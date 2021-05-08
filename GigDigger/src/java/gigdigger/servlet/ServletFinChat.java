@@ -9,28 +9,23 @@ import gigdigger.dao.ChatFacade;
 import gigdigger.dao.MensajeFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Chat;
-import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jesus
  */
-@WebServlet(name = "ServletChatTeleoperador", urlPatterns = {"/ServletChatTeleoperador"})
-public class ServletChatTeleoperador extends HttpServlet {
+@WebServlet(name = "ServletFinChat", urlPatterns = {"/ServletFinChat"})
+public class ServletFinChat extends HttpServlet {
 
-    
     @EJB
     private UsuarioFacade usuarioFacade;
     
@@ -40,53 +35,43 @@ public class ServletChatTeleoperador extends HttpServlet {
     @EJB
     private MensajeFacade mensajeFacade;
     
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("chatTeleoperadorVF.jsp");
-        rd.forward(request, response);
-
+        
+        Chat chat = chatFacade.find(new Integer(request.getParameter("idChat")));
+        Date date = new Date(System.currentTimeMillis());
+        chat.setFechaFin(date);
+        chatFacade.edit(chat);
+        response.sendRedirect("/help");
     }
 
-    
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        HttpSession session = request.getSession();
-        System.out.println("entró");
-        Integer idUser = new Integer(request.getParameter("idUser"));
-        Usuario user = usuarioFacade.find(idUser);
-        
-        if(user.getRol().equals("TELEOPERADOR")){
-            session.setAttribute("error", false);
-            Integer idChat = new Integer(request.getParameter("idChat"));
-            
-            Chat chat = chatFacade.find(idChat);
-            chat.setNotificaciones(0);
-            
-            //Si es null controlar en el jsp
-            ArrayList<Chat> chats = new ArrayList<Chat>(chatFacade.findByTeleoperador(user.getId()));
-            
-            session.setAttribute("chat", chat);
-            session.setAttribute("chats", chats);
-            
-        } else {
-            session.setAttribute("error", true);
-        }
-        
-        
         processRequest(request, response);
     }
 
-    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
-        
         processRequest(request, response);
     }
 

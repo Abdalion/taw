@@ -44,8 +44,8 @@
                         %>
                         
                         <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
-                        <p>Notificaciones: <%c.getNotificaciones();%></p>
-                        
+                        <p>Notificaciones: <%=c.getNotificaciones()%></p>
+                        <hr>
                         <%    
                         }
                         %>
@@ -63,10 +63,14 @@
                                 %>
                         <!--Mensaje es del usuario se coloca a la izq-->
                         
-                        
-                            <p>IDChat: <%=m.getIdChat()%> | IDmensaje: <%=m.getId()%> | IDEmisor: <%=m.getIdEmisor()%> | Texto : <%=m.getTexto()%> | Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
-
-                        
+                        <div class="bg-light">
+                            
+                            <p>IDmensaje: <%=m.getId()%><p>
+                            <p>Texto : <%=m.getTexto()%></p>
+                            <p>Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
+                        </div>
+                            
+                            <br>
                         
                         
                         <%
@@ -78,8 +82,9 @@
                         
                       
                         
-                        <p class="text-end">IDChat: <%=m.getIdChat()%> | IDmensaje: <%=m.getId()%> | IDEmisor: <%=m.getIdEmisor()%> | Texto : <%=m.getTexto()%> | Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
-
+                        <p class="text-end">IDmensaje: <%=m.getId()%><p>
+                        <p class="text-end">Texto : <%=m.getTexto()%></p>
+                        <p class="text-end">Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
                         
                         
                         <%
@@ -112,8 +117,8 @@
                 
                 
                 
-                
-                
+            
+            <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
                 
                 <%
 

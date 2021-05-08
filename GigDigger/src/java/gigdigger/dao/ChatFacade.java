@@ -50,7 +50,7 @@ public class ChatFacade extends AbstractFacade<Chat> {
     
     public List<Chat> findByTeleoperador (Integer idUser){
         Query q;
-        q = em.createQuery("SELECT c FROM Chat c WHERE c.idTeleoperador.id = :idUser");
+        q = em.createQuery("SELECT c FROM Chat c WHERE c.idTeleoperador.id = :idUser AND c.fechaFin IS NULL");
         q.setParameter("idUser", idUser);
         
         if (q.getResultList().isEmpty()){

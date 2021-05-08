@@ -6,10 +6,8 @@
             <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/chatTeleoperadorVF.jsp</file>
             <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/servlet/ServletChatTeleoperador.java</file>
             <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/Ayuda.html</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/entity/Chat.java</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/entity/Usuario.java</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/ChatTeleoperador.jsp</file>
+            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/dao/ChatFacade.java</file>
+            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/servlet/ServletFinChat.java</file>
         </group>
     </open-files>
 </project-private>
