@@ -97,7 +97,10 @@ public class Chat implements Serializable {
     }
     
     public void addMensaje (Mensaje newMensaje){
-        mensajeList.add(newMensaje);
+        List<Mensaje> newList = this.getMensajeList();
+        newList.add(newMensaje);
+        this.setMensajeList(newList);
+        //mensajeList.add(newMensaje);
     }
 
     public void setMensajeList(List<Mensaje> mensajeList) {
