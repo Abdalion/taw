@@ -48,7 +48,6 @@ public class ServletEventoEliminar extends HttpServlet {
         String id = request.getParameter("id");
 
         Evento evento = eventoFacade.find(new Integer(id));
-        //System.out.println("---------------IDDDDDDDDD: " + id);
        
         etiquetaEventoFacade.removeByIdEvento(evento.getId());
 
