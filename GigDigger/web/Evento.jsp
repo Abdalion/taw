@@ -68,7 +68,7 @@
                         <%
                             for(int j = 1; j <= evento.getNAsientosFila(); j++) {
                             %>
-                            <button id="<%=i%>, <%=j%>" class=" btn-dark" onclick="reservar(<%=i%>, <%=j%>)"><%=j%></button>
+                            <button id="<%=i%>,<%=j%>" class=" btn-dark" onclick="reservar(<%=i%>,<%=j%>)"><%=j%></button>
                             <%
                             }
                         %>
@@ -76,11 +76,14 @@
                     <%
                     }
                 %>
-                <button onclick="enviarReserva()">Reservar los asientos seleccionados</button>
+                <form id="reservasForm" method="post" action="/ServletCrearReserva">
+                    <input type="hidden" name="eventoId" value="<%=evento.getId()%>">
+                    <input type="submit" value="Reservar los asientos seleccionados">
+                </form>
     <script>
             var lista = [];
         function reservar(fila, asiento) {
-            elemento = document.getElementById(fila+", "+asiento);
+            elemento = document.getElementById(fila+","+asiento);
             if(elemento.classList.contains("btn-dark")) {
                 elemento.classList.remove("btn-dark");
                 elemento.classList.add("btn-success");
@@ -93,11 +96,20 @@
         }
         
         function addElementToForm(fila, asiento) {
-            
+         var form = document.getElementById("reservasForm");
+         var input = document.createElement("INPUT");
+         input.setAttribute("id", "input-"+fila+","+asiento);
+         input.setAttribute("name","entrada");
+         input.setAttribute("type", "hidden");
+         input.setAttribute("value", fila+","+asiento);
+         form.appendChild(input);
         }
         
         function removeElementFromForm(fila, asiento) {
-            
+
+         var form = document.getElementById("reservasForm");
+         var input = document.getElementById("input-"+fila+","+asiento);
+         form.removeChild(input);
         }
         
         
