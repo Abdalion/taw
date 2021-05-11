@@ -81,6 +81,15 @@
                 //El usuario no esta logueado, mostrar las cosas que haya que mostrar
             }
         %>
-
+        <div class="center"> 
+            <h3>Links temporales</h3>
+        <a href="/help">Ir a ayuda</a>
+        <br>
+        <a href="/PanelAdministrador">Ir a panel admin</a>
+        <br>
+        <a href="ServletEventoListar">Ver la lista de eventos</a>
+        <br>
+        <a href="ServletEstudioListar">Ver la lista de estudios</a>
+        </div>
     </body>
 </html>
