@@ -78,7 +78,7 @@
                 %>
                 <form id="reservasForm" method="post" action="/ServletCrearReserva">
                     <input type="hidden" name="eventoId" value="<%=evento.getId()%>">
-                    <input type="submit" value="Reservar los asientos seleccionados">
+                    <input class="center" type="submit" value="Reservar los asientos seleccionados">
                 </form>
     <script>
             var lista = [];
