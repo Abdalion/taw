@@ -67,6 +67,7 @@
                 }
             }
 %>
+
 <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
 <%
 }

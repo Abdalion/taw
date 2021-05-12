@@ -9,6 +9,7 @@ import gigdigger.dao.ChatFacade;
 import gigdigger.dao.MensajeFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Chat;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class ServletFinChat extends HttpServlet {
         Chat chat = chatFacade.find(new Integer(request.getParameter("idChat")));
         Date date = new Date(System.currentTimeMillis());
         chat.setFechaFin(date);
+        
         chatFacade.edit(chat);
         response.sendRedirect("/help");
     }

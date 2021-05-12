@@ -74,6 +74,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
     }
     
-    
+    public int countChats (Integer id){
+        
+        Query q;
+        
+        q = em.createQuery("SELECT COUNT(c) FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador = :id");
+        q.setParameter("id", id);
+        
+        return (int) q.getSingleResult();
+    }
     
 }
