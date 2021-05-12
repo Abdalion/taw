@@ -66,8 +66,19 @@
             <% 
                 }
             }
-%>
-
+%>                  
+                <form method="POST" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>">
+                    <label>idChat</label>
+                    <input id="idChat" type="text" name="idChat" placeholder="id" value="2">
+                    
+                    <label>idUsuario</label>
+                    <input id="idUsuario" type="text" name="idUsuario" placeholder="id" value="2">
+                    <label for="message"><p>Nuevo mensaje</p></label>
+                        <br>
+                        <textarea id="message" class="form-control" name="message" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
+                        <br>
+                    <input type="button" value="Enviar">
+                </form>
 <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
 <%
 }

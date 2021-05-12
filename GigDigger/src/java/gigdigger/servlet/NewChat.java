@@ -134,8 +134,9 @@ public class NewChat extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<AsyncContext> asyncContexts = new ArrayList<>(this.contexts);
-        this.contexts.clear();
+        /*List<AsyncContext> asyncContexts = new ArrayList<>(this.contexts);
+        this.contexts.clear();*/
+        System.out.println("entra");
         
         String message = request.getParameter("message");
         Integer idChat = Integer.parseInt(request.getParameter("idChat"));
@@ -155,7 +156,7 @@ public class NewChat extends HttpServlet {
         
         
         
-        for (AsyncContext asyncContext : asyncContexts) {
+        /*for (AsyncContext asyncContext : asyncContexts) {
             try (PrintWriter writer = asyncContext.getResponse().getWriter()) {
                 writer.println(message);
                 writer.flush();
@@ -163,7 +164,7 @@ public class NewChat extends HttpServlet {
             } catch (Exception ex) {
                 LOG.severe("Se ha producido la siguiente excepcion: " + ex.getMessage());
             }
-        }
+        }*/
         
         processRequest(request, response);
         
