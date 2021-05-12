@@ -5,9 +5,11 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EntradaFacade;
 import gigdigger.dao.EtiquetaEventoFacade;
 import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.entity.Entrada;
 import gigdigger.entity.Etiqueta;
 import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
@@ -28,6 +30,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEvento", urlPatterns = {"/ServletEvento"})
 public class ServletEvento extends HttpServlet {
+
+    @EJB
+    private EntradaFacade entradaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,11 +58,19 @@ public class ServletEvento extends HttpServlet {
         Evento e = eventoFacade.find(Integer.parseInt(request.getParameter("eventoId")));
         request.setAttribute("evento", e);
         
+        //TO-DO:obtener el userid de la sesion
+        Integer userId = 1;
+        
+        request.setAttribute("userId", userId);
+        
         List<EtiquetaEvento> listaEtiquetasEventos = etiquetaEventoFacade.findAll();
         List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();
         request.setAttribute("listaEtiquetas", listaEtiquetas);
         request.setAttribute("listaEtiquetasEventos", listaEtiquetasEventos);
         
+        List<Entrada> entradas = entradaFacade.findByEventoId(e.getId());
+        
+        request.setAttribute("entradas", entradas);
         
         RequestDispatcher rd = request.getRequestDispatcher("Evento.jsp");
         rd.forward(request, response);
