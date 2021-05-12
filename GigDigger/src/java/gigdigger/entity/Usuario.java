@@ -6,6 +6,7 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -41,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findTeleoperadorLibre", query = "SELECT u FROM Usuario u WHERE u.rol LIKE 'TELEOPERADOR' AND (SELECT COUNT(c)FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador = u.id)<2")
     })
 public class Usuario implements Serializable {
+
+    @OneToMany(mappedBy = "creadorEstudio")
+    private Collection<Estudio> estudioCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -196,6 +200,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "gigdigger.entity.Usuario[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Estudio> getEstudioCollection() {
+        return estudioCollection;
+    }
+
+    public void setEstudioCollection(Collection<Estudio> estudioCollection) {
+        this.estudioCollection = estudioCollection;
     }
     
 }

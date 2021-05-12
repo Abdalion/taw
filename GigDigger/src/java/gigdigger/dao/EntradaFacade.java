@@ -6,9 +6,12 @@
 package gigdigger.dao;
 
 import gigdigger.entity.Entrada;
+import gigdigger.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,18 @@ public class EntradaFacade extends AbstractFacade<Entrada> {
 
     public EntradaFacade() {
         super(Entrada.class);
+    }
+    
+    public List<Entrada> findByEventoId(Integer eventoId) {
+        Query q;
+        q = em.createQuery("SELECT e FROM Entrada e WHERE e.idEvento.id = :eventoId");
+        q.setParameter("eventoId", eventoId);
+        
+        if (q.getResultList().isEmpty()){
+            return null;
+        }else{
+            return q.getResultList();
+        }
     }
     
 }

@@ -29,9 +29,8 @@ import javax.servlet.http.HttpSession;
  */
 
 
-@WebServlet(name = "NewChat", urlPatterns = {"/NewChat"})
+@WebServlet(name = "NewChat", urlPatterns = {"/NewChat"}, asyncSupported=true)
 public class NewChat extends HttpServlet {
-
 
     private List<AsyncContext> contexts = new LinkedList<>();
     private static final Logger LOG = Logger.getLogger(NewChat.class.getName());
@@ -45,22 +44,15 @@ public class NewChat extends HttpServlet {
     @EJB
     private MensajeFacade mensajeFacade;
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher rd = request.getRequestDispatcher("ChatTeleoperador.jsp");
+
+        RequestDispatcher rd = request.getRequestDispatcher("ChatUsuario.jsp");
         rd.forward(request, response);
-        
+
     }
+    
     
     private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
         //mensaje: idchat, idemisor, texto
@@ -73,39 +65,22 @@ public class NewChat extends HttpServlet {
         newMensaje.setIdChat(idChat);
         newMensaje.setIdEmisor(idEmisor);
         newMensaje.setTexto(texto);
-        System.out.println(idChat);
-        System.out.println(idEmisor);
-        System.out.println(texto);
         Date date = new Date(System.currentTimeMillis());
         newMensaje.setFecha(date);
         newMensaje.setHora(date);
-        //TODO: meter el mensaje luego desps de verlo en la BD
-        //idChat.addMensaje(newMensaje);
         mensajeFacade.create(newMensaje);
-        idChat.addMensaje(newMensaje);
+        
+        ArrayList<Mensaje> mensajesActualizados = idChat.getMensajeList();
+        mensajesActualizados.add(newMensaje);
+        idChat.setMensajeList(mensajesActualizados);
+        
+        chatFacade.edit(idChat);
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        /*EntityManagerFactory emf =
-        Persistence.createEntityManagerFactory("GigDiggerPU");
-        EntityManager em = emf.createEntityManager();*/
-        
-        //final AsyncContext asyncContext = request.startAsync(request, response);
-        //asyncContext.setTimeout(10 * 60 * 1000);
-        //contexts.add(asyncContext);
         
         HttpSession session = request.getSession();
 
@@ -115,84 +90,73 @@ public class NewChat extends HttpServlet {
         //Buscamos al user por su id
         Usuario user;
         user = this.usuarioFacade.findByID(id);
-
+        session.setAttribute("error", false);
 
         //Buscamos conversacion activa del usutario
-        Chat chatActivo = this.chatFacade.findCurrentChat(id);
-        
+        Chat chatActivo = this.chatFacade.findCurrentChat(id);   
         //Si no tiene activa, la creamos (solo si hay teleoperadores libres)
         if(chatActivo == null){
-            
-            
+                       
             Usuario telFree = this.usuarioFacade.findTeleoperadorLibre();
-            
-            
+                        
             if(telFree == null){ //si no hay teleoperadores libres: error
-                
                 //TODO: CONTROLAR ERROR EN JSP
                 String msg = "No hay teleoperadores disponibles";
                 session.setAttribute("msg", msg);
+                session.setAttribute("error", true);
                 
             }else{ //si hay teleoperadores libres: ok, la creamos
 
                 Chat nuevoChat = new Chat();
-                
                 nuevoChat.setIdUsuario(user);
-            
                 nuevoChat.setIdTeleoperador(telFree);
-
-                ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
-
-                session.setAttribute("mensajes", mensajes);
                 
+                /*ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
+                session.setAttribute("mensajes", mensajes);*/
+                
+                session.setAttribute("chat", nuevoChat);
                 //crearMensaje(request, response, nuevoChat, user);
             }
-        
-            
         }else{ //Si tiene conversacion activa le redirigimos a ella
 
-            ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
-            session.setAttribute("mensajes", mensajes);
-            //crearMensaje(request, response, chatActivo, user);
+            /*ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
+            session.setAttribute("mensajes", mensajes);*/
+            session.setAttribute("chat", chatActivo);
+            
         }
-        
+        //final AsyncContext asyncContext = request.startAsync(request, response);
+        //asyncContext.setTimeout(10 * 60 * 1000);
+        //contexts.add(asyncContext);
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<AsyncContext> asyncContexts = new ArrayList<>(this.contexts);
-        this.contexts.clear();
+        /*List<AsyncContext> asyncContexts = new ArrayList<>(this.contexts);
+        this.contexts.clear();*/
+        System.out.println("entra");
         
         String message = request.getParameter("message");
         Integer idChat = Integer.parseInt(request.getParameter("idChat"));
-        System.out.println("IdChat: " + idChat);
         Integer idUser = Integer.parseInt(request.getParameter("idUser"));
         Chat chat = chatFacade.findById(idChat);
         Usuario user = usuarioFacade.findByID(idUser);
  
+        String rol = user.getRol();
+        
+        if(rol.equalsIgnoreCase("AUTOREGISTRADO")){
+            int notificaciones = chat.getNotificaciones();
+            notificaciones++;
+            chat.setNotificaciones(notificaciones);
+            chatFacade.edit(chat);
+        }
         crearMensaje(request, response, chat, user);
         
-        ServletContext application = request.getServletContext();
         
-        /*if (application.getAttribute("messages") == null) {
-            application.setAttribute("messages", message);
-        } else {
-            String currentMessages = (String) application.getAttribute("messages");
-            application.setAttribute("messages", message + currentMessages);
-        }*/
         
-        for (AsyncContext asyncContext : asyncContexts) {
+        /*for (AsyncContext asyncContext : asyncContexts) {
             try (PrintWriter writer = asyncContext.getResponse().getWriter()) {
                 writer.println(message);
                 writer.flush();
@@ -200,20 +164,10 @@ public class NewChat extends HttpServlet {
             } catch (Exception ex) {
                 LOG.severe("Se ha producido la siguiente excepcion: " + ex.getMessage());
             }
-        }
+        }*/
         
         processRequest(request, response);
+        
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     
 }
