@@ -4,6 +4,7 @@
     Author     : egonb
 --%>
 
+<%@page import="gigdigger.entity.Entrada"%>
 <%@page import="gigdigger.entity.Etiqueta"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -20,6 +21,8 @@
             Evento evento = (Evento)request.getAttribute("evento");
         List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
         List<EtiquetaEvento> listaEtiquetasEventos = (List)request.getAttribute("listaEtiquetasEventos");
+        
+        Integer userId = (Integer)request.getAttribute("userId");
         %>
         <title><%=evento.getTitulo()%></title>
         <link href="style.css" rel="stylesheet" type="text/css">
@@ -82,16 +85,48 @@
                 </form>
     <script>
             var lista = [];
+            var reservasTotales = 0;
+            var cantidadAReservar = 0;
+            var yaReservadasPorElUsuario = 0;
+            <%
+                List<Entrada> entradas = (List<Entrada>)request.getAttribute("entradas");
+                if(entradas != null) {
+                    for(Entrada e : entradas) {
+                        if(e.getIdUsuario().getId().equals(userId)) {
+                            %>
+                                yaReservadasPorElUsuario++;
+                            <%
+                        }
+                        
+                        %>
+                          disableNoDisponible("<%=e.getFila()%>", "<%=e.getAsiento()%>");  
+                        <%
+                    }
+                }
+                if(entradas != null) {   
+                    %>
+                reservasTotales = <%=entradas.size()%>;
+            <%
+                }
+            %>
+            var aforo = <%=evento.getAforo()%>;
+            
         function reservar(fila, asiento) {
-            elemento = document.getElementById(fila+","+asiento);
-            if(elemento.classList.contains("btn-dark")) {
-                elemento.classList.remove("btn-dark");
-                elemento.classList.add("btn-success");
-                addElementToForm(fila, asiento);
-            }else {
-                elemento.classList.add("btn-dark");
-                elemento.classList.remove("btn-success");
-                removeElementFromForm(fila, asiento);
+                elemento = document.getElementById(fila+","+asiento);
+                if(elemento.classList.contains("btn-dark")) {
+                    if(reservasTotales >= aforo) {
+                        alert("No se pueden realizar mas reservas dado que el aforo ha sido superado.");
+                    }else if(cantidadAReservar+yaReservadasPorElUsuario >= <%=evento.getLimiteUsuario()%>){
+                        alert("Este evento solo permite realizar <%=evento.getLimiteUsuario()%> reservas por usuario.");
+                    }else {
+                        elemento.classList.remove("btn-dark");
+                        elemento.classList.add("btn-success");
+                        addElementToForm(fila, asiento);                        
+                    }
+                }else {
+                    elemento.classList.add("btn-dark");
+                    elemento.classList.remove("btn-success");
+                    removeElementFromForm(fila, asiento);
             }
         }
         
@@ -103,6 +138,8 @@
          input.setAttribute("type", "hidden");
          input.setAttribute("value", fila+","+asiento);
          form.appendChild(input);
+         reservasTotales++;
+         cantidadAReservar++;
         }
         
         function removeElementFromForm(fila, asiento) {
@@ -110,6 +147,13 @@
          var form = document.getElementById("reservasForm");
          var input = document.getElementById("input-"+fila+","+asiento);
          form.removeChild(input);
+         reservasTotales--;
+         cantidadAReservar--;
+        }
+        
+        function disableNoDisponible(fila, asiento) {
+            elemento = document.getElementById(fila+","+asiento);
+            elemento.setAttribute("disabled", true);
         }
         
         
