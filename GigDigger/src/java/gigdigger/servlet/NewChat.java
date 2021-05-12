@@ -48,7 +48,7 @@ public class NewChat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("CuentasBanco.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ChatUsuario.jsp");
         rd.forward(request, response);
 
     }
@@ -90,33 +90,38 @@ public class NewChat extends HttpServlet {
         //Buscamos al user por su id
         Usuario user;
         user = this.usuarioFacade.findByID(id);
-
+        session.setAttribute("error", false);
 
         //Buscamos conversacion activa del usutario
         Chat chatActivo = this.chatFacade.findCurrentChat(id);   
         //Si no tiene activa, la creamos (solo si hay teleoperadores libres)
         if(chatActivo == null){
-                        
+                       
             Usuario telFree = this.usuarioFacade.findTeleoperadorLibre();
                         
             if(telFree == null){ //si no hay teleoperadores libres: error
                 //TODO: CONTROLAR ERROR EN JSP
                 String msg = "No hay teleoperadores disponibles";
                 session.setAttribute("msg", msg);
+                session.setAttribute("error", true);
+                
             }else{ //si hay teleoperadores libres: ok, la creamos
 
                 Chat nuevoChat = new Chat();
                 nuevoChat.setIdUsuario(user);
                 nuevoChat.setIdTeleoperador(telFree);
                 
-                ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
-                session.setAttribute("mensajes", mensajes);
+                /*ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
+                session.setAttribute("mensajes", mensajes);*/
+                
+                session.setAttribute("chat", nuevoChat);
                 //crearMensaje(request, response, nuevoChat, user);
             }
         }else{ //Si tiene conversacion activa le redirigimos a ella
 
-            ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
-            session.setAttribute("mensajes", mensajes);
+            /*ArrayList<Mensaje> mensajes = chatActivo.getMensajeList();
+            session.setAttribute("mensajes", mensajes);*/
+            session.setAttribute("chat", chatActivo);
             
         }
         //final AsyncContext asyncContext = request.startAsync(request, response);
