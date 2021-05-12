@@ -6,6 +6,7 @@
 package gigdigger.dao;
 
 import gigdigger.entity.Usuario;
+import static gigdigger.entity.UsuarioAuto_.usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -71,6 +72,26 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         } else {
             return null;
         }
+        
+    }
+    
+    public Usuario findByEmailAndPassword (String email, String password) {
+        
+        Query q;
+        List<Usuario> lista;
+         
+        q = this.em.createQuery("SELECT a FROM Usuario a WHERE a.email = :email AND a.password = :password");
+        q.setParameter("email", email);
+        q.setParameter("password", password);
+        lista = q.getResultList();
+        
+        
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        }else {
+            return lista.get(0);
+        } 
+        
         
     }
     
