@@ -5,35 +5,21 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.EtiquetaEventoFacade;
-import gigdigger.dao.EtiquetaFacade;
-import gigdigger.dao.EventoFacade;
-import gigdigger.dao.UsuarioFacade;
-import gigdigger.entity.Etiqueta;
-import gigdigger.entity.EtiquetaEvento;
-import gigdigger.entity.Evento;
-import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author egonb
  */
-@WebServlet(name = "MainServlet", urlPatterns = {""})
-public class MainServlet extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "ServletPerfil", urlPatterns = {"/ServletPerfil"})
+public class ServletPerfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,37 +30,12 @@ public class MainServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-        @EJB
-    private EventoFacade eventoFacade;
-    
-    @EJB
-    private EtiquetaFacade etiquetaFacade;
-    
-    @EJB
-    private EtiquetaEventoFacade etiquetaEventoFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        if(session.getAttribute("userId") != null) {
 
-            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
-            request.setAttribute("usuario", usuario);
-        }
-
-        List<Evento> listaEventos = eventoFacade.findAll();
-        List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();
-        List<EtiquetaEvento> listaEtiquetasEventos = etiquetaEventoFacade.findAll();
-
-        request.setAttribute("listaEventos", listaEventos);
-        request.setAttribute("listaEtiquetas", listaEtiquetas);
-        request.setAttribute("listaEtiquetasEventos", listaEtiquetasEventos);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("Main.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
         rd.forward(request, response);
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
