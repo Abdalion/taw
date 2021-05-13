@@ -5,11 +5,8 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.UsuarioFacade;
-import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,13 +17,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Pedro
+ * @author egonb
  */
-@WebServlet(name = "ServletAutenticacion", urlPatterns = {"/ServletAutenticacion"})
-public class ServletAutenticacion extends HttpServlet {
-    
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "ServletLogout", urlPatterns = {"/ServletLogout"})
+public class ServletLogout extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,16 +33,10 @@ public class ServletAutenticacion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-      HttpSession session = request.getSession();
-      
-     if(session.getAttribute("userId") != null) {
-         response.sendRedirect("");
-     }else {
-        RequestDispatcher rd = request.getRequestDispatcher("autenticacion.jsp");
-        rd.forward(request, response);
-     }
-
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", null);
+        
+        response.sendRedirect("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,26 +65,6 @@ public class ServletAutenticacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String strUsuario = request.getParameter("usuario");
-      String strPassword = request.getParameter("password");
-      Usuario usuario;
-            HttpSession session = request.getSession();
-
-      String strError = "", strTo = "";
-              if (strUsuario == null || strUsuario.isEmpty() || strPassword == null || strPassword.isEmpty()) { // Error en la autenticación 
-          strError = "Error en la autenticación";
-          request.setAttribute("error", strError);
-          strTo = "autenticacion.jsp";
-      } else {
-          usuario = this.usuarioFacade.findByEmailAndPassword(strUsuario, strPassword);
-          if (usuario == null) {
-            strError = "Error en la autenticación";
-            request.setAttribute("error", strError);
-            strTo = "autenticacion.jsp";
-          }else {
-              session.setAttribute("userId", usuario.getId());
-          }
-      }
         processRequest(request, response);
     }
 

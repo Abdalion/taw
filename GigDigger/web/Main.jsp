@@ -89,6 +89,10 @@
         <br>
         <a href="ServletEventoListar">Ver la lista de eventos</a>
         <br>
+        <a href="ServletAutenticacion">Login</a>
+        <br>
+        <a href="ServletLogout">Logout</a>
+        <br>
         <a href="ServletEstudioListar">Ver la lista de estudios</a>
         </div>
     </body>
