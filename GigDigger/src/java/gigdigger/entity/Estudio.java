@@ -7,6 +7,7 @@ package gigdigger.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,12 +18,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,21 +45,25 @@ public class Estudio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
     @Column(name = "NOMBRE_ESTUDIO", nullable = false, length = 50)
     private String nombreEstudio;
+    @Basic(optional = false)
     @Column(name = "DESCRIPCION", nullable = false, length = 150)
     private String descripcion;
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @JoinColumn(name = "ID_EVENTO", referencedColumnName = "ID")
-    @ManyToOne
-    private Evento idEvento;
+    @OneToMany(mappedBy = "idEstudio")
+    private List<EstudioUsuarios> estudioUsuariosList;
     @JoinColumn(name = "CREADOR_ESTUDIO", referencedColumnName = "ID")
     @ManyToOne
     private Usuario creadorEstudio;
+    @OneToMany(mappedBy = "idEstudio")
+    private List<EstudioEventos> estudioEventosList;
 
     public Estudio() {
     }
@@ -103,12 +110,13 @@ public class Estudio implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Evento getIdEvento() {
-        return idEvento;
+    @XmlTransient
+    public List<EstudioUsuarios> getEstudioUsuariosList() {
+        return estudioUsuariosList;
     }
 
-    public void setIdEvento(Evento idEvento) {
-        this.idEvento = idEvento;
+    public void setEstudioUsuariosList(List<EstudioUsuarios> estudioUsuariosList) {
+        this.estudioUsuariosList = estudioUsuariosList;
     }
 
     public Usuario getCreadorEstudio() {
@@ -117,6 +125,15 @@ public class Estudio implements Serializable {
 
     public void setCreadorEstudio(Usuario creadorEstudio) {
         this.creadorEstudio = creadorEstudio;
+    }
+
+    @XmlTransient
+    public List<EstudioEventos> getEstudioEventosList() {
+        return estudioEventosList;
+    }
+
+    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
+        this.estudioEventosList = estudioEventosList;
     }
 
     @Override

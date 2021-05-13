@@ -8,6 +8,7 @@ package gigdigger.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Evento implements Serializable {
 
     @OneToMany(mappedBy = "idEvento")
-    private Collection<Estudio> estudioCollection;
+    private List<EstudioEventos> estudioEventosList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -198,12 +199,12 @@ public class Evento implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Estudio> getEstudioCollection() {
-        return estudioCollection;
+    public List<EstudioEventos> getEstudioEventosList() {
+        return estudioEventosList;
     }
 
-    public void setEstudioCollection(Collection<Estudio> estudioCollection) {
-        this.estudioCollection = estudioCollection;
+    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
+        this.estudioEventosList = estudioEventosList;
     }
     
 }
