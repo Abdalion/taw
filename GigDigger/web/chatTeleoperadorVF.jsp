@@ -45,6 +45,7 @@
                         
                         <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
                         <p>Notificaciones: <%=c.getNotificaciones()%></p>
+                        <a href="ServletChatTeleoperador?idChat=<%=c.getId()%>">Entrar al chat</a>
                         <hr>
                         <%    
                         }
@@ -95,28 +96,29 @@
                         
                         
                         
-                        
-                        
-                        
-                        
+                                                
                         
                         
                     </div>
+                        
+                         <form name="crearMensaje" action="ServletChatTeleoperador?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
+                    <label>idChat</label>
+                    <input id="idChat" type="text" name="idChat" placeholder="id" value="2">
+                    
+                    <label>idUsuario</label>
+                    <input id="idUsuario" type="text" name="idUsuario" placeholder="id" value="2">
+                    <label for="message"><p>Nuevo mensaje</p></label>
+                        <br>
+                        <textarea id="message" class="form-control" name="message" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
+                        <br>
+                    <input type="submit" value="Enviar">
+                </form>
                     
                     
                 </div>
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+           
             
             <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
                 

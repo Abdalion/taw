@@ -28,7 +28,7 @@
             %>
             
         <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
-                        <p>Notificaciones: <%=c.getNotificaciones()%></p>
+        <p>Notificaciones: <%=c.getNotificaciones()%></p>
                         <hr>
                         <%    
                         }
