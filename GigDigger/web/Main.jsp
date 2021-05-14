@@ -26,6 +26,10 @@
             List<Evento> listaEventos = (List)request.getAttribute("listaEventos");
             List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
             List<EtiquetaEvento> listaEtiquetasEventos = (List)request.getAttribute("listaEtiquetasEventos");
+            
+            /*
+            */
+            
             //if(u != null) {
                 //El usuario esta logueado, mostrar lo que haya que mostrar
                // String nombre = u.getNombreUsuario();
@@ -41,10 +45,30 @@
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                           <div class="navbar-nav">
                             <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
-                            <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
-                            <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
-                            <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
-                            <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                            <%
+                                if(u != null) {
+                                    if(u.getRol().equals("ADMINISTRADOR")) {
+                                        %>
+                                            <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
+                                        <%
+                                    }else if(u.getRol().equals("ANALISTA")) {
+                                        %>
+                                            <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                                        <%
+                                    }
+                                %>
+                                <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
+                                <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                                <%
+                                }else {
+                                    %>
+                                    <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+                                    <%
+                                }
+
+                            %>
+
+
                             
                           </div>
                         </div>

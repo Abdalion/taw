@@ -5,14 +5,18 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.UsuarioFacade;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletPerfil", urlPatterns = {"/ServletPerfil"})
 public class ServletPerfil extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +40,11 @@ public class ServletPerfil extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+        }
         RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
         rd.forward(request, response);
     }
