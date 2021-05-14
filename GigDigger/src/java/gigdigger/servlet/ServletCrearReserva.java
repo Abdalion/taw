@@ -9,6 +9,7 @@ import gigdigger.dao.EntradaFacade;
 import gigdigger.dao.EventoFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Entrada;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,21 +55,26 @@ public class ServletCrearReserva extends HttpServlet {
         String[] entradas = request.getParameterValues("entrada");
         String eventoId = request.getParameter("eventoId");
         List<Entrada> entradasList = new ArrayList<>();
-        //TO-DO:obtener el userid de la sesion
-        String userId = "1";
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("userId", usuario.getId());
+
         for(String s : entradas) {
-          System.out.println(s);
           Entrada e = new Entrada();
           e.setFila(Integer.parseInt(s.split(",")[0]));
           e.setAsiento(Integer.parseInt(s.split(",")[1]));
-          e.setIdUsuario(usuarioFacade.find(Integer.parseInt(userId)));
+          e.setIdUsuario(usuarioFacade.find(usuario.getId()));
           e.setIdEvento(eventoFacade.find(Integer.parseInt(eventoId)));
           entradasList.add(e);
           entradaFacade.create(e);
         }
         request.setAttribute("entradas", entradasList);
+        }
         
-        RequestDispatcher rd = request.getRequestDispatcher("ReservaCreada.jsp");
+        request.setAttribute("eventoId", eventoId);
+        RequestDispatcher rd = request.getRequestDispatcher("ServletEvento");
         rd.forward(request, response);
     }
 

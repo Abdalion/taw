@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,33 +38,16 @@ public class ServletAutenticacion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      String strUsuario = request.getParameter("usuario");
-      String strPassword = request.getParameter("password");
-      Usuario usuario;
-      String strError = "", strTo = "";
+
+      HttpSession session = request.getSession();
       
-      
-      if (strUsuario == null || strUsuario.isEmpty() || 
-              strPassword == null || strPassword.isEmpty()) { // Error en la autenticación 
-          strError = "Error en la autenticación";
-          request.setAttribute("error", strError);
-          strTo = "autenticacion.jsp";
-      } else {
-          usuario = this.usuarioFacade.findByEmailAndPassword(strUsuario, strPassword);
-          if (usuario == null) { // No esta en la BD
-            strError = "Error en la autenticación";
-            request.setAttribute("error", strError);
-            strTo = "autenticacion.jsp";
-          }else { // El usuario esta en la BD
-              //hacer session para guardar el rol?¿
-              strError = "HOLA BRO";
-              request.setAttribute("error", strError);
-              strTo = "autenticacion.jsp";
-          }
-      }
-      
-      RequestDispatcher rd = request.getRequestDispatcher(strTo);
-      rd.forward(request, response);
+     if(session.getAttribute("userId") != null) {
+         response.sendRedirect("");
+     }else {
+        RequestDispatcher rd = request.getRequestDispatcher("autenticacion.jsp");
+        rd.forward(request, response);
+     }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,6 +76,26 @@ public class ServletAutenticacion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+              String strUsuario = request.getParameter("usuario");
+      String strPassword = request.getParameter("password");
+      Usuario usuario;
+            HttpSession session = request.getSession();
+
+      String strError = "", strTo = "";
+              if (strUsuario == null || strUsuario.isEmpty() || strPassword == null || strPassword.isEmpty()) { // Error en la autenticación 
+          strError = "Error en la autenticación";
+          request.setAttribute("error", strError);
+          strTo = "autenticacion.jsp";
+      } else {
+          usuario = this.usuarioFacade.findByEmailAndPassword(strUsuario, strPassword);
+          if (usuario == null) {
+            strError = "Error en la autenticación";
+            request.setAttribute("error", strError);
+            strTo = "autenticacion.jsp";
+          }else {
+              session.setAttribute("userId", usuario.getId());
+          }
+      }
         processRequest(request, response);
     }
 

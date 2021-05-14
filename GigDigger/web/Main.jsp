@@ -26,13 +26,54 @@
             List<Evento> listaEventos = (List)request.getAttribute("listaEventos");
             List<Etiqueta> listaEtiquetas = (List)request.getAttribute("listaEtiquetas");
             List<EtiquetaEvento> listaEtiquetasEventos = (List)request.getAttribute("listaEtiquetasEventos");
-            if(u != null) {
+            
+            /*
+            */
+            
+            //if(u != null) {
                 //El usuario esta logueado, mostrar lo que haya que mostrar
-                String nombre = u.getNombreUsuario();
+               // String nombre = u.getNombreUsuario();
                 
-                if(u.getRol().equals("AUTOREGISTRADO")) {
+                //if(u.getRol().equals("AUTOREGISTRADO")) {
                     %>
                     <div class="container">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="">GigDigger</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                          <div class="navbar-nav">
+                            <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+                            <%
+                                if(u != null) {
+                                    if(u.getRol().equals("ADMINISTRADOR")) {
+                                        %>
+                                            <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
+                                        <%
+                                    }else if(u.getRol().equals("ANALISTA")) {
+                                        %>
+                                            <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                                        <%
+                                    }
+                                %>
+                                <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
+                                <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                                <%
+                                }else {
+                                    %>
+                                    <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+                                    <%
+                                }
+
+                            %>
+
+
+                            
+                          </div>
+                        </div>
+                        
+                      </nav>
                         <br>
                         <br>
                         <h1 class="center">Bienvenido</h1>
@@ -76,20 +117,11 @@
                         </div>
                     </div>
                     <%
-                }
-            }else {
+                //}
+           // }else {
                 //El usuario no esta logueado, mostrar las cosas que haya que mostrar
-            }
+            //}
         %>
-        <div class="center"> 
-            <h3>Links temporales</h3>
-        <a href="/help">Ir a ayuda</a>
-        <br>
-        <a href="/PanelAdministrador">Ir a panel admin</a>
-        <br>
-        <a href="ServletEventoListar">Ver la lista de eventos</a>
-        <br>
-        <a href="ServletEstudioListar">Ver la lista de estudios</a>
-        </div>
+
     </body>
 </html>

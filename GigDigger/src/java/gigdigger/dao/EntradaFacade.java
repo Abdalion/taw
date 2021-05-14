@@ -44,4 +44,15 @@ public class EntradaFacade extends AbstractFacade<Entrada> {
         }
     }
     
+        public List<Entrada> findByUserId(Integer userId) {
+        Query q;
+        q = em.createQuery("SELECT e FROM Entrada e WHERE e.idUsuario.id = :userId");
+        q.setParameter("userId", userId);
+        
+        if (q.getResultList().isEmpty()){
+            return null;
+        }else{
+            return q.getResultList();
+        }
+    }
 }

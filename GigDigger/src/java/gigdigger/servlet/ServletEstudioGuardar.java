@@ -5,14 +5,18 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EntradaFacade;
 import gigdigger.dao.EstudioFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Estudio;
 import gigdigger.entity.Usuario;
+import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEstudioGuardar", urlPatterns = {"/ServletEstudioGuardar"})
 public class ServletEstudioGuardar extends HttpServlet {
+    
     
     @EJB
     private EstudioFacade estudioFacade;
@@ -44,6 +49,20 @@ public class ServletEstudioGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Filtros
+        String usuariosConEventos = request.getParameter("usuariosConEventos");
+        String usuariosSinEventos = request.getParameter("usuariosSinEventos");
+        String usuariosMenoresDe18 = request.getParameter("usuariosMenoresDe18");
+        String usuariosMayoresDe18 = request.getParameter("usuariosMayoresDe18");
+        String usuariosFemeninos = request.getParameter("usuariosFemeninos");
+        String usuariosMasculinos = request.getParameter("usuariosMasculinos");
+        String eventosConAforo = request.getParameter("eventosConAforo");
+        String eventosSinAforo = request.getParameter("eventosSinAforo");
+        String eventosTerminados = request.getParameter("eventosTerminados");
+        String eventosProximos = request.getParameter("eventosProximos");
+        
+
+        
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
         String idCreador = request.getParameter("id");
@@ -54,15 +73,17 @@ public class ServletEstudioGuardar extends HttpServlet {
         
         SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yyyy");
         Date fechaCreacion = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(fechaCreacion));
         
         estudio.setFechaCreacion(fechaCreacion);
-        
-        System.out.println("IDDDDDDDDDDDDDDD:"+idCreador);
-        
+                
         Usuario creador = usuarioFacade.findByID(new Integer(idCreador));
         
         estudio.setCreadorEstudio(creador);
+        
+        List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
+        if(usuariosConEventos.equalsIgnoreCase("on")){
+            listaUsuariosAuto.addAll(usuarioFacade.findByHasEvents());
+        }
         
         estudioFacade.create(estudio);
         

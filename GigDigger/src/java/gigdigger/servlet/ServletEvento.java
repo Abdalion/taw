@@ -9,10 +9,12 @@ import gigdigger.dao.EntradaFacade;
 import gigdigger.dao.EtiquetaEventoFacade;
 import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Entrada;
 import gigdigger.entity.Etiqueta;
 import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +33,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEvento", urlPatterns = {"/ServletEvento"})
 public class ServletEvento extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @EJB
     private EntradaFacade entradaFacade;
@@ -55,13 +61,23 @@ public class ServletEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Evento e = eventoFacade.find(Integer.parseInt(request.getParameter("eventoId")));
+        Integer eventoId;
+        if(request.getParameter("eventoId") != null)
+            eventoId = new Integer(request.getParameter("eventoId"));
+        else
+            //Si lo estoy llamando desde ServletCrearReserva
+            eventoId = (Integer)request.getAttribute("eventoId");
+            
+        Evento e = eventoFacade.find(eventoId);
         request.setAttribute("evento", e);
         
         //TO-DO:obtener el userid de la sesion
-        Integer userId = 1;
-        
-        request.setAttribute("userId", userId);
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("userId", usuario.getId());
+        }
         
         List<EtiquetaEvento> listaEtiquetasEventos = etiquetaEventoFacade.findAll();
         List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();

@@ -16,14 +16,14 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
 
     </head>
-    
+
     <%
         //<%= //creador.getId()
     %>
-    
+
     <body>
         <h1>Datos del Estudio</h1>
-        <form method="post" action="ServletEstudioGuardar?id=202" name="crearEstudio" accept-charset="UTF-8">
+        <form method="post" action="ServletEstudioGuardar?id=102" name="crearEstudio" accept-charset="UTF-8">
             <table>
                 <tr>
                     <td>Nombre: </td>
@@ -35,10 +35,56 @@ and open the template in the editor.
                 </tr>
             </table>
             <br/>
-            <input type="submit" value="Crear estudio" class="btn btn-info" >
+
+            Filtros: <br>
+            <select>
+                <option value="Eventos">Eventos</option>
+                <option value="Asistentes">Usuarios</option>
+            </select><br><br>
+
+            <div id="filtrosEventos">
+                <input type="checkbox" name="usuariosConEventos" > Usuarios con eventos contratados <br>
+                <br>
+
+                <input type="checkbox" name="usuariosSinEventos" > Usuarios sin eventos contratados <br>
+                <br>
+
+                <input type="checkbox" name="usuariosMenoresDe18" > Usuarios menores de 18 años <br>
+                <br>
+
+                <input type="checkbox" name="usuariosMayoresDe18" > Usuarios mayores de 18 años <br>
+                <br>
+
+                <input type="checkbox" name="usuariosFemeninos" > Usuarios femeninos <br>
+                <br>
+
+                <input type="checkbox" name="usuariosMasculinos" > Usuarios masculinos <br>
+                <br>
+            </div>
+
+            <div id="filtrosUsuarios">
+                <input type="checkbox" name="eventosConAforo" > Eventos con aforo <br>
+                <br>
+
+                <input type="checkbox" name="eventosSinAforo" > Eventos sin aforo <br>
+                <br>
+
+                <input type="checkbox" name="eventosTerminados" > Eventos terminados <br>
+                <br>
+
+                <input type="checkbox" name="eventosProximos" > Eventos próximos <br>
+                <br>
+
+                <input type="submit" name="Crear estudio" class="btn btn-info" >
+            </div>
 
         </form>
+
+        <script>
+            
+        </script>
+
     </body>
-    
+
 
 </html>

@@ -8,6 +8,7 @@ package gigdigger.servlet;
 import gigdigger.dao.EtiquetaEventoFacade;
 import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Etiqueta;
 import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
@@ -22,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +31,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "MainServlet", urlPatterns = {""})
 public class MainServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,16 +56,16 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Usuario usuarioParaTestear = new Usuario();
-        usuarioParaTestear.setRol("AUTOREGISTRADO");
-        
-        
-        request.setAttribute("usuario", usuarioParaTestear);
-        
-                List<Evento> listaEventos = eventoFacade.findAll();
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+        }
+
+        List<Evento> listaEventos = eventoFacade.findAll();
         List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();
         List<EtiquetaEvento> listaEtiquetasEventos = etiquetaEventoFacade.findAll();
-
 
         request.setAttribute("listaEventos", listaEventos);
         request.setAttribute("listaEtiquetas", listaEtiquetas);
