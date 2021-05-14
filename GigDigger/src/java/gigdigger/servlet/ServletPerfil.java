@@ -5,10 +5,17 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EntradaFacade;
+import gigdigger.dao.EventoFacade;
 import gigdigger.dao.UsuarioFacade;
+import gigdigger.entity.Entrada;
+import gigdigger.entity.Evento;
 import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +31,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ServletPerfil", urlPatterns = {"/ServletPerfil"})
 public class ServletPerfil extends HttpServlet {
+
+    @EJB
+    private EventoFacade eventoFacade;
+
+    @EJB
+    private EntradaFacade entradaFacade;
 
     @EJB
     private UsuarioFacade usuarioFacade;
@@ -44,9 +57,37 @@ public class ServletPerfil extends HttpServlet {
         if(session.getAttribute("userId") != null) {
             Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
             request.setAttribute("usuario", usuario);
+            
+            if(usuario.getRol().equals("AUTOREGISTRADO")) {
+                List<Entrada> entradas = entradaFacade.findByUserId(usuario.getId());
+                HashMap<Evento, List<Entrada>> eventosEntradas = new HashMap<>();
+                if(entradas != null) {
+                    for(Entrada e : entradas){
+                    Evento ev = eventoFacade.find(e.getIdEvento().getId());
+                    List<Entrada> entradasParaEseEvento;
+                    if(eventosEntradas.containsKey(ev)) {
+                        entradasParaEseEvento = eventosEntradas.get(ev);
+                    }else{
+                        entradasParaEseEvento = new ArrayList<>();
+                    }
+                        entradasParaEseEvento.add(e);
+                        eventosEntradas.put(ev, entradasParaEseEvento);
+                    }
+                }
+                
+                request.setAttribute("eventosEntradas", eventosEntradas);
+            }else if(usuario.getRol().equals("ANALISTA")) {
+                
+            }else if(usuario.getRol().equals("CREADOR")) {
+                
+            }
+            
+            RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
+            rd.forward(request, response);
+        }else {
+            response.sendRedirect("MainServlet");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
-        rd.forward(request, response);
+        
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
