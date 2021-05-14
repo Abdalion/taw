@@ -7,7 +7,6 @@ package gigdigger.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,17 +14,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,21 +47,19 @@ public class Estudio implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "NOMBRE_ESTUDIO", nullable = false, length = 50)
+    @Column(name = "NOMBRE_ESTUDIO", length = 50, nullable = false)
     private String nombreEstudio;
     @Basic(optional = false)
-    @Column(name = "DESCRIPCION", nullable = false, length = 150)
+    @Column(name = "DESCRIPCION", length = 150, nullable = false)
     private String descripcion;
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @OneToMany(mappedBy = "idEstudio")
-    private List<EstudioUsuarios> estudioUsuariosList;
+    @Column(name = "TIPO")
+    private String tipo;
     @JoinColumn(name = "CREADOR_ESTUDIO", referencedColumnName = "ID")
     @ManyToOne
     private Usuario creadorEstudio;
-    @OneToMany(mappedBy = "idEstudio")
-    private List<EstudioEventos> estudioEventosList;
 
     public Estudio() {
     }
@@ -110,13 +106,12 @@ public class Estudio implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    @XmlTransient
-    public List<EstudioUsuarios> getEstudioUsuariosList() {
-        return estudioUsuariosList;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setEstudioUsuariosList(List<EstudioUsuarios> estudioUsuariosList) {
-        this.estudioUsuariosList = estudioUsuariosList;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Usuario getCreadorEstudio() {
@@ -125,15 +120,6 @@ public class Estudio implements Serializable {
 
     public void setCreadorEstudio(Usuario creadorEstudio) {
         this.creadorEstudio = creadorEstudio;
-    }
-
-    @XmlTransient
-    public List<EstudioEventos> getEstudioEventosList() {
-        return estudioEventosList;
-    }
-
-    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
-        this.estudioEventosList = estudioEventosList;
     }
 
     @Override

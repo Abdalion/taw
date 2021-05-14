@@ -5,10 +5,14 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.EstudioEventosFacade;
 import gigdigger.dao.EstudioFacade;
+import gigdigger.dao.EstudioUsuariosFacade;
 import gigdigger.dao.EtiquetaEventoFacade;
 import gigdigger.dao.EventoFacade;
 import gigdigger.entity.Estudio;
+import gigdigger.entity.EstudioEventos;
+import gigdigger.entity.EstudioUsuarios;
 import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
 import java.io.IOException;
@@ -31,8 +35,13 @@ public class ServletEstudioEliminar extends HttpServlet {
 
     @EJB
     private EstudioFacade estudioFacade;
-
-
+    
+    @EJB
+    private EstudioUsuariosFacade estudioUsuariosFacade;
+    
+    @EJB
+    private EstudioEventosFacade estudioEventosFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,7 +57,15 @@ public class ServletEstudioEliminar extends HttpServlet {
         String id = request.getParameter("id");
 
         Estudio estudio = estudioFacade.find(new Integer(id));
-
+        
+        if(estudio.getTipo().equalsIgnoreCase("USUARIOS")){
+            EstudioUsuarios eu = estudioUsuariosFacade.findByEstudio(estudio);
+            estudioUsuariosFacade.remove(eu);
+        }else{
+            EstudioEventos ee = estudioEventosFacade.findByEstudio(estudio);
+            estudioEventosFacade.remove(ee);
+        }
+        
         estudioFacade.remove(estudio);
 
         response.sendRedirect("ServletEstudioListar");

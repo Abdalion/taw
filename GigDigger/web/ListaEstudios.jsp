@@ -44,6 +44,8 @@
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Fecha de creación</th>
+                <th>Tipo</th>
+
             </tr>
             </thead>
             
@@ -60,6 +62,7 @@
                 <td><%= estudio.getNombreEstudio() %></td>
                 <td><%= estudio.getDescripcion() %></td>
                 <td><%= fecha %></td>
+                <td><%= estudio.getTipo() %></td>
                 
                 <td><a href="ServletEstudioEliminar?id=<%= estudio.getId() %>">Eliminar</a></td>
 

@@ -19,7 +19,7 @@
         <h1>Inicio de Sesión</h1>
         <form method="POST" action="ServletAutenticacion">
             <%= strError %> <br/>
-            Usuario: <input type="text" name="usuario" value="" /><br/>
+            Email: <input type="text" name="usuario" value="" /><br/>
             Password: <input type="password" name="password" value="" /><br/>
             <input type="submit" value="Enviar" />
         </form>

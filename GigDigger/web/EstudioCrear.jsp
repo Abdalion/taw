@@ -37,9 +37,9 @@ and open the template in the editor.
             <br/>
 
             Filtros: <br>
-            <select>
+            <select name="tipo">
                 <option value="Eventos">Eventos</option>
-                <option value="Asistentes">Usuarios</option>
+                <option value="Usuarios">Usuarios</option>
             </select><br><br>
 
             <div id="filtrosEventos">
@@ -49,10 +49,10 @@ and open the template in the editor.
                 <input type="checkbox" name="usuariosSinEventos" > Usuarios sin eventos contratados <br>
                 <br>
 
-                <input type="checkbox" name="usuariosMenoresDe18" > Usuarios menores de 18 años <br>
+                <input type="checkbox" name="usuariosMenoresDe18"> Usuarios menores de 18 años <br>
                 <br>
 
-                <input type="checkbox" name="usuariosMayoresDe18" > Usuarios mayores de 18 años <br>
+                <input type="checkbox" name="usuariosMayoresDe18"> Usuarios mayores de 18 años <br>
                 <br>
 
                 <input type="checkbox" name="usuariosFemeninos" > Usuarios femeninos <br>

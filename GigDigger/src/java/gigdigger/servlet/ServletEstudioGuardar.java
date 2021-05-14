@@ -5,10 +5,9 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.EntradaFacade;
-import gigdigger.dao.EstudioFacade;
-import gigdigger.dao.UsuarioFacade;
+import gigdigger.dao.*;
 import gigdigger.entity.Estudio;
+import gigdigger.entity.EstudioUsuarios;
 import gigdigger.entity.Usuario;
 import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
@@ -30,7 +29,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEstudioGuardar", urlPatterns = {"/ServletEstudioGuardar"})
 public class ServletEstudioGuardar extends HttpServlet {
+    @EJB
+    private UsuarioAutoFacade usuarioAutoFacade;
     
+    @EJB
+    private EstudioUsuariosFacade estudioUsuariosFacade;
     
     @EJB
     private EstudioFacade estudioFacade;
@@ -60,8 +63,8 @@ public class ServletEstudioGuardar extends HttpServlet {
         String eventosSinAforo = request.getParameter("eventosSinAforo");
         String eventosTerminados = request.getParameter("eventosTerminados");
         String eventosProximos = request.getParameter("eventosProximos");
+        String tipo = request.getParameter("tipo");
         
-
         
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
@@ -70,6 +73,7 @@ public class ServletEstudioGuardar extends HttpServlet {
         Estudio estudio = new Estudio();
         estudio.setNombreEstudio(nombre);
         estudio.setDescripcion(descripcion);
+        estudio.setTipo(tipo);
         
         SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yyyy");
         Date fechaCreacion = new Date(System.currentTimeMillis());
@@ -81,11 +85,27 @@ public class ServletEstudioGuardar extends HttpServlet {
         estudio.setCreadorEstudio(creador);
         
         List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
-        if(usuariosConEventos.equalsIgnoreCase("on")){
-            listaUsuariosAuto.addAll(usuarioFacade.findByHasEvents());
+        /*if(usuariosConEventos.equalsIgnoreCase("on")){
+            //listaUsuariosAuto.addAll(usuarioFacade.findByHasEvents());
+        }*/
+        if("on".equalsIgnoreCase(usuariosMenoresDe18)){
+            listaUsuariosAuto.addAll(usuarioAutoFacade.findMenores());
+        }
+        if("on".equalsIgnoreCase(usuariosMayoresDe18)){
+            listaUsuariosAuto.addAll(usuarioAutoFacade.findMayores());
+        }
+        
+        EstudioUsuarios estudioU = new EstudioUsuarios();
+        estudioU.setIdEstudio(estudio);
+        
+        for(UsuarioAuto u:listaUsuariosAuto){
+            estudioU.setIdUsuario(u);
         }
         
         estudioFacade.create(estudio);
+
+        estudioUsuariosFacade.create(estudioU);
+        
         
         response.sendRedirect("ServletEstudioListar");  
     }

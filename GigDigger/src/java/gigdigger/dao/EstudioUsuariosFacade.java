@@ -5,10 +5,13 @@
  */
 package gigdigger.dao;
 
+import gigdigger.entity.Estudio;
 import gigdigger.entity.EstudioUsuarios;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,21 @@ public class EstudioUsuariosFacade extends AbstractFacade<EstudioUsuarios> {
 
     public EstudioUsuariosFacade() {
         super(EstudioUsuarios.class);
+    }
+
+    public EstudioUsuarios findByEstudio(Estudio estudio) {
+        Query q;
+        q = em.createQuery("SELECT e FROM EstudioUsuarios e WHERE e.idEstudio = :idEstudio");
+        q.setParameter("idEstudio", estudio);
+        
+        List<EstudioUsuarios> lista;
+        
+        lista = q.getResultList();
+        if(lista != null && !lista.isEmpty()){
+            return lista.get(0);
+        }else{
+            return null;
+        }
     }
     
 }
