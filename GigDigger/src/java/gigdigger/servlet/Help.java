@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package estudianteswebapp.servlet;
+package gigdigger.servlet;
 
+import gigdigger.dao.UsuarioFacade;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Help", urlPatterns = {"/help"})
 public class Help extends HttpServlet {
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,7 +40,15 @@ public class Help extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher rd = request.getRequestDispatcher("Ayuda.html");
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+        
+        }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("Ayuda.jsp");
         rd.forward(request, response);
     }
 

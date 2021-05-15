@@ -4,6 +4,7 @@
     Author     : jesus
 --%>
 
+<%@page import="gigdigger.entity.Usuario"%>
 <%@page import="gigdigger.entity.Mensaje"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="gigdigger.entity.Chat"%>
@@ -19,12 +20,13 @@
     <body>
         <%
             Boolean error = (Boolean) session.getAttribute("error");
+            Usuario user = (Usuario) session.getAttribute("usuario");
             if(error == true){
                  %>
                 
                 <h1> Ha ocurrido un error</h1>
                 <br/>
-                <p>El usuario que ha hehco el post no es teleoperador</p>
+                <p>El usuario que ha hecho el post no es teleoperador</p>
                 
                 <%   
             } else {
@@ -45,7 +47,7 @@
                         
                         <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
                         <p>Notificaciones: <%=c.getNotificaciones()%></p>
-                        <a href="ServletChatTeleoperador?idChat=<%=c.getId()%>">Entrar al chat</a>
+                        <a href="ServletChatTeleoperador?idUser=<%=user.getId()%>&idChat=<%=c.getId()%>">Entrar al chat</a>
                         <hr>
                         <%    
                         }
@@ -53,7 +55,19 @@
                         
                     </div>
                     <div class="col-8">
-                        <h2>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></h2>
+                        
+                        <%
+                        if(chat==null){
+                            
+                        
+                        %>
+                        
+                        Selecciona un Chat primero
+                        
+                        <%
+                            }else{
+                        %>
+                <h2>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></h2>
                         <hr>
                         
                         <%
@@ -121,8 +135,8 @@
            
             
             <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
-                
                 <%
+                    }
 
             }
         %>

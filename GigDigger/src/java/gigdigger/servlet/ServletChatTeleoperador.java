@@ -56,22 +56,35 @@ public class ServletChatTeleoperador extends HttpServlet {
         
         
         HttpSession session = request.getSession();
-        System.out.println("entró");
+        
         Integer idUser = new Integer(request.getParameter("idUser"));
         Usuario user = usuarioFacade.find(idUser);
-        
+        session.setAttribute("usuario", user);
+
         if(user.getRol().equals("TELEOPERADOR")){
             session.setAttribute("error", false);
-            Integer idChat = new Integer(request.getParameter("idChat"));
+            Integer idChat=null;
+            try{
+                             idChat = new Integer(request.getParameter("idChat"));
+
+            } catch (NumberFormatException e){
+                 idChat = null;
+            }
             
-            Chat chat = chatFacade.find(idChat);
-            chat.setNotificaciones(0);
-            
-            //Si es null controlar en el jsp
+            if(idChat==null){   
+                session.setAttribute("chat", null);
+            } else{
+                Chat chat = chatFacade.find(idChat);
+                chat.setNotificaciones(0);
+
+                //Si es null controlar en el jsp
+                
+                session.setAttribute("chat", chat);
+            }
             ArrayList<Chat> chats = new ArrayList<Chat>(chatFacade.findByTeleoperador(user.getId()));
-            
-            session.setAttribute("chat", chat);
             session.setAttribute("chats", chats);
+
+            
             
         } else {
             session.setAttribute("error", true);

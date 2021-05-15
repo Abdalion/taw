@@ -43,8 +43,8 @@ public class ServletFinChat extends HttpServlet {
         Chat chat = chatFacade.find(new Integer(request.getParameter("idChat")));
         Date date = new Date(System.currentTimeMillis());
         chat.setFechaFin(date);
-        
         chatFacade.edit(chat);
+        
         response.sendRedirect("/help");
     }
 

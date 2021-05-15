@@ -55,10 +55,21 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     
     public Usuario findTeleoperadorLibre (){
         Query q;
-        q = em.createQuery("SELECT u FROM Usuario u WHERE u.rol LIKE 'TELEOPERADOR' AND "
-                + "SELECT COUNT(c)FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador = u.id)<2");
+        q = em.createQuery("SELECT u FROM Usuario u WHERE u.rol LIKE 'TELEOPERADOR'"); 
         
-        return (Usuario) q.getResultList().get(0);
+        //AND "                + "SELECT COUNT (c) FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador.id = u.id)<5");
+        ArrayList<Usuario> tels = new ArrayList<Usuario>(q.getResultList());
+        
+        for(Usuario u : tels){
+            Query r;
+            r = em.createQuery("SELECT c FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador.id = :uid"); 
+            r.setParameter("uid", u.getId());
+            if(r.getResultList().size()<5){
+                return u;
+            }
+        }
+        
+        return null;
     }
     
     public List<Usuario> findByRol (String rol){

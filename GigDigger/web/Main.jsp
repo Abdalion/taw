@@ -36,15 +36,18 @@
                 
                 //if(u.getRol().equals("AUTOREGISTRADO")) {
                     %>
-                    <div class="container">
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="">GigDigger</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
+            <a class="navbar-brand" href="">GigDigger</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                           <div class="navbar-nav">
                             <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-item nav-link" href="/help">Ayuda</a>
+
                             <%
                                 if(u != null) {
                                     if(u.getRol().equals("ADMINISTRADOR")) {
@@ -73,17 +76,24 @@
                           </div>
                         </div>
                         
+            </div>
+            
                       </nav>
+            <div class="bg-coral">
+                                
+            
+            <br>
+                        <br>
+                        <h1 class="center"><b>Bienvenido a GigDigger</b></h1>
+                        <h1 class="center"><b>¡Estos son los eventos que tenemos para ti!</b></h1>
                         <br>
                         <br>
-                        <h1 class="center">Bienvenido</h1>
-                        <h1 class="center">Estos son los eventos que tenemos para ti!</h1>
-                        <br>
-                        <br>
-                        <div class="center">
-                        </div>
-                        <br>
-                        <hr>
+            
+            </div>                
+            <div class="container">
+
+                       
+                        
                         <br>
                         <br>
 

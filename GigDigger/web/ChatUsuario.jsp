@@ -37,7 +37,13 @@
                 Chat chat = (Chat) session.getAttribute("chat");
                 Usuario tele = chat.getIdTeleoperador();
                 String nombreTele = tele.getNombreUsuario();
-                List<Mensaje> mensajes = chat.getMensajeList();
+                ArrayList<Mensaje> mensajes;
+                Integer idCh = chat.getId();
+                try{
+                    mensajes = chat.getMensajeList();
+                } catch (NullPointerException e){
+                    mensajes = new ArrayList<Mensaje>();
+                }
     
             %>
             <h1>Estás hablando con <%=nombreTele%></h1>
@@ -79,7 +85,7 @@
                         <br>
                     <input type="submit" value="Enviar">
                 </form>
-                <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
+                <a href="/ServletFinChat?idChat=<%=idCh%>">Finalizar Chat</a>
 <%
 }
                 %>

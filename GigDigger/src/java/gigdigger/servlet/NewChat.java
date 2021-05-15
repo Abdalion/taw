@@ -56,7 +56,7 @@ public class NewChat extends HttpServlet {
     
     private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
         //mensaje: idchat, idemisor, texto
-        String texto = request.getParameter("texto");
+        String texto = request.getParameter("message");
         
         
         Mensaje newMensaje = new Mensaje();
@@ -98,7 +98,7 @@ public class NewChat extends HttpServlet {
         if(chatActivo == null){
                        
             Usuario telFree = this.usuarioFacade.findTeleoperadorLibre();
-                        
+            System.out.println("teleop libre: " + telFree.getNombreUsuario());   
             if(telFree == null){ //si no hay teleoperadores libres: error
                 //TODO: CONTROLAR ERROR EN JSP
                 String msg = "No hay teleoperadores disponibles";
@@ -110,6 +110,9 @@ public class NewChat extends HttpServlet {
                 Chat nuevoChat = new Chat();
                 nuevoChat.setIdUsuario(user);
                 nuevoChat.setIdTeleoperador(telFree);
+                Date date = new Date(System.currentTimeMillis());
+                nuevoChat.setFechaIni(date);
+                chatFacade.create(nuevoChat);
                 
                 /*ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();
                 session.setAttribute("mensajes", mensajes);*/
