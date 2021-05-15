@@ -5,8 +5,13 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.ChatFacade;
+import gigdigger.dao.UsuarioFacade;
+import gigdigger.entity.Chat;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletChatTerminado", urlPatterns = {"/ServletChatTerminado"})
 public class ServletChatTerminado extends HttpServlet {
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private ChatFacade chatFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +42,15 @@ public class ServletChatTerminado extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletChatTerminado</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletChatTerminado at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        String id = request.getParameter("idChat");
+        
+        Chat chat = chatFacade.findById(new Integer(id));
+        
+        request.setAttribute("chat", chat);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("chatTerminado.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

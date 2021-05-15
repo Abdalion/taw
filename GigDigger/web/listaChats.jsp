@@ -24,13 +24,17 @@
         <h1>Historial de chats de <%=usuario.getNombreUsuario()%></h1>
         <br/>
         <%
-            for(Chat c:listaChats){           
+            for(Chat c:listaChats){
+                
+                if(c.getFechaFin()!=null){
             %>
             
-        <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
-        <p>Notificaciones: <%=c.getNotificaciones()%></p>
-                        <hr>
-                        <%    
+            <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
+            <p>Le atendió: <%=c.getIdTeleoperador().getNombreUsuario()%></p>
+            <a href="ServletChatTerminado?idChat=<%=c.getId()%>">Entrar al chat</a>
+            <hr>
+                        <% 
+                            }
                         }
                         %>
     </body>
