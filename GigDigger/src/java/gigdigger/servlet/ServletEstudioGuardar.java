@@ -33,9 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletEstudioGuardar extends HttpServlet {
 
     @EJB
-    private EntradaFacade entradaFacade;
-
-    @EJB
     private UsuarioAutoFacade usuarioAutoFacade;
 
     @EJB
@@ -94,31 +91,21 @@ public class ServletEstudioGuardar extends HttpServlet {
         Usuario creador = usuarioFacade.findByID(new Integer(idCreador));
 
         estudio.setCreadorEstudio(creador);
-
-        /*if(usuariosConEventos.equalsIgnoreCase("on")){
-            //listaUsuariosAuto.addAll(usuarioFacade.findByHasEvents());
-        }*/
+        
         estudioFacade.create(estudio);
 
         if (tipo.equalsIgnoreCase("Usuarios")) {
             List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
 
-            if ("on".equalsIgnoreCase("usuariosConEventos")) {
-                List<Integer> listaUsuariosConEntrada = entradaFacade.findIdUsuariosConEntrada();
-
-                for (Integer i : listaUsuariosConEntrada) {
-                    UsuarioAuto u = usuarioAutoFacade.find(i);
-                    listaUsuariosAuto.add(u);
-                }
-
+            if ("on".equalsIgnoreCase(usuariosConEventos)) {
+                listaUsuariosAuto.addAll(usuarioAutoFacade.findConEventoReservado());
             }
-            if ("on".equalsIgnoreCase("usuariosSinEventos")) {
-                List<Integer> listaUsuariosConEntrada = entradaFacade.findIdUsuariosConEntrada();
+            if ("on".equalsIgnoreCase(usuariosSinEventos)) {
+                List<UsuarioAuto> listaUsuariosConEntrada = usuarioAutoFacade.findConEventoReservado();
                 List<UsuarioAuto> listaUsuarios = usuarioAutoFacade.findAll();
 
-                for (Integer i : listaUsuariosConEntrada) {
-                    UsuarioAuto u = usuarioAutoFacade.find(i);
-                    listaUsuarios.remove(u);
+                for (UsuarioAuto ua : listaUsuariosConEntrada) {
+                    listaUsuarios.remove(ua);
                 }
                 listaUsuariosAuto.addAll(listaUsuarios);
             }

@@ -56,14 +56,4 @@ public class EntradaFacade extends AbstractFacade<Entrada> {
         }
     }
 
-    public List<Integer> findIdUsuariosConEntrada() {
-        Query q;
-        q = em.createQuery("SELECT distinct e.idUsuario FROM Entrada e");
-
-        if (q.getResultList().isEmpty()) {
-            return null;
-        } else {
-            return q.getResultList();
-        }
-    }
 }
