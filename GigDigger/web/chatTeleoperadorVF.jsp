@@ -151,7 +151,7 @@
                                     <%=m.fechaToString()%> | <%=m.horaToString()%>
                             </div>
                         </div>
-                        
+                        <br>
                         <%
                             }
                         }
@@ -170,7 +170,7 @@
                         <hr>
                         
                         <div class="container">
-                            <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
+                            <form name="crearMensaje" action="ServletChatTeleoperador?idUser=<%=chat.getIdTeleoperador().getId()%>&idChat=<%=chat.getId()%>" method="POST">
                                 <div class="form-group">
                                     <label for="message">Mensaje: </label>
                                     <textarea id="message" class="form-control" name="message" rows="3" type="text"></textarea>
