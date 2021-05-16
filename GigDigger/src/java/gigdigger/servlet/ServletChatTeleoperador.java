@@ -57,7 +57,7 @@ public class ServletChatTeleoperador extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        Integer idUser = (Integer)(session.getAttribute("idUser"));
+        Integer idUser = new Integer(request.getParameter("idUser"));
         Usuario user = usuarioFacade.find(idUser);
         session.setAttribute("usuario", user);
 
@@ -99,12 +99,10 @@ public class ServletChatTeleoperador extends HttpServlet {
     
     private void crearMensaje(HttpServletRequest request, HttpServletResponse response, Chat idChat, Usuario idEmisor){
         //mensaje: idchat, idemisor, texto
-        String texto = request.getParameter("texto");
+        String texto = request.getParameter("message");
         
         
         Mensaje newMensaje = new Mensaje();
-        
-        
         newMensaje.setIdChat(idChat);
         newMensaje.setIdEmisor(idEmisor);
         newMensaje.setTexto(texto);
@@ -126,11 +124,9 @@ public class ServletChatTeleoperador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
+        Integer idChat = Integer.parseInt(request.getParameter("idChat"));
+        Integer idUser = Integer.parseInt(request.getParameter("idUser"));
         
-        String message = request.getParameter("message");
-        Integer idChat = (Integer) session.getAttribute("idChat");
-        Integer idUser = (Integer) session.getAttribute("idUser");
         Chat chat = chatFacade.findById(idChat);
         Usuario user = usuarioFacade.findByID(idUser);
  
