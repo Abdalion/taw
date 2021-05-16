@@ -140,13 +140,13 @@
                     Asiento: <%=e.getAsiento()%><br>
                     <%
                 }
-              }
             %>
                 </div>
             </div>
         </div>
             <br>
         <%
+              }
             }
         %>
         </div>
@@ -162,7 +162,7 @@
                  style="width: 18rem; --levitate-hvr:5;">
                 <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
                      class="card-img-top" alt="1">
-                <div class="card-body">
+                <div class="card-body-ini">
                     <h4><b><%= evento.getTitulo()%></b></h4>
                     <p class="card-text"><%= evento.getDescripcion()%></p>
                                     <h3>Tus entradas:</h3>
@@ -173,12 +173,13 @@
                     Asiento: <%=e.getAsiento()%><br>
                     <%
                 }
-              }
+              
             %>
                 </div>
             </div>
         </div>
         <%
+                }
             }
         %>
         </div>
