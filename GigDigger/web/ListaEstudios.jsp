@@ -4,6 +4,7 @@
     Author     : ruben
 --%>
 
+<%@page import="gigdigger.entity.Usuario"%>
 <%@page import="gigdigger.entity.Estudio"%>
 <%@page import="gigdigger.entity.EtiquetaEvento"%>
 <%@page import="gigdigger.entity.Etiqueta"%>
@@ -20,7 +21,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado de Estudios</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="bonsai.min.css" rel="stylesheet" type="text/css">
         <style>
             table, th, td {
                 border: 1px solid black;
@@ -32,11 +34,56 @@
 
     <%
         List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
-
+        Usuario u = (Usuario)session.getAttribute("usuario");
 
     %>
 
     <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
+                <a class="navbar-brand" href="">GigDigger</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="">Home </a>
+                        <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
+
+                        <%                                if (u != null) {
+                                if (u.getRol().equals("ADMINISTRADOR")) {
+                        %>
+                        <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
+                        <%
+                        } else if (u.getRol().equals("ANALISTA")) {
+                        %>
+                        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                        <%
+                            }
+                        %>
+                        <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
+                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                        <%
+                        } else {
+                        %>
+                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+                        <%
+                            }
+
+                        %>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </nav>
+
         <h1>Listado de Estudios</h1>
         <table class="table">
             <thead class="thead-dark">

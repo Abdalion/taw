@@ -91,7 +91,7 @@ public class ServletEstudioGuardar extends HttpServlet {
         Usuario creador = usuarioFacade.findByID(new Integer(idCreador));
 
         estudio.setCreadorEstudio(creador);
-        
+
         estudioFacade.create(estudio);
 
         if (tipo.equalsIgnoreCase("Usuarios")) {
@@ -123,11 +123,13 @@ public class ServletEstudioGuardar extends HttpServlet {
                 listaUsuariosAuto.addAll(usuarioAutoFacade.findHombres());
             }
 
-            for (UsuarioAuto u : listaUsuariosAuto) {
-                EstudioUsuarios estudioU = new EstudioUsuarios();
-                estudioU.setIdEstudio(estudio);
-                estudioU.setIdUsuario(u);
-                estudioUsuariosFacade.create(estudioU);
+            if (listaUsuariosAuto != null) {
+                for (UsuarioAuto u : listaUsuariosAuto) {
+                    EstudioUsuarios estudioU = new EstudioUsuarios();
+                    estudioU.setIdEstudio(estudio);
+                    estudioU.setIdUsuario(u);
+                    estudioUsuariosFacade.create(estudioU);
+                }
             }
 
         } else {
@@ -149,11 +151,13 @@ public class ServletEstudioGuardar extends HttpServlet {
                 listaEventos.addAll(eventoFacade.findProximos());
             }
 
-            for (Evento e : listaEventos) {
-                EstudioEventos estudioE = new EstudioEventos();
-                estudioE.setIdEstudio(estudio);
-                estudioE.setIdEvento(e);
-                estudioEventosFacade.create(estudioE);
+            if (listaEventos != null) {
+                for (Evento e : listaEventos) {
+                    EstudioEventos estudioE = new EstudioEventos();
+                    estudioE.setIdEstudio(estudio);
+                    estudioE.setIdEvento(e);
+                    estudioEventosFacade.create(estudioE);
+                }
             }
 
         }
