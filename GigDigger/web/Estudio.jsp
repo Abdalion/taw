@@ -80,10 +80,30 @@
         <br>
 
         <div class="container">
-            Nombre: <%= estudio.getNombreEstudio()%><br>
-            Descripcion: <%= estudio.getDescripcion()%></br>
-            Fecha de creacion: <%= new SimpleDateFormat("dd/MM/yyyy").format(estudio.getFechaCreacion())%><br>
-            Tipo: <%= tipo%> <br>
+
+            <div class="container">
+        
+            <h5 class="color-coral"><b>Nombre</b></h5>
+            <hr>
+            <h5 class="font-weight-normal"><%= estudio.getNombreEstudio()%></h5>
+            <br>           
+            
+            <h5 class="color-coral"><b>Descripción</b></h5>
+            <hr>
+            <h5 class="font-weight-normal"><%= estudio.getDescripcion()%></h5>
+            <br>         
+            
+            <h5 class="color-coral"><b>Fecha de creación</b></h5>
+            <hr>
+            <h5 class="font-weight-normal"><%= new SimpleDateFormat("dd/MM/yyyy").format(estudio.getFechaCreacion())%></h5>
+            <br>     
+            
+            <h5 class="color-coral"><b>Tipo</b></h5>
+            <hr>
+            <h5 class="font-weight-normal"><%= tipo%></h5>
+            <br> 
+            
+        </div>
 
 
             <br>

@@ -85,7 +85,7 @@ and open the template in the editor.
                         <td><input type="text" name="nombre" maxlength="50" size="20"/></td>
                     </tr>
                     <tr>
-                        <td>Descripciï¿½n: </td>
+                        <td>Descripción: </td>
                         <td><input type="text" name="descripcion" maxlength="150" size="50"/></td>
                     </tr>
                 </table>
@@ -129,7 +129,7 @@ and open the template in the editor.
                     <input type="checkbox" name="eventosTerminados" > Eventos terminados <br>
                     <br>
 
-                    <input type="checkbox" name="eventosProximos" > Eventos prï¿½ximos <br>
+                    <input type="checkbox" name="eventosProximos" > Eventos próximos <br>
                     <br>
 
                     <input type="submit" name="Crear estudio" class="btn btn-primary" >
