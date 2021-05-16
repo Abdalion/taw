@@ -20,26 +20,7 @@ and open the template in the editor.
                     //if u==nul no hay boton de crear chat ni de ir a chats.
 
         %>
-        <div>Esta es la pagina de ayuda</div>
-        <a href="/NewChat">Ir a la pagina para hablar con teleopera</a>
-        <form method="GET" action="/NewChat">
-            <label>
-                idUsuario
-            </label>
-            <input type="text" name="id" placeholder="id" value="2">
-            <button type="submit">Entrar</button>
-        </form>
-        <hr>
-        <p>Vista de teleoperador</p>
-        <form method="GET" action="ServletChatTeleoperador">
-            <label>idUsuario</label>
-            <input type="text" name="idUser" placeholder="id" value="4">
-            
-            <label>idChat</label>
-            <input type="text" name="idChat" placeholder="id" value="2">
-            
-            <button type="submit">Entrar</button>
-        </form>
+       
     
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -51,8 +32,8 @@ and open the template in the editor.
                 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="/help">Ayuda</a>
+                        <a class="nav-item nav-link active" href="">Home </a>
+                        <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
 
                             <%
                                 if(u != null) {
@@ -97,8 +78,25 @@ and open the template in the editor.
             
         </div>                
         <div class="container">
-        Poner consejos de ayuda o yo no se que.
+            <br>
+            <br>
+            <%
+                if(u!=null){
+                    if(u.getRol().equals("TELEOPERADOR")){
+                    %>
+                    
+                    <a class="btn btn-primary btn-lg btn-block" href="ServletChatTeleoperador?idUser=<%=u.getId()%>">Ir a los chats</a>
+                    <br>
+                    <%
+                }
+}
+            %>
+                
+            
+            <h5 class="font-weight-normal">Poner consejos de ayuda o yo no se que.</h5>
         
+        <br>
+        <br>
         
         <%
         
@@ -106,11 +104,11 @@ and open the template in the editor.
                 if(u.getRol().equals("AUTOREGISTRADO")) {
                     
                     %>
-                    <a class="btn" href="NewChat?id=<%=u.getId()%>">Contactar con teleoperador</a>
+                    <a class="btn btn-primary btn-lg btn-block" href="NewChat?id=<%=u.getId()%>">Contactar con teleoperador</a>
                     <%
                 } else if(u.getRol().equals("TELEOPERADOR")){
                     %>
-                    <a class="btn" href="ServletChatTeleoperador?idUser=<%=u.getId()%>">Ir a los chats</a>
+                    <a class="btn btn-primary btn-lg btn-block" href="ServletChatTeleoperador?idUser=<%=u.getId()%>">Ir a los chats</a>
                     <%
                 }
             }
