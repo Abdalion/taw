@@ -31,27 +31,38 @@ public class EntradaFacade extends AbstractFacade<Entrada> {
     public EntradaFacade() {
         super(Entrada.class);
     }
-    
+
     public List<Entrada> findByEventoId(Integer eventoId) {
         Query q;
         q = em.createQuery("SELECT e FROM Entrada e WHERE e.idEvento.id = :eventoId");
         q.setParameter("eventoId", eventoId);
-        
-        if (q.getResultList().isEmpty()){
+
+        if (q.getResultList().isEmpty()) {
             return null;
-        }else{
+        } else {
             return q.getResultList();
         }
     }
-    
-        public List<Entrada> findByUserId(Integer userId) {
+
+    public List<Entrada> findByUserId(Integer userId) {
         Query q;
         q = em.createQuery("SELECT e FROM Entrada e WHERE e.idUsuario.id = :userId");
         q.setParameter("userId", userId);
-        
-        if (q.getResultList().isEmpty()){
+
+        if (q.getResultList().isEmpty()) {
             return null;
-        }else{
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<Integer> findIdUsuariosConEntrada() {
+        Query q;
+        q = em.createQuery("SELECT distinct e.idUsuario FROM Entrada e");
+
+        if (q.getResultList().isEmpty()) {
+            return null;
+        } else {
             return q.getResultList();
         }
     }

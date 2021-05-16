@@ -119,30 +119,4 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         return (int) q.getSingleResult();
     }
-
-    public List<UsuarioAuto> findByHasEvents() {
-        List<Entrada> listaEntradas;
-        List<UsuarioAuto> listaUsuarios = new ArrayList<>();
-        
-        Query q, r;
-        
-        q = em.createQuery("SELECT distinct e FROM Entrada e");
-        listaEntradas = q.getResultList();
-        
-        for(Entrada e: listaEntradas){
-            r = em.createQuery("SELECT a FROM UsuarioAuto a WHERE a.id = :idUsuario");
-            r.setParameter("idUsuario", e.getIdUsuario().getId());
-            listaUsuarios.add((UsuarioAuto) r.getResultList().get(0));
-        }
-        
-        if(listaUsuarios != null && !listaUsuarios.isEmpty()){
-            return listaUsuarios;
-        }else{
-            return null;
-        }
-        
-    }
-    
-    
-    
 }

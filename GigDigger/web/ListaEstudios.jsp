@@ -23,57 +23,59 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
         <style>
             table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
+                border: 1px solid black;
+                border-collapse: collapse;
             }
-        ∫</style>
-        
+            ∫</style>
+
     </head>
-    
+
     <%
-        List<Estudio> listaEstudios = (List)request.getAttribute("listaEstudios");
-        
+        List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
+
 
     %>
-    
+
     <body>
         <h1>Listado de Estudios</h1>
         <table class="table">
             <thead class="thead-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Fecha de creación</th>
-                <th>Tipo</th>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Fecha de creación</th>
+                    <th>Tipo</th>
+                    <th></th>
+                    <th></th>
 
-            </tr>
+                </tr>
             </thead>
-            
-            <tbody>
-            
-            <%
-                for(Estudio estudio: listaEstudios){      
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                
-                String fecha = formatter.format(estudio.getFechaCreacion());                
-            %>
-            
-            <tr>
-                <td><%= estudio.getNombreEstudio() %></td>
-                <td><%= estudio.getDescripcion() %></td>
-                <td><%= fecha %></td>
-                <td><%= estudio.getTipo() %></td>
-                
-                <td><a href="ServletEstudioEliminar?id=<%= estudio.getId() %>">Eliminar</a></td>
 
-            </tr>
-            
-            <%
-                }
-            %>
+            <tbody>
+
+                <%                for (Estudio estudio : listaEstudios) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                        String fecha = formatter.format(estudio.getFechaCreacion());
+                %>
+
+                <tr>
+                    <td><%= estudio.getNombreEstudio()%></td>
+                    <td><%= estudio.getDescripcion()%></td>
+                    <td><%= fecha%></td>
+                    <td><%= estudio.getTipo()%></td>
+
+                    <td><a href="ServletEstudioMostrar?id=<%= estudio.getId()%>">Ver estudio</a></td>
+                    <td><a href="ServletEstudioEliminar?id=<%= estudio.getId()%>">Eliminar</a></td>
+
+                </tr>
+
+                <%
+                    }
+                %>
             </tbody>  
         </table>
-            <br>
-            <a href="ServletEstudioCrear" class="btn btn-info">Nuevo estudio</a>
+        <br>
+        <a href="ServletEstudioCrear" class="btn btn-info">Nuevo estudio</a>
     </body>
 </html>

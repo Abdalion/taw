@@ -6,6 +6,8 @@
 package gigdigger.dao;
 
 import gigdigger.entity.Evento;
+import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,5 +31,61 @@ public class EventoFacade extends AbstractFacade<Evento> {
     public EventoFacade() {
         super(Evento.class);
     }
-    
+
+    public List<Evento> findAforo() {
+        Query q;
+        List<Evento> lista;
+
+        q = em.createQuery("Select e FROM Evento e WHERE e.aforo > 0");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
+    public List<Evento> findNoAforo() {
+        Query q;
+        List<Evento> lista;
+
+        q = em.createQuery("Select e FROM Evento e WHERE e.aforo = 0");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
+    public List<Evento> findProximos() {
+        Query q;
+        List<Evento> lista;
+
+        q = em.createQuery("Select e FROM Evento e WHERE e.fechaEvento >= CURRENT_DATE");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
+    public List<Evento> findTerminados() {
+        Query q;
+        List<Evento> lista;
+
+        q = em.createQuery("Select e FROM Evento e WHERE e.fechaEvento < CURRENT_DATE");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
 }
