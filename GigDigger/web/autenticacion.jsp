@@ -12,6 +12,8 @@
         <title>Bienvenido al sistema</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     
     <body>
@@ -66,6 +68,10 @@
                                 <input type="password" name="password"/>
                                 <br/>
 
+                                <div class="invalid-feedback">
+                                    <h6 class="font-weight-normal "><%=strError%></h6>
+                                </div>
+                                
                                 <input type="submit" value="Enviar"/>
                             </form>
                             

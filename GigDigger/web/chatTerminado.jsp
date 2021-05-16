@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>

@@ -23,6 +23,8 @@
         <title>Listado de Estudios</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
         <style>
             table, th, td {
                 border: 1px solid black;

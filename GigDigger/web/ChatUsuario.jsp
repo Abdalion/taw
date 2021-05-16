@@ -17,6 +17,8 @@
         <title>JSP Page</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <%
             Boolean error = (Boolean) session.getAttribute("error");
@@ -140,7 +142,7 @@
                     <hr>
                     <div class="container">
                         
-                        <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
+                        <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>&idChat=<%=chat.getId()%>" method="POST">
                             <div class="form-group">
                                 <label for="message">Mensaje: </label>
                                 <textarea id="message" class="form-control" name="message" rows="3" type="text"></textarea>
@@ -150,23 +152,11 @@
                         </form>
                         
                     </div>
+                            <br>
+                            <br>
                     
                     
                     
-                    
-                    <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
-                    <label>idChat</label>
-                    <input id="idChat" type="text" name="idChat" placeholder="id" value="2">
-                    
-                    <label>idUsuario</label>
-                    <input id="idUsuario" type="text" name="idUsuario" placeholder="id" value="2">
-                    <label for="message"><p>Nuevo mensaje</p></label>
-                        <br>
-                        <textarea id="message" class="form-control" name="message" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
-                        <br>
-                    <input type="submit" value="Enviar">
-                </form>
-                <a href="/ServletFinChat?idChat=<%=idCh%>">Finalizar Chat</a>
 <%
 }
                 %>
