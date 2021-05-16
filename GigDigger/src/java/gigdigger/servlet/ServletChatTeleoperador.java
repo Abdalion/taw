@@ -81,7 +81,13 @@ public class ServletChatTeleoperador extends HttpServlet {
                 
                 session.setAttribute("chat", chat);
             }
-            ArrayList<Chat> chats = new ArrayList<Chat>(chatFacade.findByTeleoperador(user.getId()));
+            ArrayList<Chat> chats;
+            if(chatFacade.findByTeleoperador(user.getId())!=null){
+               chats = new ArrayList<Chat>(chatFacade.findByTeleoperador(user.getId()));
+            } else {
+                chats = new ArrayList<Chat>();
+            }
+            
             session.setAttribute("chats", chats);
 
             if(chats==null){

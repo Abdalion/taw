@@ -1,3 +1,5 @@
+<%@page import="gigdigger.entity.Usuario"%>
+<%@page import="gigdigger.entity.Estudio"%>
 <%@page import="gigdigger.entity.Evento"%>
 <%@page import="gigdigger.entity.Evento"%>
 <%@page import="gigdigger.entity.Etiqueta"%>
@@ -17,6 +19,12 @@ and open the template in the editor.
         <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
     </head>
+    
+    <%
+        List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
+        Usuario u = (Usuario) request.getAttribute("usuario");
+
+    %>
 
     <body>
         <h1>Datos del Estudio</h1>
