@@ -78,7 +78,7 @@ public class ServletEstudioGuardar extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
         HttpSession session = request.getSession();
-        Integer idCreador = (Integer)session.getAttribute("userId");
+        Integer idCreador = (Integer) session.getAttribute("userId");
 
         Estudio estudio = new Estudio();
         estudio.setNombreEstudio(nombre);
@@ -100,29 +100,47 @@ public class ServletEstudioGuardar extends HttpServlet {
             List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
 
             if ("on".equalsIgnoreCase(usuariosConEventos)) {
-                listaUsuariosAuto.addAll(usuarioAutoFacade.findConEventoReservado());
+                List<UsuarioAuto> lista = usuarioAutoFacade.findConEventoReservado();
+                if (lista != null) {
+                    listaUsuariosAuto.addAll(lista);
+                }
             }
             if ("on".equalsIgnoreCase(usuariosSinEventos)) {
                 List<UsuarioAuto> listaUsuariosConEntrada = usuarioAutoFacade.findConEventoReservado();
                 List<UsuarioAuto> listaUsuarios = usuarioAutoFacade.findAll();
 
-                for (UsuarioAuto ua : listaUsuariosConEntrada) {
-                    listaUsuarios.remove(ua);
+                if (listaUsuariosConEntrada != null) {
+                    for (UsuarioAuto ua : listaUsuariosConEntrada) {
+                        listaUsuarios.remove(ua);
+                    }
+                    listaUsuariosAuto.addAll(listaUsuarios);
                 }
-                listaUsuariosAuto.addAll(listaUsuarios);
+
             }
             if ("on".equalsIgnoreCase(usuariosMenoresDe18)) {
-                listaUsuariosAuto.addAll(usuarioAutoFacade.findMenores());
+                List<UsuarioAuto> lista = usuarioAutoFacade.findMenores();
+                if (lista != null) {
+                    listaUsuariosAuto.addAll(lista);
+                }
             }
             if ("on".equalsIgnoreCase(usuariosMayoresDe18)) {
-                listaUsuariosAuto.addAll(usuarioAutoFacade.findMayores());
+                List<UsuarioAuto> lista = usuarioAutoFacade.findMayores();
+                if (lista != null) {
+                    listaUsuariosAuto.addAll(lista);
+                }
             }
             if ("on".equalsIgnoreCase(usuariosFemeninos)) {
-                listaUsuariosAuto.addAll(usuarioAutoFacade.findMujeres());
+                List<UsuarioAuto> lista = usuarioAutoFacade.findMujeres();
+                if (lista != null) {
+                    listaUsuariosAuto.addAll(lista);
+                }
             }
 
             if ("on".equalsIgnoreCase(usuariosMasculinos)) {
-                listaUsuariosAuto.addAll(usuarioAutoFacade.findHombres());
+                List<UsuarioAuto> lista = usuarioAutoFacade.findHombres();
+                if (lista != null) {
+                    listaUsuariosAuto.addAll(lista);
+                }
             }
 
             if (listaUsuariosAuto != null) {
@@ -137,20 +155,32 @@ public class ServletEstudioGuardar extends HttpServlet {
         } else {
             List<Evento> listaEventos = new ArrayList<>();
 
-            if ("on".equalsIgnoreCase(eventosConAforo)) {
-                listaEventos.addAll(eventoFacade.findAforo());
+            /*if ("on".equalsIgnoreCase(eventosConAforo)) {
+                List<Evento> lista = eventoFacade.findAforo();
+                if (lista != null) {
+                    listaEventos.addAll(lista);
+                }
             }
 
             if ("on".equalsIgnoreCase(eventosSinAforo)) {
-                listaEventos.addAll(eventoFacade.findNoAforo());
-            }
+                List<Evento> lista = eventoFacade.findNoAforo();
+                if (lista != null) {
+                    listaEventos.addAll(lista);
+                }
+            }*/
 
             if ("on".equalsIgnoreCase(eventosTerminados)) {
-                listaEventos.addAll(eventoFacade.findTerminados());
+                List<Evento> lista = eventoFacade.findTerminados();
+                if (lista != null) {
+                    listaEventos.addAll(lista);
+                }
             }
 
             if ("on".equalsIgnoreCase(eventosProximos)) {
-                listaEventos.addAll(eventoFacade.findProximos());
+                List<Evento> lista = eventoFacade.findProximos();
+                if (lista != null) {
+                    listaEventos.addAll(lista);
+                }
             }
 
             if (listaEventos != null) {

@@ -120,11 +120,11 @@ and open the template in the editor.
                 </div>
 
                 <div id="filtrosUsuarios" style="display:block;">
-                    <input type="checkbox" name="eventosConAforo" > Eventos con aforo <br>
+                    <!--input type="checkbox" name="eventosConAforo" > Eventos con aforo <br>
                     <br>
 
                     <input type="checkbox" name="eventosSinAforo" > Eventos sin aforo <br>
-                    <br>
+                    <br-->
 
                     <input type="checkbox" name="eventosTerminados" > Eventos terminados <br>
                     <br>
