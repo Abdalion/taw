@@ -150,6 +150,8 @@
                             <br>
                             <input type="submit" value="Enviar" class="btn btn-primary">
                         </form>
+                    <button onClick="window.location.reload();">Actualizar</button>
+
                         
                     </div>
                             <br>

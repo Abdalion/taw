@@ -46,7 +46,6 @@ public class Mensaje implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 200)
     @Column(name = "TEXTO")
     private String texto;
     @Column(name = "FECHA")

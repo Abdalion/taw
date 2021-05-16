@@ -42,8 +42,6 @@ public class Etiqueta implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "ETIQUETA")
     private String etiqueta;
     @OneToMany(mappedBy = "idEtiqueta")

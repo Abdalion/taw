@@ -43,30 +43,21 @@ public class UsuarioAuto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "APELLIDOS")
     private String apellidos;
-    @Size(max = 50)
     @Column(name = "DOMICILIO")
     private String domicilio;
-    @Size(max = 20)
     @Column(name = "CIUDAD")
     private String ciudad;
     @Column(name = "EDAD")
     private Integer edad;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
     @Column(name = "SEXO")
     private String sexo;
     @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
