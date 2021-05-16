@@ -6,7 +6,10 @@
 package gigdigger.servlet;
 
 import gigdigger.dao.EtiquetaFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Etiqueta;
+import gigdigger.entity.Usuario;
+import static gigdigger.entity.UsuarioAuto_.usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +28,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEventoCrear", urlPatterns = {"/ServletEventoCrear"})
 public class ServletEventoCrear extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
     
     @EJB
     EtiquetaFacade etiquetaFacade;
@@ -39,6 +47,12 @@ public class ServletEventoCrear extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        Integer idCreador = (Integer)session.getAttribute("userId");
+        Usuario creador = usuarioFacade.find(idCreador);
+        request.setAttribute("usuario", creador);
+        
         List<Etiqueta> listaEtiquetas = etiquetaFacade.findAll();
         
         request.setAttribute("listaEtiquetas", listaEtiquetas);

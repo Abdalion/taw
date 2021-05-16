@@ -1,15 +1,18 @@
 --USUARIOS----
 INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD, ROL) 
-	VALUES ('rubengg', 'ruben@gmail.com', 'margarita.8', 'ANALISTA');
+VALUES ('rubengg', 'ruben@gmail.com', 'margarita.8', 'ANALISTA');
+
+INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD, ROL) 
+VALUES ('DonQuijote', 'pedro@gmail.com', 'counter', 'CREADOR');
 
 INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD, ROL) 
 VALUES ('abdalion', 'egon@gmail.com', 'abd.9', 'ADMINISTRADOR');
 
 INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD, ROL) 
-	VALUES ('lusiMontiel', 'lusi@gmail.com', 'megustalahorchata', 'TELEOPERADOR');
+VALUES ('lusiMontiel', 'lusi@gmail.com', 'megustalahorchata', 'TELEOPERADOR');
 
 INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD, ROL) 
-	VALUES ('jesusmd2000', 'jesu@jesu.com', 'jesu', 'AUTOREGISTRADO');
+VALUES ('jesusmd2000', 'jesu@jesu.com', 'jesu', 'AUTOREGISTRADO');
 
 --MAYOR18
 INSERT INTO USUARIO_AUTO (ID, NOMBRE, APELLIDOS, DOMICILIO, CIUDAD, EDAD, SEXO) 

@@ -54,6 +54,7 @@ public class ServletEventoGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+        
         String titulo, descripcion, fecha, fechaLimite, aforo, precio, limiteEntradas, nFilas, nAsientosFila;
         String[] listaEtiquetasSeleccionadas = request.getParameterValues("etiquetasSeleccionadas");
 
