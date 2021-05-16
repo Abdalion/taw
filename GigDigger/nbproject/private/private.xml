@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/EventoCrear.jsp</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/entity/Mensaje.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEvento.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Main.jsp</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Perfil.jsp</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEventoCrear.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/MainServlet.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Evento.jsp</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEstudioGuardar.java</file>
-            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEventoGuardar.java</file>
+            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
+            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/dao/UsuarioFacade.java</file>
+            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/dao/ChatFacade.java</file>
         </group>
     </open-files>
 </project-private>

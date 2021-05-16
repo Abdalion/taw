@@ -6,6 +6,7 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author egonb
+ * @author jesus
  */
 @Entity
 @Table(name = "CHAT")
@@ -119,8 +120,8 @@ public class Chat implements Serializable {
     }
 
     @XmlTransient
-    public List<Mensaje> getMensajeList() {
-        return mensajeList;
+    public ArrayList<Mensaje> getMensajeList() {
+        return new ArrayList<Mensaje>(this.mensajeList);
     }
 
     public void setMensajeList(List<Mensaje> mensajeList) {
