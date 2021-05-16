@@ -28,7 +28,7 @@ and open the template in the editor.
 
     <body>
         <h1>Datos del Estudio</h1>
-        <form method="post" action="ServletEstudioGuardar?id=102" name="crearEstudio" accept-charset="UTF-8">
+        <form method="post" action="ServletEstudioGuardar" name="crearEstudio" accept-charset="UTF-8">
             <table>
                 <tr>
                     <td>Nombre: </td>
