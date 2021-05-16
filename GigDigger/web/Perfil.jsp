@@ -3,6 +3,8 @@
     Created on : 13-may-2021, 18:51:10
     Author     : egonb
 --%>
+<%@page import="java.util.Date"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="gigdigger.entity.Entrada"%>
 <%@page import="java.util.List"%>
@@ -20,7 +22,7 @@
                 <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
         <style>
-            .container {
+            .container2 {
                 display:flex;
                 flex-direction:row
             }
@@ -38,14 +40,14 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
-                <a class="navbar-brand" href="">GigDigger</a>
+                <a class="navbar-brand" href="/">GigDigger</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="">Home </a>
+                        <a class="nav-item nav-link active" href="/">Home </a>
                         <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
 
                             <%
@@ -116,9 +118,11 @@
             HashMap<Evento, List<Entrada>> eventosEntradas = (HashMap<Evento, List<Entrada>>) request.getAttribute("eventosEntradas");
         %>
         <h3 class="color-coral center">Eventos en los que tienes reservas</h3>
-        <div class="container">
+        <div class="container container2">
         <%
             for (Evento evento : eventosEntradas.keySet()) {
+                if(evento.getFechaEvento().after(new Date())) {
+                   
         %>
         <div class="col-4">
             <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
@@ -136,6 +140,7 @@
                     Asiento: <%=e.getAsiento()%><br>
                     <%
                 }
+              }
             %>
                 </div>
             </div>
@@ -147,10 +152,43 @@
         %>
         </div>
         <h3 class="color-coral center">Eventos a los que has asistido</h3>
+                <div class="container container2">
+                <%
+            for (Evento evento : eventosEntradas.keySet()) {
+                if(evento.getFechaEvento().before(new Date())) {
+                   
+        %>
+        <div class="col-4">
+            <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
+                 style="width: 18rem; --levitate-hvr:5;">
+                <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
+                     class="card-img-top" alt="1">
+                <div class="card-body">
+                    <h4><b><%= evento.getTitulo()%></b></h4>
+                    <p class="card-text"><%= evento.getDescripcion()%></p>
+                                    <h3>Tus entradas:</h3>
+            <%
+                for(Entrada e : eventosEntradas.get(evento)) {
+                    %>
+                    Fila: <%=e.getFila()%>
+                    Asiento: <%=e.getAsiento()%><br>
+                    <%
+                }
+              }
+            %>
+                </div>
+            </div>
+
+            <br>
+        </div>
+        <%
+            }
+        %>
+                </div>
         <%
         } else if (u.getRol().equals("ANALISTA")) {
         %>
-        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+        <a class="center nav-item nav-link" href="ServletEstudioListar">Estudios</a>
         <%
             }
         %>
