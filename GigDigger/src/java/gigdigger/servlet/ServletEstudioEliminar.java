@@ -70,6 +70,7 @@ public class ServletEstudioEliminar extends HttpServlet {
             }
         }
 
+        
         estudioFacade.remove(estudio);
 
         response.sendRedirect("ServletEstudioListar");

@@ -5,14 +5,12 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.ChatFacade;
+import gigdigger.dao.UsuarioAutoFacade;
 import gigdigger.dao.UsuarioFacade;
-import gigdigger.entity.Chat;
 import gigdigger.entity.Usuario;
+import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,16 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Usuario
+ * @author egonb
  */
-@WebServlet(name = "ServletListarChats", urlPatterns = {"/ServletListarChats"})
-public class ServletListarChats extends HttpServlet {
-    
-    @EJB
-    private UsuarioFacade usuarioFacade;
-    
-    @EJB
-    private ChatFacade chatFacade;
+@WebServlet(name = "ServletRegistro", urlPatterns = {"/ServletRegistro"})
+public class ServletRegistro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,28 +35,15 @@ public class ServletListarChats extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    @EJB
+    private UsuarioAutoFacade usuarioAutoFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String id = request.getParameter("idUser");
-        
-        Boolean hayChat = false;
-        
-        try{
-            Chat chat = chatFacade.find(new Integer(request.getParameter("idChat")));
-            request.setAttribute("chat", chat);
-            hayChat=true;
-        } catch (Exception e){
-            
-        }
-        request.setAttribute("hayChat", hayChat);
-        Usuario usuario = usuarioFacade.findByID(new Integer(id));
-        ArrayList<Chat> listaChats = new ArrayList<Chat>(chatFacade.findByUser(usuario.getId()));
-        
-        request.setAttribute("listaChats", listaChats);
-        request.setAttribute("usuario", usuario);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("listaChats.jsp");
+
+        RequestDispatcher rd = request.getRequestDispatcher("Registro.jsp");
         rd.forward(request, response);
     }
 
@@ -94,6 +73,39 @@ public class ServletListarChats extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String name = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String domicilio = request.getParameter("domicilio");
+        String ciudad = request.getParameter("ciudad");
+        String edad = request.getParameter("edad");
+        String sexo = request.getParameter("sexo");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        /*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
+        usuarioFacade.create(nuevoUsuario);
+         */
+        Usuario u = new Usuario();
+        UsuarioAuto ua = new UsuarioAuto();
+        u.setNombreUsuario(name);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setRol("AUTOREGISTRADO");
+        this.usuarioFacade.create(u);
+        ua.setId(u.getId());
+        u.setUsuarioAuto(ua);
+        
+        ua.setUsuario(u);
+        ua.setNombre(name);
+        ua.setApellidos(apellidos);
+        ua.setDomicilio(domicilio);
+        ua.setCiudad(ciudad);
+        ua.setSexo(sexo);
+        ua.setEdad(new Integer(edad));
+        
+        usuarioAutoFacade.create(ua);
+
         processRequest(request, response);
     }
 

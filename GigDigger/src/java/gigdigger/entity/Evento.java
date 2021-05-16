@@ -6,7 +6,6 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -28,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
 @Entity
 @Table(name = "EVENTO")
@@ -47,9 +46,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Evento.findByNAsientosFila", query = "SELECT e FROM Evento e WHERE e.nAsientosFila = :nAsientosFila")})
 public class Evento implements Serializable {
 
-    @OneToMany(mappedBy = "idEvento")
-    private List<EstudioEventos> estudioEventosList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,10 +53,10 @@ public class Evento implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "TITULO", nullable = false, length = 20)
+    @Column(name = "TITULO")
     private String titulo;
     @Basic(optional = false)
-    @Column(name = "DESCRIPCION", nullable = false, length = 200)
+    @Column(name = "DESCRIPCION")
     private String descripcion;
     @Column(name = "FECHA_EVENTO")
     @Temporal(TemporalType.DATE)
@@ -79,6 +75,12 @@ public class Evento implements Serializable {
     private Integer nFilas;
     @Column(name = "N_ASIENTOS_FILA")
     private Integer nAsientosFila;
+    @OneToMany(mappedBy = "idEvento")
+    private List<EtiquetaEvento> etiquetaEventoList;
+    @OneToMany(mappedBy = "idEvento")
+    private List<Entrada> entradaList;
+    @OneToMany(mappedBy = "idEvento")
+    private List<EstudioEventos> estudioEventosList;
 
     public Evento() {
     }
@@ -173,6 +175,33 @@ public class Evento implements Serializable {
         this.nAsientosFila = nAsientosFila;
     }
 
+    @XmlTransient
+    public List<EtiquetaEvento> getEtiquetaEventoList() {
+        return etiquetaEventoList;
+    }
+
+    public void setEtiquetaEventoList(List<EtiquetaEvento> etiquetaEventoList) {
+        this.etiquetaEventoList = etiquetaEventoList;
+    }
+
+    @XmlTransient
+    public List<Entrada> getEntradaList() {
+        return entradaList;
+    }
+
+    public void setEntradaList(List<Entrada> entradaList) {
+        this.entradaList = entradaList;
+    }
+
+    @XmlTransient
+    public List<EstudioEventos> getEstudioEventosList() {
+        return estudioEventosList;
+    }
+
+    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
+        this.estudioEventosList = estudioEventosList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -196,15 +225,6 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return "gigdigger.entity.Evento[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public List<EstudioEventos> getEstudioEventosList() {
-        return estudioEventosList;
-    }
-
-    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
-        this.estudioEventosList = estudioEventosList;
     }
     
 }

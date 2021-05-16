@@ -32,13 +32,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEventoGuardar", urlPatterns = {"/ServletEventoGuardar"})
 public class ServletEventoGuardar extends HttpServlet {
-    
+
     @EJB
     private EventoFacade eventoFacade;
-    
+
     @EJB
     private EtiquetaFacade etiquetaFacade;
-    
+
     @EJB
     private EtiquetaEventoFacade etiquetaEventoFacade;
 
@@ -56,7 +56,7 @@ public class ServletEventoGuardar extends HttpServlet {
             throws ServletException, IOException, ParseException {
         String titulo, descripcion, fecha, fechaLimite, aforo, precio, limiteEntradas, nFilas, nAsientosFila;
         String[] listaEtiquetasSeleccionadas = request.getParameterValues("etiquetasSeleccionadas");
-        
+
         titulo = request.getParameter("titulo");
         descripcion = request.getParameter("descripcion");
         fecha = request.getParameter("fecha");
@@ -66,9 +66,9 @@ public class ServletEventoGuardar extends HttpServlet {
         limiteEntradas = request.getParameter("limiteEntradas");
         nFilas = request.getParameter("nFilas");
         nAsientosFila = request.getParameter("nAsientosFila");
-        
+
         Evento nuevoEvento = new Evento();
-        
+
         nuevoEvento.setTitulo(titulo);
         nuevoEvento.setDescripcion(descripcion);
         nuevoEvento.setFechaEvento(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
@@ -80,22 +80,24 @@ public class ServletEventoGuardar extends HttpServlet {
         nuevoEvento.setLimiteUsuario(Integer.parseInt(limiteEntradas));
         nuevoEvento.setNFilas(Integer.parseInt(nFilas));
         nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
-        
+
         this.eventoFacade.create(nuevoEvento);
-                
+
         List<Etiqueta> etiquetas = etiquetaFacade.findAll();
-        for(String e: listaEtiquetasSeleccionadas){
-            for(Etiqueta etiqueta: etiquetas){
-                if(e.equalsIgnoreCase(etiqueta.getEtiqueta())){
-                    EtiquetaEvento nuevaEtiquetaEvento = new EtiquetaEvento();
-                    nuevaEtiquetaEvento.setIdEtiqueta(etiqueta);
-                    nuevaEtiquetaEvento.setIdEvento(nuevoEvento);
-                    etiquetaEventoFacade.create(nuevaEtiquetaEvento);
+        if (listaEtiquetasSeleccionadas != null) {
+            for (String e : listaEtiquetasSeleccionadas) {
+                for (Etiqueta etiqueta : etiquetas) {
+                    if (e.equalsIgnoreCase(etiqueta.getEtiqueta())) {
+                        EtiquetaEvento nuevaEtiquetaEvento = new EtiquetaEvento();
+                        nuevaEtiquetaEvento.setIdEtiqueta(etiqueta);
+                        nuevaEtiquetaEvento.setIdEvento(nuevoEvento);
+                        etiquetaEventoFacade.create(nuevaEtiquetaEvento);
+                    }
                 }
             }
         }
-        
-        response.sendRedirect("ServletEventoListar");  
+
+        response.sendRedirect("Main");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
