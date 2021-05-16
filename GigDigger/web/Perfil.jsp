@@ -63,7 +63,7 @@
                                     }
                                 %>
                         <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
-                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesión</a>
                                 <%
                                 }else {
                                     %>
@@ -86,22 +86,26 @@
             <br>
             <br>
             
+            
+            
         </div>
         <div class="container">
-        
-            <h5 class="color-coral"><b>Nombre de Usuario</b></h5>
+            <br>
+            <br>
+            <br>
+            <h4 class="color-coral"><b>Nombre de Usuario</b></h4>
             <hr>
-            <h5 class="font-weight-normal"><%=u.getNombreUsuario()%></h5>
+            <h4 class="font-weight-normal"><%=u.getNombreUsuario()%></h4>
             <br>           
             
-            <h5 class="color-coral"><b>Email</b></h5>
+            <h4 class="color-coral"><b>Email</b></h4>
             <hr>
-            <h5 class="font-weight-normal"><%=u.getEmail()%></h5>
+            <h4 class="font-weight-normal"><%=u.getEmail()%></h4>
             <br>         
             
-            <h5 class="color-coral"><b>Rol</b></h5>
+            <h4 class="color-coral"><b>Rol</b></h4>
             <hr>
-            <h5 class="font-weight-normal"><%=u.getRol()%></h5>
+            <h4 class="font-weight-normal"><%=u.getRol()%></h4>
             <br>                     
             
         </div>

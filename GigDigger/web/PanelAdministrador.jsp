@@ -12,17 +12,84 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Panel administrador</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        <title>GigDigger</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
     </head>
     <body>
     <%
         List<Evento> listaEventos = (List)request.getAttribute("listaEventos");
         List<Usuario> listaUsuarios = (List)request.getAttribute("listaUsuarios");
-    %>        
+        Usuario u = (Usuario) request.getAttribute("usuario");       
+    %> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
+                <a class="navbar-brand" href="">GigDigger</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="/">Home </a>
+                        <a class="nav-item nav-link" href="/help">Ayuda</a>
+
+                        <%                            if (u != null) {
+                                if (u.getRol().equals("ADMINISTRADOR")) {
+                        %>
+                        <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
+                        <%
+                        } else if (u.getRol().equals("ANALISTA")) {
+                        %>
+                        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                        <%
+                        } else if (u.getRol().equals("CREADOR")) {
+                        %>
+                        <a class="nav-item nav-link" href="ServletEventoCrear">Crear evento</a>
+                        <%
+                            }
+                        %>
+                        <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
+                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesión</a>
+
+                        <%
+                        } else {
+                        %>
+                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesión</a>
+                        <a class="nav-item nav-link" href="ServletRegistro">Registrarse</a>
+                        <%
+                            }
+
+                        %>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </nav>
+        
+        <div class="bg-coral">
+                                
+            
+            <br>
+            <br>
+            <h1 class="center"><b>Panel de administrador</b></h1>
+            <br>
+            <br>
+            
+                 
+        </div>
+        <br>
+        <br>
+        
+        <div class="center">
         <h1>Lista de usuarios</h1>
+        <div class="center">
         <table >
             <tr>
               <th>USUARIO</th>
@@ -50,37 +117,48 @@
                 }
             %>
             </table>
+        </div>
+        </div>
             <br>
+            <div class="center">
+                <div class="center">
             <input type="submit" value="Crear usuario" onClick="toggleCrearUsuarioForm()"/>
+                </div>
             
             <div id="crearUsuarioDiv">
             <h1>Datos del usuario</h1>
+            <div class="center">
                 <form method="post" action="PanelAdministrador" name="crearUsuario" accept-charset="UTF-8">
                     <table>
                         <tr>
                             <td>NOMBRE </td>
-                            <td><input type="text" name="name" maxlength="40"/></td>
+                            <td><input type="text" name="name" maxlength="100"/></td>
                         </tr>
                         <tr>
                             <td>CORREO </td>
-                            <td><input type="text" name="email" maxlength="40"/></td>
+                            <td><input type="text" name="email" maxlength="100"/></td>
                         </tr>
                         <tr>
                             <td>CONTRASEÑA </td>
-                            <td><input type="text" name="password" maxlength="40"/></td>
+                            <td><input type="text" name="password" maxlength="100"/></td>
                         </tr>
                         <tr>
                             <td>ROL (CREADOR/ADMINISTRADOR/TELEOPERADOR)</td>
-                            <td><input type="text" name="role" maxlength="40"/></td>
+                            <td><input type="text" name="role" maxlength="100"/></td>
                         </tr>
                     </table>
                 <br/>
                     <input type="submit" value="Enviar">
                 </form>
+            </div>
 
             </div>
-            
+            </div>
+        
+            <div class="center">
         <h1>Lista de eventos</h1>
+           
+        <div class="center">
         <table>
             <tr>
               <th>TITULO</th>
@@ -101,6 +179,9 @@
             <%
                 }
             %>
+        </table>
+        </div>
+         </div>
     </body>
     
     
@@ -121,6 +202,12 @@
 
         tr:nth-child(even) {
           background-color: #dddddd;
+        }
+        
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
         }
 </style>
 
