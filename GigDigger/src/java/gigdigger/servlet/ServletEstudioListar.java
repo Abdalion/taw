@@ -50,11 +50,12 @@ public class ServletEstudioListar extends HttpServlet {
 
             Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
             request.setAttribute("usuario", usuario);
+            
+            List<Estudio> listaEstudios = estudioFacade.findByCreador(usuario);
+            request.setAttribute("listaEstudios", listaEstudios);
+
         }
-        
-        List<Estudio> listaEstudios = estudioFacade.findByCreador();
-        request.setAttribute("listaEstudios", listaEstudios);
-        
+ 
         RequestDispatcher rd = request.getRequestDispatcher("ListaEstudios.jsp");
         rd.forward(request, response);
     }

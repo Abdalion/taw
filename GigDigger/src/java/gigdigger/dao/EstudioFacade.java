@@ -6,9 +6,12 @@
 package gigdigger.dao;
 
 import gigdigger.entity.Estudio;
+import gigdigger.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,22 @@ public class EstudioFacade extends AbstractFacade<Estudio> {
 
     public EstudioFacade() {
         super(Estudio.class);
+    }
+
+    public List<Estudio> findByCreador(Usuario creador) {
+        Query q;
+        List<Estudio> lista;
+
+        q = em.createQuery("SELECT e FROM Estudio e WHERE e.creadorEstudio.id = :idCreador");
+        q.setParameter("idCreador", creador.getId());
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    
     }
     
 }

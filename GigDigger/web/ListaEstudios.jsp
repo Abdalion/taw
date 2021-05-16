@@ -108,10 +108,12 @@
 
                 <tbody>
 
-                    <%                for (Estudio estudio : listaEstudios) {
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    <%
+                        if (listaEstudios != null) {
+                            for (Estudio estudio : listaEstudios) {
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-                            String fecha = formatter.format(estudio.getFechaCreacion());
+                                String fecha = formatter.format(estudio.getFechaCreacion());
                     %>
 
                     <tr>
@@ -126,7 +128,7 @@
 
                     </tr>
 
-                    <%
+                    <%}
                         }
                     %>
                 </tbody>  
