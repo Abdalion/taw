@@ -140,19 +140,18 @@
                     Asiento: <%=e.getAsiento()%><br>
                     <%
                 }
-              }
             %>
                 </div>
             </div>
-
-            <br>
         </div>
+            <br>
         <%
+              }
             }
         %>
         </div>
         <h3 class="color-coral center">Eventos a los que has asistido</h3>
-                <div class="container container2">
+        <div class="container container2">
                 <%
             for (Evento evento : eventosEntradas.keySet()) {
                 if(evento.getFechaEvento().before(new Date())) {
@@ -163,7 +162,7 @@
                  style="width: 18rem; --levitate-hvr:5;">
                 <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
                      class="card-img-top" alt="1">
-                <div class="card-body">
+                <div class="card-body-ini">
                     <h4><b><%= evento.getTitulo()%></b></h4>
                     <p class="card-text"><%= evento.getDescripcion()%></p>
                                     <h3>Tus entradas:</h3>
@@ -174,17 +173,16 @@
                     Asiento: <%=e.getAsiento()%><br>
                     <%
                 }
-              }
+              
             %>
                 </div>
             </div>
-
-            <br>
         </div>
         <%
+                }
             }
         %>
-                </div>
+        </div>
         <%
         } else if (u.getRol().equals("ANALISTA")) {
         %>

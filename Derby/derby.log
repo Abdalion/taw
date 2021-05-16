@@ -1,7 +1,7 @@
-Sun May 16 16:42:01 CEST 2021 : Servidor de red Apache Derby: Se ha iniciado 10.12.1.1 - (1704137) y está listo para aceptar las conexiones en el puerto 1527
+Sun May 16 18:15:41 CEST 2021 : Servidor de red Apache Derby: Se ha iniciado 10.12.1.1 - (1704137) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Sun May 16 16:42:08 CEST 2021:
- Iniciando instancia a816c00e-0179-75a0-7742-ffff97a6d16f de Derby, versión The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): 
+Sun May 16 18:15:46 CEST 2021:
+ Iniciando instancia a816c00e-0179-75f6-3665-ffff97a6d16f de Derby, versión The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): 
 en el directorio de base de datos /Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/fasa con el cargador de clases sun.misc.Launcher$AppClassLoader@66d3c617
 Cargado desde file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/db-derby-10.12.1.1-bin/lib/derby.jar
 java.vendor=Oracle Corporation

@@ -13,6 +13,7 @@ import gigdigger.entity.EstudioEventos;
 import gigdigger.entity.EstudioUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,20 +62,27 @@ public class ServletEstudioCopia extends HttpServlet {
         estudioFacade.create(copiaEstudio);
 
         if (estudio.getTipo().equalsIgnoreCase("USUARIOS")) {
-            EstudioUsuarios eu = estudioUsuariosFacade.findByEstudio(estudio);
-            EstudioUsuarios euCopia = new EstudioUsuarios();
-            euCopia.setIdEstudio(copiaEstudio);
-            euCopia.setIdUsuario(eu.getIdUsuario());
-            if (euCopia != null) {
-                estudioUsuariosFacade.create(euCopia);
+            List<EstudioUsuarios> listaUsuarios = estudioUsuariosFacade.findUsuariosByEstudio(estudio);
+
+            if (listaUsuarios != null) {
+                for (EstudioUsuarios eu : listaUsuarios) {
+                    EstudioUsuarios euCopia = new EstudioUsuarios();
+                    euCopia.setIdEstudio(copiaEstudio);
+                    euCopia.setIdUsuario(eu.getIdUsuario());
+                    estudioUsuariosFacade.create(euCopia);
+                }
             }
+
         } else {
-            EstudioEventos ee = estudioEventosFacade.findByEstudio(estudio);
-            EstudioEventos eeCopia = new EstudioEventos();
-            eeCopia.setIdEstudio(copiaEstudio);
-            eeCopia.setIdEvento(ee.getIdEvento());
-            if (eeCopia != null) {
-                estudioEventosFacade.create(eeCopia);
+            List<EstudioEventos> listaEventos = estudioEventosFacade.findEventosByEstudio(estudio);
+
+            if (listaEventos != null) {
+                for (EstudioEventos ee : listaEventos) {
+                    EstudioEventos eeCopia = new EstudioEventos();
+                    eeCopia.setIdEstudio(copiaEstudio);
+                    eeCopia.setIdEvento(ee.getIdEvento());
+                    estudioEventosFacade.create(eeCopia);
+                }
             }
         }
 
