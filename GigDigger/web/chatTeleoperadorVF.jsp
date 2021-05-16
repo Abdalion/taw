@@ -14,19 +14,55 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Vista Chat Teleoperador</title>
-         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="css/styles.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="bonsai.min.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        
+        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
+                <a class="navbar-brand" href="/">GigDigger</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="/">Home </a>
+                        <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
+                    </div>
+                </div>
+                        
+            </div>
+            
+        </nav>
+        
+        <div class="bg-coral">
+                                
+            
+            <br>
+            <br>
+            <h1 class="center"><b>Chats del teleoperador</b></h1>
+            <br>
+            <br>
+            
+        </div>
+        
+        
+        
+        
+        
         <%
             Boolean error = (Boolean) session.getAttribute("error");
             Usuario user = (Usuario) session.getAttribute("usuario");
             if(error == true){
                  %>
                 
-                <h1> Ha ocurrido un error</h1>
+                 <h2 class="center"> Ha ocurrido un error</h2>
                 <br/>
-                <p>El usuario que ha hecho el post no es teleoperador</p>
+                <p class="center">El usuario que ha hecho el post no es teleoperador</p>
                 
                 <%   
             } else {
@@ -36,25 +72,30 @@
 
 %>
              
-                <h1>Chats del teleoperador</h1>
-                <hr>
                 <div class="row">
                     
-                    <div class="col-4">  
+                    <div class="col-3"> 
+                        
+                        <h3 class="color-coral center"><b>Conversaciones</b></h3>
+                        <hr>
                         <%
                         for(Chat c : chats){
                         %>
-                        
-                        <h4><%=c.getIdUsuario().getNombreUsuario()%></h4>
+                        <div class="container">
+                            
+                        <h4><b><%=c.getIdUsuario().getNombreUsuario()%></b></h4>
                         <p>Notificaciones: <%=c.getNotificaciones()%></p>
-                        <a href="ServletChatTeleoperador?idUser=<%=user.getId()%>&idChat=<%=c.getId()%>">Entrar al chat</a>
+                        <a class="btn btn-primary" href="ServletChatTeleoperador?idUser=<%=user.getId()%>&idChat=<%=c.getId()%>">Entrar al chat</a>
+                            
+                        </div>
+                        
                         <hr>
                         <%    
                         }
                         %>
                         
                     </div>
-                    <div class="col-8">
+                    <div class="col-9">
                         
                         <%
                         if(chat==null){
@@ -62,14 +103,16 @@
                         
                         %>
                         
-                        Selecciona un Chat primero
+                        <br>
+                        <br>
+                        <h2 class="color-coral center"><b>Selecciona un Chat primero</b></h2>
                         
                         <%
                             }else{
                         %>
-                <h2>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></h2>
+                        <h3 class="color-coral center"><b>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></b></h3>
                         <hr>
-                        
+                        <div class="container-sm">
                         <%
                         ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>(chat.getMensajeList());
                         
@@ -78,14 +121,16 @@
                                 %>
                         <!--Mensaje es del usuario se coloca a la izq-->
                         
-                        <div class="bg-light">
-                            
-                            <p>IDmensaje: <%=m.getId()%><p>
-                            <p>Texto : <%=m.getTexto()%></p>
-                            <p>Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
+                        <div class="card w-75">
+                            <div class="card-body">
+                                <p class="card-text"><%=m.getTexto()%></p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                    <%=m.fechaToString()%> | <%=m.horaToString()%>
+                            </div>
                         </div>
-                            
-                            <br>
+
+                        <br>
                         
                         
                         <%
@@ -97,11 +142,16 @@
                         
                       
                         
-                        <p class="text-end">IDmensaje: <%=m.getId()%><p>
-                        <p class="text-end">Texto : <%=m.getTexto()%></p>
-                        <p class="text-end">Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%></p>
-                        
-                        
+                        <div class="card w-75 a-Derecha">
+                            <div class="card-body">
+                                <p class="card-text"><%=m.getTexto()%></p>
+
+                            </div>
+                                <div class="card-footer text-muted">
+                                    <%=m.fechaToString()%> | <%=m.horaToString()%>
+                            </div>
+                        </div>
+                        <br>
                         <%
                             }
                         }
@@ -109,24 +159,30 @@
                         
                         
                         
+                        </div>
+                        <br>
+                        <br>
+                        <div class="center">
+                            <a class="btn btn-danger center" href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
+
+                        </div>
+
+                        <hr>
                         
-                                                
-                        
+                        <div class="container">
+                            <form name="crearMensaje" action="ServletChatTeleoperador?idUser=<%=chat.getIdTeleoperador().getId()%>&idChat=<%=chat.getId()%>" method="POST">
+                                <div class="form-group">
+                                    <label for="message">Mensaje: </label>
+                                    <textarea id="message" class="form-control" name="message" rows="3" type="text"></textarea>
+                                </div>
+                                <br>
+                                <input id="enviar" type="submit" value="Enviar" class="btn btn-primary">
+                            </form>
+                        </div>
                         
                     </div>
                         
-                         <form name="crearMensaje" action="ServletChatTeleoperador?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
-                    <label>idChat</label>
-                    <input id="idChat" type="text" name="idChat" placeholder="id" value="2">
-                    
-                    <label>idUsuario</label>
-                    <input id="idUsuario" type="text" name="idUsuario" placeholder="id" value="2">
-                    <label for="message"><p>Nuevo mensaje</p></label>
-                        <br>
-                        <textarea id="message" class="form-control" name="message" rows="3" type="text" placeholder="Escribe tu mensaje aqui..."></textarea>
-                        <br>
-                    <input type="submit" value="Enviar">
-                </form>
+                         
                     
                     
                 </div>
@@ -134,12 +190,16 @@
                 
            
             
-            <a href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
                 <%
                     }
 
             }
         %>
          
+        
+        <script type="text/javascript">
+            enviar.addEventListener("click", actualizar);
+            setTimeout(function actualizar(){location.reload(true);},1000)
+        </script>
     </body>
 </html>

@@ -92,11 +92,32 @@ and open the template in the editor.
 }
             %>
                 
-            
-            <h5 class="font-weight-normal">Poner consejos de ayuda o yo no se que.</h5>
+         
         
-        <br>
-        <br>
+            
+            <h3 class="color-coral"><b>¿Qué es Gigdigger?</b></h3>
+            <hr>
+            <h5 class="font-weight-normal">Gigdigger es una plataforma que te permite comprar entradas de forma rápida y segura de tus eventos más próximos.</h5>
+            <br>
+            <br>
+            
+            <h3 class="color-coral"><b>¿Cómo me puedo registrar?</b></h3>
+            <hr>
+            <h5 class="font-weight-normal">Para darte de alta como usuario de Gigdigger solo hace falta un email y algunos datos personales, que estarán protegidos correctamente.</h5>
+            <br>
+            <br>
+            
+            <h3 class="color-coral"><b>¿Cuántas entradas puedo comprar?</b></h3>
+            <hr>
+            <h5 class="font-weight-normal">Cada usuario registrado en Gigdigger puede realizar una compra máxima de 5 entradas por cada evento.</h5>
+            <br>
+            <br>
+            
+            <h3 class="color-coral"><b>Método de Contacto</b></h3>
+            <hr>
+            <h5 class="font-weight-normal">Si un usuario registrado necesita cualquier tipo de ayuda puede contactar con un teleoperador.</h5>
+            <br>
+            <br>
         
         <%
         
@@ -115,5 +136,11 @@ and open the template in the editor.
         
         %>
         </div>
-
+<br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br>
 </body>
