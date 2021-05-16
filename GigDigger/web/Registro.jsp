@@ -1,45 +1,27 @@
 <%-- 
-    Document   : eventos_list
-    Created on : 18-abr-2021, 19:05:50
-    Author     : ruben
+    Document   : Registro
+    Created on : 16-may-2021, 12:33:34
+    Author     : egonb
 --%>
 
 <%@page import="gigdigger.entity.Usuario"%>
-<%@page import="gigdigger.entity.Estudio"%>
-<%@page import="gigdigger.entity.EtiquetaEvento"%>
-<%@page import="gigdigger.entity.Etiqueta"%>
-<%@page import="java.util.GregorianCalendar"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.List"%>
-<%@page import="gigdigger.entity.Evento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Estudios</title>
+        <title>Registro</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-            ∫</style>
-
     </head>
-
-    <%
-        List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
-        Usuario u = (Usuario)session.getAttribute("usuario");
-
-    %>
-
     <body>
 
+        <%
+
+            Usuario u = (Usuario) request.getAttribute("usuario");
+            //if u==nul no hay boton de crear chat ni de ir a chats.
+
+        %>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
@@ -84,47 +66,56 @@
 
         </nav>
 
-        <h1>Listado de Estudios</h1>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Fecha de creación</th>
-                    <th>Tipo</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+        <div class="bg-coral">
 
-                </tr>
-            </thead>
 
-            <tbody>
+            <br>
+            <br>
+            <h1 class="center"><b>Registro</b></h1>
+            <br>
+            <br>
+        </div>
+        <div class = "container">
+            <form method="post" action="PanelAdministrador" name="crearUsuario" accept-charset="UTF-8">
+                <table>
+                    <tr>
+                        <td>NOMBRE </td>
+                        <td><input type="text" name="nombre" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>APELLIDOS</td>
+                        <td><input type="text" name="apellidos" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>DOMICILIO</td>
+                        <td><input type="text" name="domicilio" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>CIUDAD DE RESIDENCIA</td>
+                        <td><input type="text" name="ciudad" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>EDAD</td>
+                        <td><input type="text" name="edad" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>SEXO</td>
+                        <td><input type="text" name="sexo" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>CORREO </td>
+                        <td><input type="text" name="email" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>CONTRASEÑA </td>
+                        <td><input type="text" name="password" maxlength="40"/></td>
+                    </tr>
+                    <tr>
+                </table>
+                <br/>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
 
-                <%                for (Estudio estudio : listaEstudios) {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-                        String fecha = formatter.format(estudio.getFechaCreacion());
-                %>
-
-                <tr>
-                    <td><%= estudio.getNombreEstudio()%></td>
-                    <td><%= estudio.getDescripcion()%></td>
-                    <td><%= fecha%></td>
-                    <td><%= estudio.getTipo()%></td>
-
-                    <td><a href="ServletEstudioMostrar?id=<%= estudio.getId()%>">Ver estudio</a></td>
-                    <td><a href="ServletEstudioCopia?id=<%= estudio.getId()%>">Hacer Copia</a></td>
-                    <td><a href="ServletEstudioEliminar?id=<%= estudio.getId()%>">Eliminar</a></td>
-
-                </tr>
-
-                <%
-                    }
-                %>
-            </tbody>  
-        </table>
-        <br>
-        <a href="ServletEstudioCrear" class="btn btn-info">Nuevo estudio</a>
     </body>
 </html>

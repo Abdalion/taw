@@ -5,21 +5,12 @@
  */
 package gigdigger.servlet;
 
-import gigdigger.dao.EstudioEventosFacade;
-import gigdigger.dao.EstudioFacade;
-import gigdigger.dao.EstudioUsuariosFacade;
-import gigdigger.dao.EtiquetaEventoFacade;
-import gigdigger.dao.EventoFacade;
-import gigdigger.entity.Estudio;
-import gigdigger.entity.EstudioEventos;
-import gigdigger.entity.EstudioUsuarios;
-import gigdigger.entity.EtiquetaEvento;
-import gigdigger.entity.Evento;
+import gigdigger.dao.UsuarioFacade;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,19 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
-@WebServlet(name = "ServletEstudioEliminar", urlPatterns = {"/ServletEstudioEliminar"})
-public class ServletEstudioEliminar extends HttpServlet {
-
-    @EJB
-    private EstudioFacade estudioFacade;
-
-    @EJB
-    private EstudioUsuariosFacade estudioUsuariosFacade;
-
-    @EJB
-    private EstudioEventosFacade estudioEventosFacade;
+@WebServlet(name = "ServletRegistro", urlPatterns = {"/ServletRegistro"})
+public class ServletRegistro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,30 +33,13 @@ public class ServletEstudioEliminar extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+        @EJB
+    private UsuarioFacade usuarioFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String id = request.getParameter("id");
-
-        Estudio estudio = estudioFacade.find(new Integer(id));
-
-        if (estudio.getTipo().equalsIgnoreCase("USUARIOS")) {
-            EstudioUsuarios eu = estudioUsuariosFacade.findByEstudio(estudio);
-            if (eu != null) {
-                estudioUsuariosFacade.remove(eu);
-            }
-        } else {
-            EstudioEventos ee = estudioEventosFacade.findByEstudio(estudio);
-            if (ee != null) {
-                estudioEventosFacade.remove(ee);
-            }
-        }
-
-        
-        estudioFacade.remove(estudio);
-
-        response.sendRedirect("ServletEstudioListar");
-
+            
+            RequestDispatcher rd = request.getRequestDispatcher("Registro.jsp");
+            rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -103,6 +68,22 @@ public class ServletEstudioEliminar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        
+/*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
+        usuarioFacade.create(nuevoUsuario);
+  */
+        Usuario u = new Usuario();
+        u.setNombreUsuario(name);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setRol("AUTOREGISTRADO");
+        this.usuarioFacade.create(u);
+        
         processRequest(request, response);
     }
 
