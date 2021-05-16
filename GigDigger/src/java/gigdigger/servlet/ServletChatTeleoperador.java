@@ -126,9 +126,11 @@ public class ServletChatTeleoperador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         String message = request.getParameter("message");
-        Integer idChat = Integer.parseInt(request.getParameter("idChat"));
-        Integer idUser = Integer.parseInt(request.getParameter("idUser"));
+        Integer idChat = (Integer) session.getAttribute("idChat");
+        Integer idUser = (Integer) session.getAttribute("idUser");
         Chat chat = chatFacade.findById(idChat);
         Usuario user = usuarioFacade.findByID(idUser);
  
