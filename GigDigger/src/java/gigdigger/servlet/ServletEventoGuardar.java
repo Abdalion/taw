@@ -97,7 +97,7 @@ public class ServletEventoGuardar extends HttpServlet {
             }
         }
 
-        response.sendRedirect("Main");
+        response.sendRedirect("/");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
