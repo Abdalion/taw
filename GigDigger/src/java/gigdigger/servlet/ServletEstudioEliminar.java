@@ -59,14 +59,18 @@ public class ServletEstudioEliminar extends HttpServlet {
         Estudio estudio = estudioFacade.find(new Integer(id));
 
         if (estudio.getTipo().equalsIgnoreCase("USUARIOS")) {
-            EstudioUsuarios eu = estudioUsuariosFacade.findByEstudio(estudio);
-            if (eu != null) {
-                estudioUsuariosFacade.remove(eu);
+            List<EstudioUsuarios> listaUsuarios = estudioUsuariosFacade.findUsuariosByEstudio(estudio);
+            if (listaUsuarios != null) {
+                for(EstudioUsuarios eu: listaUsuarios){
+                    estudioUsuariosFacade.remove(eu);
+                }
             }
         } else {
-            EstudioEventos ee = estudioEventosFacade.findByEstudio(estudio);
-            if (ee != null) {
-                estudioEventosFacade.remove(ee);
+            List<EstudioEventos> listaEventos = estudioEventosFacade.findEventosByEstudio(estudio);
+            if (listaEventos != null) {
+                for(EstudioEventos ee: listaEventos){
+                    estudioEventosFacade.remove(ee);
+                }
             }
         }
 

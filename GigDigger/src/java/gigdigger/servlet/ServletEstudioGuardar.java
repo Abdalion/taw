@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -76,7 +77,8 @@ public class ServletEstudioGuardar extends HttpServlet {
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        String idCreador = request.getParameter("id");
+        HttpSession session = request.getSession();
+        Integer idCreador = (Integer)session.getAttribute("userId");
 
         Estudio estudio = new Estudio();
         estudio.setNombreEstudio(nombre);
@@ -88,7 +90,7 @@ public class ServletEstudioGuardar extends HttpServlet {
 
         estudio.setFechaCreacion(fechaCreacion);
 
-        Usuario creador = usuarioFacade.findByID(new Integer(idCreador));
+        Usuario creador = usuarioFacade.findByID(idCreador);
 
         estudio.setCreadorEstudio(creador);
 

@@ -10,10 +10,12 @@ import gigdigger.dao.EstudioFacade;
 import gigdigger.dao.EstudioUsuariosFacade;
 import gigdigger.dao.EventoFacade;
 import gigdigger.dao.UsuarioAutoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Estudio;
 import gigdigger.entity.EstudioEventos;
 import gigdigger.entity.EstudioUsuarios;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +28,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,6 +37,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletEstudioMostrar", urlPatterns = {"/ServletEstudioMostrar"})
 public class ServletEstudioMostrar extends HttpServlet {
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    
     @EJB
     private EventoFacade eventoFacade;
 
@@ -60,6 +66,13 @@ public class ServletEstudioMostrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+        }
+        
         String idEstudio = request.getParameter("id");
 
         Estudio estudio = estudioFacade.find(new Integer(idEstudio));

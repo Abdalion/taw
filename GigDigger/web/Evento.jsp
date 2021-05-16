@@ -85,7 +85,7 @@
         <br>
         <br>
         <h1 class="center"><b><%=evento.getTitulo()%></b></h1>
-        <h2 class="center"><b><%=evento.getDescripcion()%></b></h2>
+        <h4 class="center"><b><%=evento.getDescripcion()%></b></h4>
         <br>
         <br>
 
@@ -99,60 +99,96 @@
 
         %>
         <div class="center">
+            <br>
+            <br>
+            <h5><b class="color-coral">Fecha: </b><%= fecha%></h5>
 
-        Fecha: <%= fecha%><br>
-        Fecha limite: <%= fechaLimite%><br>
-        Precio de la entrada: <%= evento.getPrecio()%>€<br>
-        Etiquetas:<br>
+            <br>
+            
+            <h5><b class="color-coral">Fecha limite: </b><%= fechaLimite%></h5>
+            <br>
+            
+            <h4><b class="color-coral"> Precio de la entrada: </b><b><%= evento.getPrecio()%>€</b></h4>
+            <br>
+            
+            <h5 class="color-coral"><b>Etiquetas: </b></h5>
+            <br>
         <%
             for (EtiquetaEvento etiquetaEvento : listaEtiquetasEventos) {
                 if (etiquetaEvento.getIdEvento().getId() == evento.getId()) {
 
         %>
-        #<%= etiquetaEvento.getIdEtiqueta().getEtiqueta()%><br>
+        <h5 class="font-weight-normal">#<%= etiquetaEvento.getIdEtiqueta().getEtiqueta()%></h5>
+        <br>
         <%
                 }
             }
         %>
 
 
-        Aforo: <%= evento.getAforo()%><br>
-        Limite de compra: <%= evento.getLimiteUsuario()%><br>
+        
+        
+        <h5><b class="color-coral">Aforo: </b><%= evento.getAforo()%></h5>
+        <br>
+        
+        <h5><b class="color-coral">Limite de compra: </b><%= evento.getLimiteUsuario()%></h5>
+        <br>
+        
+        
         </div>
         <%
             if (u != null) {
                 if (u.getRol().equalsIgnoreCase("AUTOREGISTRADO")) {
         %>
-        <h2>Reserva de entradas</h2>
-        Elige los asientos:<br><br>
-        (Escenario)
-        <%
-            //TODO: Los ya reservados los marcamos en gris
-            int asientoId = 0;
-            for (int i = 1; i <= evento.getNFilas(); i++) {
-        %>
-        <p>
-            <%
-                for (int j = 1; j <= evento.getNAsientosFila(); j++) {
-            %>
-            <button id="<%=i%>,<%=j%>" class=" btn-dark" onclick="reservar(<%=i%>,<%=j%>)"><%=j%></button>
-            <%
-                }
-            %>
-        </p>
-        <%
-            }
-        %>
-        <form id="reservasForm" method="post" action="/ServletCrearReserva">
-            <input type="hidden" name="eventoId" value="<%=evento.getId()%>">
-            <input class="center" type="submit" value="Reservar los asientos seleccionados">
-        </form>
-        <%
-
-                }
-            }
-        %>
+        <h2 class="clor-coral"><b></b></h2>
     </div>
+        <div class="bg-coral">
+            <h3 class="center"><b>Reserva de entradas</b></h3>
+        </div> 
+        <div class="container">
+        <br>
+        <h5 class="font-weight-normal">Elige los asientos:</h5>
+        <br><br>
+        <div class="center">
+            
+            <h3><b>(Escenario)</b></h3>
+            <br>
+            <%
+                //TODO: Los ya reservados los marcamos en gris
+                int asientoId = 0;
+                for (int i = 1; i <= evento.getNFilas(); i++) {
+            %>
+            <p>
+                <%
+                    for (int j = 1; j <= evento.getNAsientosFila(); j++) {
+                %>
+                <button id="<%=i%>,<%=j%>" class=" btn-dark" onclick="reservar(<%=i%>,<%=j%>)"><%=j%></button>
+                <%
+                    }
+                %>
+            </p>
+            <%
+                }
+            %>
+            <form id="reservasForm" method="post" action="/ServletCrearReserva">
+                <input type="hidden" name="eventoId" value="<%=evento.getId()%>">
+                <br>
+                <br>
+                <input class="center" type="submit" value="Reservar los asientos seleccionados">
+            </form>
+            <%
+
+                    }
+                }
+            %>
+            
+        </div>
+        
+    </div>
+            <br>
+            <br>
+            <br>
+            
     <script>
         var lista = [];
         var reservasTotales = 0;

@@ -1,3 +1,4 @@
+<%@page import="gigdigger.entity.Usuario"%>
 <%@page import="gigdigger.entity.Evento"%>
 <%@page import="gigdigger.entity.Evento"%>
 <%@page import="gigdigger.entity.Etiqueta"%>
@@ -10,11 +11,14 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Datos del Evento</title>
+        <title>Crear Evento</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">        
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="styles.css" rel="stylesheet" type="text/css">  
         <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        
 
     </head>
     
@@ -25,75 +29,159 @@ and open the template in the editor.
     
     
     <body>
-        <h1>Datos del Evento</h1>
-        <form method="post" action="ServletEventoGuardar" name="crearEvento" accept-charset="UTF-8">
-            <table>
-                <tr>
-                    <td>Título: </td>
-                    <td><input type="text" name="titulo" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Descripción: </td>
-                    <td><input type="text" name="descripcion" maxlength="200" size="50"/></td>
-                </tr>
-                <tr>
-                    <td>Fecha del evento: </td>
-                    <td><input type="date" name="fecha" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Fecha límite para comprar la entrada: </td>
-                    <td><input type="date" name="fechaLimite" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Precio: </td>
-                    <td><input type="text" name="precio" maxlength="20" size="20"/></td>
-                </tr>
-                
-                <tr>
-                    <td>Etiquetas: </td>
-                    <td><select multiple class="form-control" name="etiquetasSeleccionadas">
-                            <%
-                            for(Etiqueta e: listaEtiquetas){
-                            %>
-                            
-                            <option><%=e.getEtiqueta()%></option>
-                            
-                            <%
-                            }
-                            %>
-                            
-                        </select></td>
-                </tr>
-                
-                <tr>
-                    <td>¿Hay aforo? </td>
-                    <td>
-                    <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                    </label></td>
-                </tr>
-                <tr>
-                    <td>Aforo: </td>
-                    <td><input type="number" name="aforo" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Límite de entradas que se puede llevar un usuario: </td>
-                    <td><input type="number" name="limiteEntradas" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Número de filas: </td>
-                    <td><input type="number" name="nFilas" maxlength="20" size="20"/></td>
-                </tr>
-                <tr>
-                    <td>Numero de asientos por fila: </td>
-                    <td><input type="number" name="nAsientosFila" maxlength="20" size="20"/></td>
-                </tr>
-            </table>
-            <br/>
-            <input type="submit" value="Crear evento" class="btn btn-info" >
+        
+        <%
+        
+                    Usuario u = (Usuario)request.getAttribute("usuario");
+                    //if u==nul no hay boton de crear chat ni de ir a chats.
 
-        </form>
+        %>
+       
+    
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
+                <a class="navbar-brand" href="/">GigDigger</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href="/">Home </a>
+                        <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
+
+                            <%
+                                if(u != null) {
+                                    if(u.getRol().equals("ADMINISTRADOR")) {
+                                        %>
+                        <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
+                                        <%
+                                    }else if(u.getRol().equals("ANALISTA")) {
+                                        %>
+                        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                                        <%
+                                    }
+                                %>
+                        <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
+                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                                <%
+                                }else {
+                                    %>
+                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+                                    <%
+                                }
+
+                            %>
+
+
+                            
+                    </div>
+                </div>
+                        
+            </div>
+            
+        </nav>
+        
+        
+       <div class="bg-coral">
+                                
+            
+            <br>
+            <br>
+            <h1 class="center"><b>Crear Evento</b></h1>
+            <br>
+            <br>
+            
+        </div> 
+                            
+        </div>
+        <div class = "container">
+            
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    
+                                       
+                    <form method="post" action="ServletEventoGuardar" name="crearEvento" accept-charset="UTF-8">
+                        <table>
+                            <tr>
+                                <td>Título: </td>
+                                <td><input type="text" name="titulo" maxlength="20" size="20"/></td>                               
+                            </tr>                          
+                            <tr>
+                                <td>Descripción: </td>
+                                <td><input type="text" name="descripcion" maxlength="200" size="50"/></td>                          
+                            </tr>                           
+                            <tr>
+                                <td>Fecha del evento: </td>
+                                <td><input type="date" name="fecha" maxlength="20" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td>Fecha límite de compra: </td>
+                                <td><input type="date" name="fechaLimite" maxlength="20" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td>Precio: </td>
+                                <td><input type="text" name="precio" maxlength="20" size="20"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Etiquetas: </td>
+                                <td><select multiple class="form-control" name="etiquetasSeleccionadas">
+                                        <%                                for (Etiqueta e : listaEtiquetas) {
+                                        %>
+
+                                        <option><%=e.getEtiqueta()%></option>
+
+                                        <%
+                                            }
+                                        %>
+
+                                    </select></td>
+                            </tr>
+
+                            <tr>
+                                <td>¿Hay aforo? </td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td>Aforo: </td>
+                                <td><input type="number" name="aforo" maxlength="20" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td>Límite de entradas: </td>
+                                <td><input type="number" name="limiteEntradas" maxlength="20" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td>Número de filas: </td>
+                                <td><input type="number" name="nFilas" maxlength="20" size="20"/></td>
+                            </tr>
+                            <tr>
+                                <td>Asientos por fila: </td>
+                                <td><input type="number" name="nAsientosFila" maxlength="20" size="20"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+
+                    </form>
+                    </div>
+                <div class="col-3"></div>
+            </div>
+                            
+        <div class = "center"> 
+            <input type="submit" value="Crear evento" class="btn btn-primary" >
+        </div>
+        <br>
+        <br>
+        
     </body>
     
     <style>
