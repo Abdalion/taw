@@ -17,10 +17,6 @@ and open the template in the editor.
 
     </head>
 
-    <%
-        //<%= //creador.getId()
-    %>
-
     <body>
         <h1>Datos del Estudio</h1>
         <form method="post" action="ServletEstudioGuardar?id=102" name="crearEstudio" accept-charset="UTF-8">
@@ -37,12 +33,12 @@ and open the template in the editor.
             <br/>
 
             Filtros: <br>
-            <select name="tipo">
-                <option value="Eventos">Eventos</option>
+            <select name="tipo" onchange="showDiv(this)">
+                <option select="selected" value="Eventos">Eventos</option>
                 <option value="Usuarios">Usuarios</option>
             </select><br><br>
 
-            <div id="filtrosEventos">
+            <div id="filtrosEventos" style="display:none;">
                 <input type="checkbox" name="usuariosConEventos" > Usuarios con eventos contratados <br>
                 <br>
 
@@ -60,9 +56,11 @@ and open the template in the editor.
 
                 <input type="checkbox" name="usuariosMasculinos" > Usuarios masculinos <br>
                 <br>
+
+                <input type="submit" name="Crear estudio" class="btn btn-info" >
             </div>
 
-            <div id="filtrosUsuarios">
+            <div id="filtrosUsuarios" style="display:block;">
                 <input type="checkbox" name="eventosConAforo" > Eventos con aforo <br>
                 <br>
 
@@ -81,7 +79,16 @@ and open the template in the editor.
         </form>
 
         <script>
-            
+            function showDiv(select) {
+                if (select.value == "Usuarios") {
+                    document.getElementById('filtrosUsuarios').style.display = "none";
+                    document.getElementById('filtrosEventos').style.display = "block";
+
+                } else {
+                    document.getElementById('filtrosUsuarios').style.display = "block";
+                    document.getElementById('filtrosEventos').style.display = "none";
+                }
+            }
         </script>
 
     </body>

@@ -91,4 +91,19 @@ public class UsuarioAutoFacade extends AbstractFacade<UsuarioAuto> {
             return null;
         }
     }
+    
+    public List<UsuarioAuto> findConEventoReservado() {
+
+        Query q;
+        List<UsuarioAuto> lista;
+
+        q = em.createQuery("SELECT distinct u FROM Entrada e join UsuarioAuto u on e.idUsuario.id = u.id");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
 }

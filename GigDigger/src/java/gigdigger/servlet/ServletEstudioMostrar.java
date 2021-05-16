@@ -63,24 +63,28 @@ public class ServletEstudioMostrar extends HttpServlet {
         String idEstudio = request.getParameter("id");
 
         Estudio estudio = estudioFacade.find(new Integer(idEstudio));
-        
+
         request.setAttribute("estudio", estudio);
 
         if (estudio.getTipo().equalsIgnoreCase("Usuarios")) {
             List<EstudioUsuarios> listaEstudioUsuarios = estudioUsuariosFacade.findUsuariosByEstudio(estudio);
             List<UsuarioAuto> listaUsuarios = new ArrayList<>();
 
-            for (EstudioUsuarios eu : listaEstudioUsuarios) {
-                listaUsuarios.add(usuarioAutoFacade.find(eu.getIdUsuario().getId()));
+            if (listaEstudioUsuarios != null) {
+                for (EstudioUsuarios eu : listaEstudioUsuarios) {
+                    listaUsuarios.add(usuarioAutoFacade.find(eu.getIdUsuario().getId()));
+                }
             }
 
             request.setAttribute("listaUsuarios", listaUsuarios);
-        }else{
+        } else {
             List<EstudioEventos> listaEstudioEventos = estudioEventosFacade.findEventosByEstudio(estudio);
             List<Evento> listaEventos = new ArrayList<>();
 
-            for (EstudioEventos ee : listaEstudioEventos) {
-                listaEventos.add(eventoFacade.find(ee.getIdEvento().getId()));
+            if (listaEstudioEventos != null) {
+                for (EstudioEventos ee : listaEstudioEventos) {
+                    listaEventos.add(eventoFacade.find(ee.getIdEvento().getId()));
+                }
             }
 
             request.setAttribute("listaEventos", listaEventos);
