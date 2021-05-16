@@ -111,6 +111,7 @@
                             }else{
                         %>
                         <h3 class="color-coral center"><b>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></b></h3>
+                        <a class="btn btn-primary" href="ServletListarChats?idUser=<%=chat.getIdUsuario().getId()%>">Ver historial de chats</a>
                         <hr>
                         <div class="container-sm">
                         <%
