@@ -37,7 +37,7 @@
 
     <%
         List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
-        Usuario u = (Usuario) session.getAttribute("usuario");
+        Usuario u = (Usuario) request.getAttribute("usuario");
 
     %>
 
@@ -46,39 +46,30 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
-                <a class="navbar-brand" href="">GigDigger</a>
+                <a class="navbar-brand" href="/">GigDigger</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-item nav-link active" href="">Home </a>
-                        <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="/help">Ayuda</a>
 
-                        <%                                if (u != null) {
-                                if (u.getRol().equals("ADMINISTRADOR")) {
-                        %>
-                        <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
-                        <%
-                        } else if (u.getRol().equals("ANALISTA")) {
+                        <%  if (u != null) {
+                                if (u.getRol().equals("ANALISTA")) {
                         %>
                         <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
                         <%
                             }
                         %>
+
                         <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
                         <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
-                        <%
-                        } else {
-                        %>
-                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+
                         <%
                             }
-
                         %>
-
-
 
                     </div>
                 </div>
@@ -101,7 +92,7 @@
             <br>
             <br>              
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="thead-coral">
                     <tr>
                         <th>Nombre</th>
                         <th>Descripción</th>

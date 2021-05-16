@@ -6,7 +6,9 @@
 package gigdigger.servlet;
 
 import gigdigger.dao.EstudioFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Estudio;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +27,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEstudioListar", urlPatterns = {"/ServletEstudioListar"})
 public class ServletEstudioListar extends HttpServlet {
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
     
     @EJB
     private EstudioFacade estudioFacade;
@@ -39,6 +45,12 @@ public class ServletEstudioListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("userId") != null) {
+
+            Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+            request.setAttribute("usuario", usuario);
+        }
         
         List<Estudio> listaEstudios = estudioFacade.findAll();
         request.setAttribute("listaEstudios", listaEstudios);
