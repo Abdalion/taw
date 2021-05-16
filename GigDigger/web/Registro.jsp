@@ -78,50 +78,79 @@
             <br>
         </div>
         <div class = "container">
-            <form method="post" action="ServletRegistro" name="crearUsuario" accept-charset="UTF-8">
-                <table>
-                    <tr>
-                        <td>NOMBRE </td>
-                        <td><input type="text" name="nombre" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>APELLIDOS</td>
-                        <td><input type="text" name="apellidos" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>DOMICILIO</td>
-                        <td><input type="text" name="domicilio" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>CIUDAD DE RESIDENCIA</td>
-                        <td><input type="text" name="ciudad" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>EDAD</td>
-                        <td><input type="number" name="edad" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>SEXO</td>
-                        <td>
-                    <select name="sexo">
-                        <option>MASCULINO</option>
-                        <option>FEMENINO</option>
-                    </select>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>CORREO </td>
-                        <td><input type="text" name="email" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                        <td>CONTRASEÑA </td>
-                        <td><input type="text" name="password" maxlength="40"/></td>
-                    </tr>
-                    <tr>
-                </table>
-                <br/>
-                <input type="submit" value="Enviar">
-            </form>
+            
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    
+                    <form>
+                
+                        <div class="form-group">
+                          <label for="email">Correo electrónico</label>
+                          <input id="email" type="email" name="email" maxlength="40" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="password">Contraseña</label>
+                          <input id="password" type="text" name="password" maxlength="40" class="form-control"/>
+                        </div>
+                        <br>
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="nombre">Nombre</label>
+                                <input id="nombre" type="text" name="nombre" maxlength="40" class="form-control"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="apellidos">Apellidos</label>
+                                <input id="apellidos" type="text" name="apellidos" maxlength="40" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                          <label for="domicilio">Domicilio</label>
+                          <input id="domicilio" type="text" name="domicilio" maxlength="40" class="form-control"/>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="ciudad">Ciudad de residencia</label>
+                          <input id="ciudad" type="text" name="ciudad" maxlength="40" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="edad">Edad</label>
+                          <input id="edad" type="number" name="edad" maxlength="40" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sexo">Sexo</label>
+                          <select id="sexo" name="sexo" class="custom-select my-1 mr-sm-2">
+                                <option>MASCULINO</option>
+                                <option>FEMENINO</option>
+                           </select>
+                        </div>
+                        <br>
+
+                        <input type="submit" value="Enviar">
+
+                    </form>
+                    
+                </div>
+                <div class="col-3"></div>
+
+            </div>
+            
+            
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
 
     </body>
