@@ -197,7 +197,7 @@
                                 <br>
                                 <input id="enviar" type="submit" value="Enviar" class="btn btn-primary">
                             </form>
-                            <button onClick="window.location.reload();">Actualizar</button>
+                    <button onClick="window.location.href=window.location.href">Actualizar</button>
                         </div>
                         
                     </div>
