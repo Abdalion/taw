@@ -14,8 +14,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>GigDigger</title>
         <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="styles.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
-                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        
 
     </head>
     <body>
@@ -86,50 +88,46 @@
         </div>
         <br>
         <br>
-        
-        <div class="center">
+        <div class="container">
+            
+
         <h1>Lista de usuarios</h1>
-        <div class="center">
-        <table >
-            <tr>
-              <th>USUARIO</th>
-              <th>ROLES</th>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr >
+              <th scope="col">USUARIO</th>
+              <th scope="col">ROLES</th>
             </tr>
-
-
             <%
                 for(Usuario usuario: listaUsuarios){                  
             %>
-            
+            </thead>
+            <tbody>
             <tr>
                 <td><%= usuario.getNombreUsuario() %></td>
                 <td><%= usuario.getRol() %></td>
                 <td> 
                     <form action="UsuarioEliminar" method="POST">
                     <input name="id" type="hidden" value="<%= usuario.getId() %>">
-                    <input type="submit" class="btn btn-danger" value="Eliminar usuario">
+                    <input type="submit" class="btn btn-danger center" value="Eliminar usuario">
                     </form>
                 </td>
             </tr>
-
+            
             
             <%
                 }
             %>
+            </tbody>
             </table>
-        </div>
-        </div>
             <br>
-            <div class="center">
-                <div class="center">
             <input type="submit" value="Crear usuario" onClick="toggleCrearUsuarioForm()"/>
-                </div>
             
             <div id="crearUsuarioDiv">
             <h1>Datos del usuario</h1>
-            <div class="center">
                 <form method="post" action="PanelAdministrador" name="crearUsuario" accept-charset="UTF-8">
-                    <table>
+                        <table class="table table-striped">
                         <tr>
                             <td>NOMBRE </td>
                             <td><input type="text" name="name" maxlength="100"/></td>
@@ -150,16 +148,14 @@
                 <br/>
                     <input type="submit" value="Enviar">
                 </form>
-            </div>
 
             </div>
             </div>
         
             <div class="center">
         <h1>Lista de eventos</h1>
-           
-        <div class="center">
-        <table>
+
+        <table class="table table-striped">
             <tr>
               <th>TITULO</th>
               <th>DESCRIPCION</th>
@@ -182,6 +178,8 @@
         </table>
         </div>
          </div>
+                </div>
+                                </div>
     </body>
     
     
