@@ -103,7 +103,7 @@
                         <p class="card-text"><%=m.getTexto()%></p>
                     </div>
                     <div class="card-footer text-muted">
-                            Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%>
+                            <%=m.fechaToString()%> | <%=m.horaToString()%>
                     </div>
                 </div>
                             
@@ -119,7 +119,7 @@
 
                         </div>
                             <div class="card-footer text-muted">
-                                Fecha : <%=m.getFecha()%> | Hora : <%=m.getHora()%>
+                                <%=m.fechaToString()%> | <%=m.horaToString()%>
                         </div>
                     </div>
              
@@ -131,7 +131,29 @@
             }
 %>                  
                     </div>
+                    <br>
+                    <br>
+                    <div class="center">
+                        <a class="btn btn-danger center" href="/ServletFinChat?idChat=<%=chat.getId()%>">Finalizar Chat</a>
+
+                    </div>
                     <hr>
+                    <div class="container">
+                        
+                        <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
+                            <div class="form-group">
+                                <label for="message">Mensaje: </label>
+                                <textarea id="message" class="form-control" name="message" rows="3" type="text"></textarea>
+                            </div>
+                            <br>
+                            <input type="submit" value="Enviar" class="btn btn-primary">
+                        </form>
+                        
+                    </div>
+                    
+                    
+                    
+                    
                     <form name="crearMensaje" action="NewChat?idUser=<%=chat.getIdUsuario().getId()%>" method="POST">
                     <label>idChat</label>
                     <input id="idChat" type="text" name="idChat" placeholder="id" value="2">
