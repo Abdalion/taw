@@ -52,7 +52,7 @@ public class ServletEstudioListar extends HttpServlet {
             request.setAttribute("usuario", usuario);
         }
         
-        List<Estudio> listaEstudios = estudioFacade.findAll();
+        List<Estudio> listaEstudios = estudioFacade.findByCreador();
         request.setAttribute("listaEstudios", listaEstudios);
         
         RequestDispatcher rd = request.getRequestDispatcher("ListaEstudios.jsp");

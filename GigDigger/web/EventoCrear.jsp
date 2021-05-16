@@ -131,29 +131,21 @@ and open the template in the editor.
                                 </select></td>
                         </tr>
 
-                        <tr>
-                            <td>¿Hay aforo? </td>
-                            <td>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label></td>
-                        </tr>
-                        <tr>
+                       
                             <td>Aforo: </td>
-                            <td><input type="number" name="aforo" maxlength="20" size="20"/></td>
+                            <td><input type="number" name="aforo" maxlength="20" size="20" required/></td>
                         </tr>
                         <tr>
                             <td>Límite de entradas: </td>
-                            <td><input type="number" name="limiteEntradas" maxlength="20" size="20"/></td>
+                            <td><input type="number" name="limiteEntradas" maxlength="20" size="20" required/></td>
                         </tr>
                         <tr>
                             <td>Número de filas: </td>
-                            <td><input type="number" name="nFilas" maxlength="20" size="20"/></td>
+                            <td><input type="number" name="nFilas" maxlength="20" size="20" required/></td>
                         </tr>
                         <tr>
                             <td>Asientos por fila: </td>
-                            <td><input type="number" name="nAsientosFila" maxlength="20" size="20"/></td>
+                            <td><input type="number" name="nAsientosFila" maxlength="20" size="20" required/></td>
                         </tr>
                     </table>
                     <br/>
