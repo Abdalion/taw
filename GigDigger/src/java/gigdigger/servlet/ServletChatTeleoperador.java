@@ -76,7 +76,7 @@ public class ServletChatTeleoperador extends HttpServlet {
             } else{
                 Chat chat = chatFacade.find(idChat);
                 chat.setNotificaciones(0);
-
+                chatFacade.edit(chat);
                 //Si es null controlar en el jsp
                 
                 session.setAttribute("chat", chat);
