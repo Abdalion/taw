@@ -7,7 +7,9 @@ package gigdigger.servlet;
 
 import gigdigger.dao.*;
 import gigdigger.entity.Estudio;
+import gigdigger.entity.EstudioEventos;
 import gigdigger.entity.EstudioUsuarios;
+import gigdigger.entity.Evento;
 import gigdigger.entity.Usuario;
 import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
@@ -29,17 +31,27 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEstudioGuardar", urlPatterns = {"/ServletEstudioGuardar"})
 public class ServletEstudioGuardar extends HttpServlet {
+
+    @EJB
+    private EntradaFacade entradaFacade;
+
     @EJB
     private UsuarioAutoFacade usuarioAutoFacade;
-    
+
     @EJB
     private EstudioUsuariosFacade estudioUsuariosFacade;
-    
+
+    @EJB
+    private EstudioEventosFacade estudioEventosFacade;
+
     @EJB
     private EstudioFacade estudioFacade;
-    
+
     @EJB
     private UsuarioFacade usuarioFacade;
+
+    @EJB
+    private EventoFacade eventoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,50 +76,102 @@ public class ServletEstudioGuardar extends HttpServlet {
         String eventosTerminados = request.getParameter("eventosTerminados");
         String eventosProximos = request.getParameter("eventosProximos");
         String tipo = request.getParameter("tipo");
-        
-        
+
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
         String idCreador = request.getParameter("id");
-        
+
         Estudio estudio = new Estudio();
         estudio.setNombreEstudio(nombre);
         estudio.setDescripcion(descripcion);
         estudio.setTipo(tipo);
-        
-        SimpleDateFormat formatter= new SimpleDateFormat("dd/MM/yyyy");
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaCreacion = new Date(System.currentTimeMillis());
-        
+
         estudio.setFechaCreacion(fechaCreacion);
-                
+
         Usuario creador = usuarioFacade.findByID(new Integer(idCreador));
-        
+
         estudio.setCreadorEstudio(creador);
-        
-        List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
+
         /*if(usuariosConEventos.equalsIgnoreCase("on")){
             //listaUsuariosAuto.addAll(usuarioFacade.findByHasEvents());
         }*/
-        if("on".equalsIgnoreCase(usuariosMenoresDe18)){
-            listaUsuariosAuto.addAll(usuarioAutoFacade.findMenores());
-        }
-        if("on".equalsIgnoreCase(usuariosMayoresDe18)){
-            listaUsuariosAuto.addAll(usuarioAutoFacade.findMayores());
-        }
-        
-        EstudioUsuarios estudioU = new EstudioUsuarios();
-        estudioU.setIdEstudio(estudio);
-        
-        for(UsuarioAuto u:listaUsuariosAuto){
-            estudioU.setIdUsuario(u);
-        }
-        
         estudioFacade.create(estudio);
 
-        estudioUsuariosFacade.create(estudioU);
-        
-        
-        response.sendRedirect("ServletEstudioListar");  
+        if (tipo.equalsIgnoreCase("Usuarios")) {
+            List<UsuarioAuto> listaUsuariosAuto = new ArrayList<>();
+
+            if ("on".equalsIgnoreCase("usuariosConEventos")) {
+                List<Integer> listaUsuariosConEntrada = entradaFacade.findIdUsuariosConEntrada();
+
+                for (Integer i : listaUsuariosConEntrada) {
+                    UsuarioAuto u = usuarioAutoFacade.find(i);
+                    listaUsuariosAuto.add(u);
+                }
+
+            }
+            if ("on".equalsIgnoreCase("usuariosSinEventos")) {
+                List<Integer> listaUsuariosConEntrada = entradaFacade.findIdUsuariosConEntrada();
+                List<UsuarioAuto> listaUsuarios = usuarioAutoFacade.findAll();
+
+                for (Integer i : listaUsuariosConEntrada) {
+                    UsuarioAuto u = usuarioAutoFacade.find(i);
+                    listaUsuarios.remove(u);
+                }
+                listaUsuariosAuto.addAll(listaUsuarios);
+            }
+            if ("on".equalsIgnoreCase(usuariosMenoresDe18)) {
+                listaUsuariosAuto.addAll(usuarioAutoFacade.findMenores());
+            }
+            if ("on".equalsIgnoreCase(usuariosMayoresDe18)) {
+                listaUsuariosAuto.addAll(usuarioAutoFacade.findMayores());
+            }
+            if ("on".equalsIgnoreCase(usuariosFemeninos)) {
+                listaUsuariosAuto.addAll(usuarioAutoFacade.findMujeres());
+            }
+
+            if ("on".equalsIgnoreCase(usuariosMasculinos)) {
+                listaUsuariosAuto.addAll(usuarioAutoFacade.findHombres());
+            }
+
+            for (UsuarioAuto u : listaUsuariosAuto) {
+                EstudioUsuarios estudioU = new EstudioUsuarios();
+                estudioU.setIdEstudio(estudio);
+                estudioU.setIdUsuario(u);
+                estudioUsuariosFacade.create(estudioU);
+            }
+
+        } else {
+            List<Evento> listaEventos = new ArrayList<>();
+
+            if ("on".equalsIgnoreCase(eventosConAforo)) {
+                listaEventos.addAll(eventoFacade.findAforo());
+            }
+
+            if ("on".equalsIgnoreCase(eventosSinAforo)) {
+                listaEventos.addAll(eventoFacade.findNoAforo());
+            }
+
+            if ("on".equalsIgnoreCase(eventosTerminados)) {
+                listaEventos.addAll(eventoFacade.findTerminados());
+            }
+
+            if ("on".equalsIgnoreCase(eventosProximos)) {
+                listaEventos.addAll(eventoFacade.findProximos());
+            }
+
+            for (Evento e : listaEventos) {
+                EstudioEventos estudioE = new EstudioEventos();
+                estudioE.setIdEstudio(estudio);
+                estudioE.setIdEvento(e);
+                estudioEventosFacade.create(estudioE);
+            }
+
+        }
+
+        response.sendRedirect("ServletEstudioListar");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

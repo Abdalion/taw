@@ -7,6 +7,8 @@ package gigdigger.dao;
 
 import gigdigger.entity.Estudio;
 import gigdigger.entity.EstudioEventos;
+import gigdigger.entity.EstudioUsuarios;
+import gigdigger.entity.Evento;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -42,6 +44,21 @@ public class EstudioEventosFacade extends AbstractFacade<EstudioEventos> {
         lista = q.getResultList();
         if(lista != null && !lista.isEmpty()){
             return lista.get(0);
+        }else{
+            return null;
+        }
+    }
+    
+    public List<EstudioEventos> findEventosByEstudio(Estudio estudio) {
+        Query q;
+        q = em.createQuery("SELECT e FROM EstudioEventos e WHERE e.idEstudio.id = :idEstudio");
+        q.setParameter("idEstudio", estudio.getId());
+        
+        List<EstudioEventos> lista;
+        
+        lista = q.getResultList();
+        if(lista != null && !lista.isEmpty()){
+            return lista;
         }else{
             return null;
         }

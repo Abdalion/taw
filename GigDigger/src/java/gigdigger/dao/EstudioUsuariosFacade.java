@@ -47,4 +47,19 @@ public class EstudioUsuariosFacade extends AbstractFacade<EstudioUsuarios> {
         }
     }
     
+    public List<EstudioUsuarios> findUsuariosByEstudio(Estudio estudio) {
+        Query q;
+        q = em.createQuery("SELECT e FROM EstudioUsuarios e WHERE e.idEstudio.id = :idEstudio");
+        q.setParameter("idEstudio", estudio.getId());
+        
+        List<EstudioUsuarios> lista;
+        
+        lista = q.getResultList();
+        if(lista != null && !lista.isEmpty()){
+            return lista;
+        }else{
+            return null;
+        }
+    }
+    
 }

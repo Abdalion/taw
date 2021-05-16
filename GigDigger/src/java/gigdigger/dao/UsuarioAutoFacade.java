@@ -35,14 +35,14 @@ public class UsuarioAutoFacade extends AbstractFacade<UsuarioAuto> {
     public List<UsuarioAuto> findMenores() {
         Query q;
         q = em.createQuery("SELECT u FROM UsuarioAuto u WHERE u.edad < 18");
-        
+
         List<UsuarioAuto> lista;
-        
+
         lista = q.getResultList();
-        
-        if(lista!=null && !lista.isEmpty()){
+
+        if (lista != null && !lista.isEmpty()) {
             return lista;
-        }else{
+        } else {
             return null;
         }
     }
@@ -50,16 +50,45 @@ public class UsuarioAutoFacade extends AbstractFacade<UsuarioAuto> {
     public List<UsuarioAuto> findMayores() {
         Query q;
         q = em.createQuery("SELECT u FROM UsuarioAuto u WHERE u.edad >= 18");
-        
+
         List<UsuarioAuto> lista;
-        
+
         lista = q.getResultList();
-        
-        if(lista!=null && !lista.isEmpty()){
+
+        if (lista != null && !lista.isEmpty()) {
             return lista;
-        }else{
+        } else {
             return null;
         }
     }
-    
+
+    public List<UsuarioAuto> findMujeres() {
+
+        Query q;
+        List<UsuarioAuto> lista;
+
+        q = em.createQuery("SELECT u FROM UsuarioAuto u WHERE u.sexo = 'FEMENINO'");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
+
+    public List<UsuarioAuto> findHombres() {
+
+        Query q;
+        List<UsuarioAuto> lista;
+
+        q = em.createQuery("SELECT u FROM UsuarioAuto u WHERE u.sexo = 'MASCULINO'");
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    }
 }
