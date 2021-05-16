@@ -48,6 +48,16 @@ public class ServletListarChats extends HttpServlet {
         
         String id = request.getParameter("idUser");
         
+        Boolean hayChat = false;
+        
+        try{
+            Chat chat = chatFacade.find(new Integer(request.getParameter("idChat")));
+            request.setAttribute("chat", chat);
+            hayChat=true;
+        } catch (Exception e){
+            
+        }
+        request.setAttribute("hayChat", hayChat);
         Usuario usuario = usuarioFacade.findByID(new Integer(id));
         ArrayList<Chat> listaChats = new ArrayList<Chat>(chatFacade.findByUser(usuario.getId()));
         

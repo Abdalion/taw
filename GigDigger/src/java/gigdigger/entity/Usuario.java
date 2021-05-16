@@ -6,7 +6,6 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -27,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
 @Entity
 @Table(name = "USUARIO")
@@ -38,26 +37,26 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
     , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
     , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
-    , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")
-    , @NamedQuery(name = "Usuario.findTeleoperadorLibre", query = "SELECT u FROM Usuario u WHERE u.rol LIKE 'TELEOPERADOR' AND (SELECT COUNT(c)FROM Chat c WHERE c.fechaFin IS NULL AND c.idTeleoperador = u.id)<2")
-    })
+    , @NamedQuery(name = "Usuario.findByRol", query = "SELECT u FROM Usuario u WHERE u.rol = :rol")})
 public class Usuario implements Serializable {
-
-    @OneToMany(mappedBy = "creadorEstudio")
-    private Collection<Estudio> estudioCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
     @Column(name = "NOMBRE_USUARIO")
     private String nombreUsuario;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
     @Column(name = "EMAIL")
     private String email;
+    @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
+    @Basic(optional = false)
     @Column(name = "ROL")
     private String rol;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
@@ -68,6 +67,8 @@ public class Usuario implements Serializable {
     private List<Chat> chatList1;
     @OneToMany(mappedBy = "idUsuario")
     private List<Entrada> entradaList;
+    @OneToMany(mappedBy = "creadorEstudio")
+    private List<Estudio> estudioList;
     @OneToMany(mappedBy = "idEmisor")
     private List<Mensaje> mensajeList;
 
@@ -77,14 +78,7 @@ public class Usuario implements Serializable {
     public Usuario(Integer id) {
         this.id = id;
     }
-    
-    public Usuario(String nombreUsuario, String email, String password, String rol) {
-        this.nombreUsuario = nombreUsuario;
-        this.email = email;
-        this.password = password;
-        this.rol = rol;
-    }
-    
+
     public Usuario(Integer id, String nombreUsuario, String email, String password, String rol) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
@@ -169,6 +163,15 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
+    public List<Estudio> getEstudioList() {
+        return estudioList;
+    }
+
+    public void setEstudioList(List<Estudio> estudioList) {
+        this.estudioList = estudioList;
+    }
+
+    @XmlTransient
     public List<Mensaje> getMensajeList() {
         return mensajeList;
     }
@@ -200,15 +203,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "gigdigger.entity.Usuario[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Estudio> getEstudioCollection() {
-        return estudioCollection;
-    }
-
-    public void setEstudioCollection(Collection<Estudio> estudioCollection) {
-        this.estudioCollection = estudioCollection;
     }
     
 }

@@ -27,6 +27,8 @@
         <title><%=evento.getTitulo()%></title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <body  class = "center">
         <h1>Evento: <%=evento.getTitulo()%></h1>

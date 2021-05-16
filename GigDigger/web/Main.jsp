@@ -19,6 +19,8 @@
         <title>GigDigger</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <body>
         <%
@@ -46,19 +48,24 @@
                         <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="/help">Ayuda</a>
 
-                        <%                                if (u != null) {
+                        <%                            if (u != null) {
                                 if (u.getRol().equals("ADMINISTRADOR")) {
                         %>
                         <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
                         <%
                         } else if (u.getRol().equals("ANALISTA")) {
                         %>
-                        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+                        <a class="nav-item nav-link" href="ServletEstudioListar">Crear estudio</a>
+                        <%
+                        } else if (u.getRol().equals("CREADOR")) {
+                        %>
+                        <a class="nav-item nav-link" href="ServletEventoCrear">Crear evento</a>
                         <%
                             }
                         %>
                         <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
                         <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+
                         <%
                         } else {
                         %>
@@ -127,7 +134,7 @@
             //}
             // }else {
             //El usuario no esta logueado, mostrar las cosas que haya que mostrar
-                        //}
+            //}
 %>
 
     </body>
