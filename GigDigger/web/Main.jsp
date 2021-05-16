@@ -55,7 +55,7 @@
                         <%
                         } else if (u.getRol().equals("ANALISTA")) {
                         %>
-                        <a class="nav-item nav-link" href="ServletEstudioListar">Crear estudio</a>
+                        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
                         <%
                         } else if (u.getRol().equals("CREADOR")) {
                         %>

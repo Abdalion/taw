@@ -22,8 +22,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado de Estudios</title>
         <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="styles.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
-                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
         <style>
             table, th, td {
@@ -36,7 +37,7 @@
 
     <%
         List<Estudio> listaEstudios = (List) request.getAttribute("listaEstudios");
-        Usuario u = (Usuario)session.getAttribute("usuario");
+        Usuario u = (Usuario) session.getAttribute("usuario");
 
     %>
 
@@ -86,47 +87,62 @@
 
         </nav>
 
-        <h1>Listado de Estudios</h1>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Fecha de creación</th>
-                    <th>Tipo</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+        <div class="bg-coral">
 
-                </tr>
-            </thead>
 
-            <tbody>
+            <br>
+            <br>
+            <h1 class="center"><b>Listado de Estudios</b></h1>
+            <br>
+            <br>
 
-                <%                for (Estudio estudio : listaEstudios) {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        </div>        
+        <div class="container">
+            <br>
+            <br>              
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Fecha de creación</th>
+                        <th>Tipo</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
 
-                        String fecha = formatter.format(estudio.getFechaCreacion());
-                %>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td><%= estudio.getNombreEstudio()%></td>
-                    <td><%= estudio.getDescripcion()%></td>
-                    <td><%= fecha%></td>
-                    <td><%= estudio.getTipo()%></td>
+                <tbody>
 
-                    <td><a href="ServletEstudioMostrar?id=<%= estudio.getId()%>">Ver estudio</a></td>
-                    <td><a href="ServletEstudioCopia?id=<%= estudio.getId()%>">Hacer Copia</a></td>
-                    <td><a href="ServletEstudioEliminar?id=<%= estudio.getId()%>">Eliminar</a></td>
+                    <%                for (Estudio estudio : listaEstudios) {
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-                </tr>
+                            String fecha = formatter.format(estudio.getFechaCreacion());
+                    %>
 
-                <%
-                    }
-                %>
-            </tbody>  
-        </table>
-        <br>
-        <a href="ServletEstudioCrear" class="btn btn-info">Nuevo estudio</a>
+                    <tr>
+                        <td><%= estudio.getNombreEstudio()%></td>
+                        <td><%= estudio.getDescripcion()%></td>
+                        <td><%= fecha%></td>
+                        <td><%= estudio.getTipo()%></td>
+
+                        <td><a href="ServletEstudioMostrar?id=<%= estudio.getId()%>">Ver estudio</a></td>
+                        <td><a href="ServletEstudioCopia?id=<%= estudio.getId()%>">Hacer Copia</a></td>
+                        <td><a href="ServletEstudioEliminar?id=<%= estudio.getId()%>">Eliminar</a></td>
+
+                    </tr>
+
+                    <%
+                        }
+                    %>
+                </tbody>  
+            </table>
+            <br>
+            <div class="center">
+                <a href="ServletEstudioCrear" class="btn btn-coral">Nuevo estudio</a>
+            </div>
+        </div>
     </body>
 </html>
