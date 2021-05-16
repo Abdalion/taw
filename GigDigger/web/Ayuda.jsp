@@ -141,6 +141,5 @@ and open the template in the editor.
             <br><br>
             <br><br>
             <br><br>
-            <br><br>
             <br>
 </body>

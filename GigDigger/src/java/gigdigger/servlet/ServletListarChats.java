@@ -11,6 +11,7 @@ import gigdigger.entity.Chat;
 import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +49,7 @@ public class ServletListarChats extends HttpServlet {
         String id = request.getParameter("idUser");
         
         Usuario usuario = usuarioFacade.findByID(new Integer(id));
-        List<Chat> listaChats = chatFacade.findByUser(usuario.getId());
+        ArrayList<Chat> listaChats = new ArrayList<Chat>(chatFacade.findByUser(usuario.getId()));
         
         request.setAttribute("listaChats", listaChats);
         request.setAttribute("usuario", usuario);
