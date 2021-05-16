@@ -82,11 +82,11 @@ and open the template in the editor.
                 <table>
                     <tr>
                         <td>Nombre: </td>
-                        <td><input type="text" name="nombre" maxlength="50" size="20"/></td>
+                        <td><input type="text" name="nombre" maxlength="50" size="20" required/></td>
                     </tr>
                     <tr>
                         <td>Descripción: </td>
-                        <td><input type="text" name="descripcion" maxlength="150" size="50"/></td>
+                        <td><input type="text" name="descripcion" maxlength="150" size="50" required/></td>
                     </tr>
                 </table>
                 <br/>
