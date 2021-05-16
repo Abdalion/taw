@@ -57,7 +57,7 @@ public class ServletChatTeleoperador extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        Integer idUser = new Integer(request.getParameter("idUser"));
+        Integer idUser = (Integer)(session.getAttribute("idUser"));
         Usuario user = usuarioFacade.find(idUser);
         session.setAttribute("usuario", user);
 
