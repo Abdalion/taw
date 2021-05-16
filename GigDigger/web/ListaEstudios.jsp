@@ -47,6 +47,7 @@
                     <th>Tipo</th>
                     <th></th>
                     <th></th>
+                    <th></th>
 
                 </tr>
             </thead>
@@ -66,6 +67,7 @@
                     <td><%= estudio.getTipo()%></td>
 
                     <td><a href="ServletEstudioMostrar?id=<%= estudio.getId()%>">Ver estudio</a></td>
+                    <td><a href="ServletEstudioCopia?id=<%= estudio.getId()%>">Hacer Copia</a></td>
                     <td><a href="ServletEstudioEliminar?id=<%= estudio.getId()%>">Eliminar</a></td>
 
                 </tr>
