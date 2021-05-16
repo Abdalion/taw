@@ -85,7 +85,7 @@ public class NewChat extends HttpServlet {
         HttpSession session = request.getSession();
 
         //Conseguimos la id usuario (TODO: cuando pedro haga lo suyo cambiarlo)
-        Integer id = Integer.parseInt(request.getParameter("id"));
+        Integer id = (Integer) session.getAttribute("userId");
         //session.setAttribute("id", id);
         //Buscamos al user por su id
         Usuario user;
