@@ -23,6 +23,7 @@
         <title>Listado de Estudios</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="styles.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
         <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
@@ -91,16 +92,16 @@
         <div class="container">
             <br>
             <br>              
-            <table class="table">
-                <thead class="thead-coral">
+            <table class="table table-striped">
+                <thead class="thead-dark">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Fecha de creación</th>
-                        <th>Tipo</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha de creación</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
 
                     </tr>
                 </thead>
@@ -132,7 +133,7 @@
             </table>
             <br>
             <div class="center">
-                <a href="ServletEstudioCrear" class="btn btn-coral">Nuevo estudio</a>
+                <a href="ServletEstudioCrear" class="btn btn-primary">Nuevo estudio</a>
             </div>
         </div>
     </body>
