@@ -144,15 +144,14 @@
             %>
                 </div>
             </div>
-
-            <br>
         </div>
+            <br>
         <%
             }
         %>
         </div>
         <h3 class="color-coral center">Eventos a los que has asistido</h3>
-                <div class="container container2">
+        <div class="container container2">
                 <%
             for (Evento evento : eventosEntradas.keySet()) {
                 if(evento.getFechaEvento().before(new Date())) {
@@ -178,13 +177,11 @@
             %>
                 </div>
             </div>
-
-            <br>
         </div>
         <%
             }
         %>
-                </div>
+        </div>
         <%
         } else if (u.getRol().equals("ANALISTA")) {
         %>

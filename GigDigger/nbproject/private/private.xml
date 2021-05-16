@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/styles.css</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/ChatUsuario.jsp</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/ListaEstudios.jsp</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/Ayuda.jsp</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/src/java/gigdigger/servlet/ServletEstudioGuardar.java</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/Main.jsp</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/Perfil.jsp</file>
-            <file>file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/GigDigger/web/style.css</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/EventoCrear.jsp</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/entity/Mensaje.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEvento.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Main.jsp</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Perfil.jsp</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEventoCrear.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/MainServlet.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Evento.jsp</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEstudioGuardar.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletEventoGuardar.java</file>
         </group>
     </open-files>
 </project-private>
