@@ -85,7 +85,7 @@
                 <div class="col-3"></div>
                 <div class="col-6">
                     
-                    <form>
+                    <form action="ServletRegistro" method="POST">
                 
                         <div class="form-group">
                           <label for="email">Correo electrónico</label>

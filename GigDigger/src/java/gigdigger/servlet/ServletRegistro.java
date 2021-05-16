@@ -60,6 +60,7 @@ public class ServletRegistro extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**
@@ -105,8 +106,8 @@ public class ServletRegistro extends HttpServlet {
         ua.setEdad(new Integer(edad));
         
         usuarioAutoFacade.create(ua);
-
-        processRequest(request, response);
+        
+        response.sendRedirect("/");
     }
 
     /**
