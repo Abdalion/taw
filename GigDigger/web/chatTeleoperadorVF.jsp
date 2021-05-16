@@ -176,7 +176,7 @@
                                     <textarea id="message" class="form-control" name="message" rows="3" type="text"></textarea>
                                 </div>
                                 <br>
-                                <input type="submit" value="Enviar" class="btn btn-primary">
+                                <input id="enviar" type="submit" value="Enviar" class="btn btn-primary">
                             </form>
                         </div>
                         
@@ -196,5 +196,10 @@
             }
         %>
          
+        
+        <script type="text/javascript">
+            enviar.addEventListener("click", actualizar);
+            setTimeout(function actualizar(){location.reload(true);},1000)
+        </script>
     </body>
 </html>
