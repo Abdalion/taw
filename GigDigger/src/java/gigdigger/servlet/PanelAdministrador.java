@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,6 +44,12 @@ public class PanelAdministrador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        
+        Usuario usuario = usuarioFacade.find(session.getAttribute("userId"));
+        request.setAttribute("usuario", usuario);
+        
         List<Evento> listaEventos = this.eventoFacade.findAll();
         List<Usuario> listaUsuarios = usuarioFacade.findAll();
        

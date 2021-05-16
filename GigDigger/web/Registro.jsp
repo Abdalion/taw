@@ -49,11 +49,11 @@
                             }
                         %>
                         <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
-                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesion</a>
+                        <a class="nav-item nav-link" href="ServletLogout">Cerrar sesión</a>
                         <%
                         } else {
                         %>
-                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
+                        <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesión</a>
                         <%
                             }
 
