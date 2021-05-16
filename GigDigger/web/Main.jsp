@@ -19,6 +19,8 @@
         <title>GigDigger</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <body>
         <%
