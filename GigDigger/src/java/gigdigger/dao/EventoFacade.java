@@ -5,7 +5,9 @@
  */
 package gigdigger.dao;
 
+import gigdigger.entity.Estudio;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -86,6 +88,22 @@ public class EventoFacade extends AbstractFacade<Evento> {
         } else {
             return null;
         }
+    }
+    
+        public List<Evento> findByCreador(Usuario creador) {
+        Query q;
+        List<Evento> lista;
+
+        q = em.createQuery("SELECT e FROM Evento e WHERE e.idCreador.id = :idCreador");
+        q.setParameter("idCreador", creador.getId());
+        lista = q.getResultList();
+
+        if (lista != null && !lista.isEmpty()) {
+            return lista;
+        } else {
+            return null;
+        }
+    
     }
 
 }

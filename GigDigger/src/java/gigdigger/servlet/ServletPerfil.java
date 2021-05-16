@@ -79,7 +79,7 @@ public class ServletPerfil extends HttpServlet {
             }else if(usuario.getRol().equals("ANALISTA")) {
                 
             }else if(usuario.getRol().equals("CREADOR")) {
-                
+                request.setAttribute("eventosCreador", eventoFacade.findByCreador(usuario));
             }
             
             RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");

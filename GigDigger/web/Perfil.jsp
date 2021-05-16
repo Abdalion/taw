@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
-                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+        <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
         <style>
             .container2 {
@@ -30,13 +30,13 @@
     </head>
     <body>
         <%
-        
-                    Usuario u = (Usuario)request.getAttribute("usuario");
-                    //if u==nul no hay boton de crear chat ni de ir a chats.
+
+            Usuario u = (Usuario) request.getAttribute("usuario");
+            //if u==nul no hay boton de crear chat ni de ir a chats.
 
         %>
-       
-    
+
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <img src="https://i.imgur.com/asll5wB.png" alt="logo gigDigger" height="50px">
@@ -44,50 +44,49 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link active" href="/">Home </a>
                         <a class="nav-item nav-link" href="/help">Ayuda <span class="sr-only">(current)</span></a>
 
-                            <%
-                                if(u != null) {
-                                    if(u.getRol().equals("ADMINISTRADOR")) {
-                                        %>
+                        <%                                if (u != null) {
+                                if (u.getRol().equals("ADMINISTRADOR")) {
+                        %>
                         <a class="nav-item nav-link" href="PanelAdministrador">Panel admin</a>
-                                        <%
-                                    }else if(u.getRol().equals("ANALISTA")) {
-                                        %>
+                        <%
+                        } else if (u.getRol().equals("ANALISTA")) {
+                        %>
                         <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
-                                        <%
-                                    }
-                                %>
+                        <%
+                            }
+                        %>
                         <a class="nav-item nav-link" href="ServletPerfil">Mi perfil</a>
                         <a class="nav-item nav-link" href="ServletLogout">Cerrar sesión</a>
-                                <%
-                                }else {
-                                    %>
+                        <%
+                        } else {
+                        %>
                         <a class="nav-item nav-link" href="ServletAutenticacion">Iniciar sesion</a>
-                                    <%
-                                }
+                        <%
+                            }
 
-                            %>                           
+                        %>                           
                     </div>
                 </div>                       
             </div>            
         </nav>
-        
+
         <div class="bg-coral">
-                                
-            
+
+
             <br>
             <br>
             <h1 class="center"><b>Mi Perfil</b></h1>
             <br>
             <br>
-            
-            
-            
+
+
+
         </div>
         <div class="container">
             <br>
@@ -97,17 +96,17 @@
             <hr>
             <h4 class="font-weight-normal"><%=u.getNombreUsuario()%></h4>
             <br>           
-            
+
             <h4 class="color-coral"><b>Email</b></h4>
             <hr>
             <h4 class="font-weight-normal"><%=u.getEmail()%></h4>
             <br>         
-            
+
             <h4 class="color-coral"><b>Rol</b></h4>
             <hr>
             <h4 class="font-weight-normal"><%=u.getRol()%></h4>
             <br>                     
-            
+
         </div>
         <%
             if (u == null) {
@@ -116,86 +115,109 @@
         <%
         } else {
         %>
-        
+
         <%
             if (u.getRol().equals("AUTOREGISTRADO")) {
-            HashMap<Evento, List<Entrada>> eventosEntradas = (HashMap<Evento, List<Entrada>>) request.getAttribute("eventosEntradas");
+                HashMap<Evento, List<Entrada>> eventosEntradas = (HashMap<Evento, List<Entrada>>) request.getAttribute("eventosEntradas");
         %>
         <h3 class="color-coral center">Eventos en los que tienes reservas</h3>
         <div class="container container2">
-        <%
-            for (Evento evento : eventosEntradas.keySet()) {
-                if(evento.getFechaEvento().after(new Date())) {
-                   
-        %>
-        <div class="col-4">
-            <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
-                 style="width: 18rem; --levitate-hvr:5;">
-                <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
-                     class="card-img-top" alt="1">
-                <div class="card-body-ini">
-                    <h4><b><%= evento.getTitulo()%></b></h4>
-                    <p class="card-text"><%= evento.getDescripcion()%></p>
-                                    <h3>Tus entradas:</h3>
             <%
-                for(Entrada e : eventosEntradas.get(evento)) {
-                    %>
-                    Fila: <%=e.getFila()%>
-                    Asiento: <%=e.getAsiento()%><br>
-                    <%
-                }
+                for (Evento evento : eventosEntradas.keySet()) {
+                    if (evento.getFechaEvento().after(new Date())) {
+
             %>
+            <div class="col-4">
+                <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
+                     style="width: 18rem; --levitate-hvr:5;">
+                    <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
+                         class="card-img-top" alt="1">
+                    <div class="card-body-ini">
+                        <h4><b><%= evento.getTitulo()%></b></h4>
+                        <p class="card-text"><%= evento.getDescripcion()%></p>
+                        <h3>Tus entradas:</h3>
+                        <%
+                            for (Entrada e : eventosEntradas.get(evento)) {
+                        %>
+                        Fila: <%=e.getFila()%>
+                        Asiento: <%=e.getAsiento()%><br>
+                        <%
+                            }
+                        %>
+                    </div>
                 </div>
             </div>
-        </div>
             <br>
-        <%
-              }
-            }
-        %>
+            <%
+                    }
+                }
+            %>
         </div>
         <h3 class="color-coral center">Eventos a los que has asistido</h3>
         <div class="container container2">
-                <%
-            for (Evento evento : eventosEntradas.keySet()) {
-                if(evento.getFechaEvento().before(new Date())) {
-                   
-        %>
-        <div class="col-4">
-            <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
-                 style="width: 18rem; --levitate-hvr:5;">
-                <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
-                     class="card-img-top" alt="1">
-                <div class="card-body-ini">
-                    <h4><b><%= evento.getTitulo()%></b></h4>
-                    <p class="card-text"><%= evento.getDescripcion()%></p>
-                                    <h3>Tus entradas:</h3>
             <%
-                for(Entrada e : eventosEntradas.get(evento)) {
-                    %>
-                    Fila: <%=e.getFila()%>
-                    Asiento: <%=e.getAsiento()%><br>
-                    <%
-                }
-              
+                for (Evento evento : eventosEntradas.keySet()) {
+                    if (evento.getFechaEvento().before(new Date())) {
+
             %>
+            <div class="col-4">
+                <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
+                     style="width: 18rem; --levitate-hvr:5;">
+                    <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
+                         class="card-img-top" alt="1">
+                    <div class="card-body-ini">
+                        <h4><b><%= evento.getTitulo()%></b></h4>
+                        <p class="card-text"><%= evento.getDescripcion()%></p>
+                        <h3>Tus entradas:</h3>
+                        <%
+                            for (Entrada e : eventosEntradas.get(evento)) {
+                        %>
+                        Fila: <%=e.getFila()%>
+                        Asiento: <%=e.getAsiento()%><br>
+                        <%
+                            }
+
+                        %>
+                    </div>
                 </div>
             </div>
-        </div>
-        <%
+            <%                }
                 }
-            }
-        %>
+            %>
         </div>
         <%
         } else if (u.getRol().equals("ANALISTA")) {
         %>
         <a class="center nav-item nav-link" href="ServletEstudioListar">Estudios</a>
         <%
-            }
+        } else if (u.getRol().equals("CREADOR")) {
         %>
+        <div class="container container2">
+            <%
+                for (Evento evento : (List<Evento>) request.getAttribute("eventosCreador")) {
+                    if (evento.getFechaEvento().before(new Date())) {
+
+            %>
+            <div class="col-4">
+                <div class="card center border-transparent w-100" onclick="location.href = '/ServletEvento?eventoId=<%=evento.getId()%>';"
+                     style="width: 18rem; --levitate-hvr:5;">
+                    <img src="https://www.dodmagazine.es/wp-content/uploads/2020/05/festival-cruilla-barcelona.jpg"
+                         class="card-img-top" alt="1">
+                    <div class="card-body-ini">
+                        <h4><b><%= evento.getTitulo()%></b></h4>
+                        <p class="card-text"><%= evento.getDescripcion()%></p>
+                    </div>
+                </div>
+            </div>
+            <%
+                    }
+                }
+            %>
+        </div>
         <%
+                }
             }
         %>
+
     </body>
 </html>

@@ -8,9 +8,11 @@ package gigdigger.servlet;
 import gigdigger.dao.EtiquetaEventoFacade;
 import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.EventoFacade;
+import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Etiqueta;
 import gigdigger.entity.EtiquetaEvento;
 import gigdigger.entity.Evento;
+import gigdigger.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -25,6 +27,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,6 +35,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletEventoGuardar", urlPatterns = {"/ServletEventoGuardar"})
 public class ServletEventoGuardar extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @EJB
     private EventoFacade eventoFacade;
@@ -81,7 +87,10 @@ public class ServletEventoGuardar extends HttpServlet {
         nuevoEvento.setLimiteUsuario(Integer.parseInt(limiteEntradas));
         nuevoEvento.setNFilas(Integer.parseInt(nFilas));
         nuevoEvento.setNAsientosFila(Integer.parseInt(nAsientosFila));
-
+            
+        HttpSession session = request.getSession();
+        Usuario u = usuarioFacade.find(session.getAttribute("userId"));
+        nuevoEvento.setIdCreador(u);
         this.eventoFacade.create(nuevoEvento);
 
         List<Etiqueta> etiquetas = etiquetaFacade.findAll();

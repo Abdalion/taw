@@ -7,27 +7,26 @@ package gigdigger.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author jesus
+ * @author egonb
  */
 @Entity
 @Table(name = "EVENTO")
@@ -75,12 +74,9 @@ public class Evento implements Serializable {
     private Integer nFilas;
     @Column(name = "N_ASIENTOS_FILA")
     private Integer nAsientosFila;
-    @OneToMany(mappedBy = "idEvento")
-    private List<EtiquetaEvento> etiquetaEventoList;
-    @OneToMany(mappedBy = "idEvento")
-    private List<Entrada> entradaList;
-    @OneToMany(mappedBy = "idEvento")
-    private List<EstudioEventos> estudioEventosList;
+    @JoinColumn(name = "ID_CREADOR", referencedColumnName = "ID")
+    @ManyToOne
+    private Usuario idCreador;
 
     public Evento() {
     }
@@ -175,31 +171,12 @@ public class Evento implements Serializable {
         this.nAsientosFila = nAsientosFila;
     }
 
-    @XmlTransient
-    public List<EtiquetaEvento> getEtiquetaEventoList() {
-        return etiquetaEventoList;
+    public Usuario getIdCreador() {
+        return idCreador;
     }
 
-    public void setEtiquetaEventoList(List<EtiquetaEvento> etiquetaEventoList) {
-        this.etiquetaEventoList = etiquetaEventoList;
-    }
-
-    @XmlTransient
-    public List<Entrada> getEntradaList() {
-        return entradaList;
-    }
-
-    public void setEntradaList(List<Entrada> entradaList) {
-        this.entradaList = entradaList;
-    }
-
-    @XmlTransient
-    public List<EstudioEventos> getEstudioEventosList() {
-        return estudioEventosList;
-    }
-
-    public void setEstudioEventosList(List<EstudioEventos> estudioEventosList) {
-        this.estudioEventosList = estudioEventosList;
+    public void setIdCreador(Usuario idCreador) {
+        this.idCreador = idCreador;
     }
 
     @Override
