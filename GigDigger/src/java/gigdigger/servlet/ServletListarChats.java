@@ -49,7 +49,7 @@ public class ServletListarChats extends HttpServlet {
         String id = request.getParameter("idUser");
         
         Usuario usuario = usuarioFacade.findByID(new Integer(id));
-        ArrayList<Chat> listaChats = (ArrayList<Chat>) chatFacade.findByUser(usuario.getId());
+        ArrayList<Chat> listaChats = new ArrayList<Chat>(chatFacade.findByUser(usuario.getId()));
         
         request.setAttribute("listaChats", listaChats);
         request.setAttribute("usuario", usuario);

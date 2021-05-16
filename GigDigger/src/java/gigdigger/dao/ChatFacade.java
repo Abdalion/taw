@@ -71,13 +71,13 @@ public class ChatFacade extends AbstractFacade<Chat> {
         Query q;
         q = em.createQuery("SELECT c FROM Chat c WHERE c.idUsuario.id = :idUser AND c.fechaFin IS NOT NULL");
         q.setParameter("idUser", idUser);
-        ArrayList<Chat> results;
+        List<Chat> results;
         
         if (q.getResultList().isEmpty()){
             return null;
         }else{
             
-            results = (ArrayList<Chat>) q.getResultList();
+            results =  q.getResultList();
             return results;
         }
         
