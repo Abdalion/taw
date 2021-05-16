@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/styles.css</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/autenticacion.jsp</file>
-            <file>file:/C:/Users/jesus/Desktop/Universidad/3º/Técnicas%20de%20aplicaciones%20Web/trbj/taw/GigDigger/web/style.css</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletChatTeleoperador.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/ServletRegistro.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/src/java/gigdigger/servlet/NewChat.java</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/web/Registro.jsp</file>
+            <file>file:/C:/Users/egonb/Documents/GitHub/taw/GigDigger/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

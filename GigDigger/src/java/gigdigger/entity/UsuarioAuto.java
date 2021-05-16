@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
 @Entity
 @Table(name = "USUARIO_AUTO")
@@ -40,32 +40,31 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "UsuarioAuto.findBySexo", query = "SELECT u FROM UsuarioAuto u WHERE u.sexo = :sexo")})
 public class UsuarioAuto implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "NOMBRE", length = 50, nullable = false)
-    private String nombre;
-    @Basic(optional = false)
-    @Column(name = "APELLIDOS", length = 50, nullable = false)
-    private String apellidos;
-    @Column(name = "DOMICILIO", length = 50)
-    private String domicilio;
-    @Column(name = "CIUDAD", length = 20)
-    private String ciudad;
-    @Basic(optional = false)
-    @Column(name = "SEXO", length = 15, nullable = false)
-    private String sexo;
-    @OneToMany(mappedBy = "idUsuario")
-    private List<EstudioUsuarios> estudioUsuariosList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "NOMBRE")
+    private String nombre;
+    @Basic(optional = false)
+    @Column(name = "APELLIDOS")
+    private String apellidos;
+    @Column(name = "DOMICILIO")
+    private String domicilio;
+    @Column(name = "CIUDAD")
+    private String ciudad;
     @Column(name = "EDAD")
     private Integer edad;
+    @Basic(optional = false)
+    @Column(name = "SEXO")
+    private String sexo;
     @JoinColumn(name = "ID", referencedColumnName = "ID", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario;
+    @OneToMany(mappedBy = "idUsuario")
+    private List<EstudioUsuarios> estudioUsuariosList;
 
     public UsuarioAuto() {
     }
@@ -87,56 +86,6 @@ public class UsuarioAuto implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-
-    public Integer getEdad() {
-        return edad;
-    }
-
-    public void setEdad(Integer edad) {
-        this.edad = edad;
-    }
-
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UsuarioAuto)) {
-            return false;
-        }
-        UsuarioAuto other = (UsuarioAuto) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "gigdigger.entity.UsuarioAuto[ id=" + id + " ]";
-    }
-    @XmlTransient
-    public List<EstudioUsuarios> getEstudioUsuariosList() {
-        return estudioUsuariosList;
-    }
-    public void setEstudioUsuariosList(List<EstudioUsuarios> estudioUsuariosList) {
-        this.estudioUsuariosList = estudioUsuariosList;
     }
 
     public String getNombre() {
@@ -171,12 +120,62 @@ public class UsuarioAuto implements Serializable {
         this.ciudad = ciudad;
     }
 
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+
     public String getSexo() {
         return sexo;
     }
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @XmlTransient
+    public List<EstudioUsuarios> getEstudioUsuariosList() {
+        return estudioUsuariosList;
+    }
+
+    public void setEstudioUsuariosList(List<EstudioUsuarios> estudioUsuariosList) {
+        this.estudioUsuariosList = estudioUsuariosList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof UsuarioAuto)) {
+            return false;
+        }
+        UsuarioAuto other = (UsuarioAuto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "gigdigger.entity.UsuarioAuto[ id=" + id + " ]";
     }
     
 }

@@ -5,8 +5,10 @@
  */
 package gigdigger.servlet;
 
+import gigdigger.dao.UsuarioAutoFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Usuario;
+import gigdigger.entity.UsuarioAuto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -33,13 +35,16 @@ public class ServletRegistro extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-        @EJB
+    @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
+    private UsuarioAutoFacade usuarioAutoFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-            RequestDispatcher rd = request.getRequestDispatcher("Registro.jsp");
-            rd.forward(request, response);
+
+        RequestDispatcher rd = request.getRequestDispatcher("Registro.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,22 +73,39 @@ public class ServletRegistro extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String name = request.getParameter("name");
+
+        String name = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String domicilio = request.getParameter("domicilio");
+        String ciudad = request.getParameter("ciudad");
+        String edad = request.getParameter("edad");
+        String sexo = request.getParameter("sexo");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String role = request.getParameter("role");
-        
-/*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
+
+        /*        Usuario nuevoUsuario = new Usuario(name, email, password, role);
         usuarioFacade.create(nuevoUsuario);
-  */
+         */
         Usuario u = new Usuario();
+        UsuarioAuto ua = new UsuarioAuto();
         u.setNombreUsuario(name);
         u.setEmail(email);
         u.setPassword(password);
         u.setRol("AUTOREGISTRADO");
         this.usuarioFacade.create(u);
+        ua.setId(u.getId());
+        u.setUsuarioAuto(ua);
         
+        ua.setUsuario(u);
+        ua.setNombre(name);
+        ua.setApellidos(apellidos);
+        ua.setDomicilio(domicilio);
+        ua.setCiudad(ciudad);
+        ua.setSexo(sexo);
+        ua.setEdad(new Integer(edad));
+        
+        usuarioAutoFacade.create(ua);
+
         processRequest(request, response);
     }
 
