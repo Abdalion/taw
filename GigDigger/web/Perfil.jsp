@@ -20,7 +20,7 @@
                 <link href="https://i.imgur.com/asll5wB.png" rel="icon">
 
         <style>
-            .container {
+            .container2 {
                 display:flex;
                 flex-direction:row
             }
@@ -116,7 +116,7 @@
             HashMap<Evento, List<Entrada>> eventosEntradas = (HashMap<Evento, List<Entrada>>) request.getAttribute("eventosEntradas");
         %>
         <h3 class="color-coral center">Eventos en los que tienes reservas</h3>
-        <div class="container">
+        <div class="container2">
         <%
             for (Evento evento : eventosEntradas.keySet()) {
         %>
@@ -150,7 +150,7 @@
         <%
         } else if (u.getRol().equals("ANALISTA")) {
         %>
-        <a class="nav-item nav-link" href="ServletEstudioListar">Estudios</a>
+        <a class="center nav-item nav-link" href="ServletEstudioListar">Estudios</a>
         <%
             }
         %>
