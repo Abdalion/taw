@@ -15,6 +15,8 @@
         <title>Vista Chat Teleoperador</title>
          <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="css/styles.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <body>
         <%

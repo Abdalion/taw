@@ -6,7 +6,6 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -23,13 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author jesus
+ * @author egonb
  */
 @Entity
 @Table(name = "CHAT")
@@ -54,10 +52,8 @@ public class Chat implements Serializable {
     @Column(name = "FECHA_FIN")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "NOTIFICACIONES")
-    private int notificaciones;
+    private Integer notificaciones;
     @JoinColumn(name = "ID_TELEOPERADOR", referencedColumnName = "ID")
     @ManyToOne
     private Usuario idTeleoperador;
@@ -72,11 +68,6 @@ public class Chat implements Serializable {
 
     public Chat(Integer id) {
         this.id = id;
-    }
-
-    public Chat(Integer id, int notificaciones) {
-        this.id = id;
-        this.notificaciones = notificaciones;
     }
 
     public Integer getId() {
@@ -103,11 +94,11 @@ public class Chat implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public int getNotificaciones() {
+    public Integer getNotificaciones() {
         return notificaciones;
     }
 
-    public void setNotificaciones(int notificaciones) {
+    public void setNotificaciones(Integer notificaciones) {
         this.notificaciones = notificaciones;
     }
 
@@ -128,17 +119,10 @@ public class Chat implements Serializable {
     }
 
     @XmlTransient
-    public ArrayList<Mensaje> getMensajeList() {
-        ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>(mensajeList);
-        return mensajes;
+    public List<Mensaje> getMensajeList() {
+        return mensajeList;
     }
 
-    public void addMensaje (Mensaje newMensaje){
-        List<Mensaje> newList = this.getMensajeList();
-        newList.add(newMensaje);
-        this.setMensajeList(newList);
-    }
-    
     public void setMensajeList(List<Mensaje> mensajeList) {
         this.mensajeList = mensajeList;
     }
@@ -169,4 +153,3 @@ public class Chat implements Serializable {
     }
     
 }
-

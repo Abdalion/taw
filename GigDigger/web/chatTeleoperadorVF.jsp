@@ -16,6 +16,8 @@
         <title>Vista Chat Teleoperador</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="bonsai.min.css" rel="stylesheet" type="text/css">
+                <link href="https://i.imgur.com/asll5wB.png" rel="icon">
+
     </head>
     <body>
         
@@ -60,7 +62,8 @@
             if(error == true){
                  %>
                 
-                 <h2 class="center"> Ha ocurrido un error</h2>
+                <br>
+                <h2 class="center"> Ha ocurrido un error</h2>
                 <br/>
                 <p class="center">El usuario que ha hecho el post no es teleoperador</p>
                 
@@ -83,8 +86,23 @@
                         %>
                         <div class="container">
                             
-                        <h4><b><%=c.getIdUsuario().getNombreUsuario()%></b></h4>
-                        <p>Notificaciones: <%=c.getNotificaciones()%></p>
+                        
+                        <%
+                        if(c.getNotificaciones()!=0){
+                            %>
+                            
+                            <h4><b><%=c.getIdUsuario().getNombreUsuario()%>   </b><span class="badge badge-pill badge-primary"><%=c.getNotificaciones()%></span></h4>
+                            
+                            <%
+                                  
+                        } else {
+%>
+                            
+                            <h4><b><%=c.getIdUsuario().getNombreUsuario()%></b></h4>
+                            
+                            <%
+}
+                        %>
                         <a class="btn btn-primary" href="ServletChatTeleoperador?idUser=<%=user.getId()%>&idChat=<%=c.getId()%>">Entrar al chat</a>
                             
                         </div>
@@ -111,6 +129,7 @@
                             }else{
                         %>
                         <h3 class="color-coral center"><b>Chat con <%=chat.getIdUsuario().getNombreUsuario()%></b></h3>
+                        <a class="btn btn-primary" href="ServletListarChats?idUser=<%=chat.getIdUsuario().getId()%>">Ver historial de chats</a>
                         <hr>
                         <div class="container-sm">
                         <%

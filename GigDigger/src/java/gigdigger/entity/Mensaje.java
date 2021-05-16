@@ -156,7 +156,7 @@ public class Mensaje implements Serializable {
         cal.setTime(date);
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minutes = cal.get(Calendar.MINUTE);
-        
+        int h = 1;
         return Integer.toString(hour)+":"+Integer.toString(minutes);
     }
 

@@ -8,7 +8,6 @@ package gigdigger.dao;
 import gigdigger.entity.Entrada;
 import gigdigger.entity.Usuario;
 import gigdigger.entity.UsuarioAuto;
-import static gigdigger.entity.UsuarioAuto_.usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
