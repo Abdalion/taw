@@ -111,7 +111,7 @@ public class ServletChatTeleoperador extends HttpServlet {
         newMensaje.setHora(date);
         mensajeFacade.create(newMensaje);
         
-        ArrayList<Mensaje> mensajesActualizados = idChat.getMensajeList();
+        List<Mensaje> mensajesActualizados = idChat.getMensajeList();
         mensajesActualizados.add(newMensaje);
         idChat.setMensajeList(mensajesActualizados);
         

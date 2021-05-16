@@ -76,7 +76,7 @@
             <br>
         </div>
         <div class = "container">
-            <form method="post" action="PanelAdministrador" name="crearUsuario" accept-charset="UTF-8">
+            <form method="post" action="ServletRegistro" name="crearUsuario" accept-charset="UTF-8">
                 <table>
                     <tr>
                         <td>NOMBRE </td>
@@ -96,11 +96,16 @@
                     </tr>
                     <tr>
                         <td>EDAD</td>
-                        <td><input type="text" name="edad" maxlength="40"/></td>
+                        <td><input type="number" name="edad" maxlength="40"/></td>
                     </tr>
                     <tr>
                         <td>SEXO</td>
-                        <td><input type="text" name="sexo" maxlength="40"/></td>
+                        <td>
+                    <select name="sexo">
+                        <option>MASCULINO</option>
+                        <option>FEMENINO</option>
+                    </select>
+                            </td>
                     </tr>
                     <tr>
                         <td>CORREO </td>

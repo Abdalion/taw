@@ -6,9 +6,7 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author jesus
+ * @author egonb
  */
 @Entity
 @Table(name = "MENSAJE")
@@ -135,29 +133,6 @@ public class Mensaje implements Serializable {
             return false;
         }
         return true;
-    }
-    
-    public String fechaToString(){
-        
-        Date date = this.fecha; 
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        cal.setTime(date);
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        
-        return Integer.toString(day)+"/"+Integer.toString(month)+"/"+Integer.toString(year);
-    }
-    
-    public String horaToString(){
-        
-        Date date = this.hora;
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        cal.setTime(date);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        int minutes = cal.get(Calendar.MINUTE);
-        
-        return Integer.toString(hour)+":"+Integer.toString(minutes);
     }
 
     @Override

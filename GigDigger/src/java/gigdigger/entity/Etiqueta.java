@@ -6,9 +6,8 @@
 package gigdigger.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ruben
+ * @author egonb
  */
 @Entity
 @Table(name = "ETIQUETA")
@@ -43,10 +42,12 @@ public class Etiqueta implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "ETIQUETA", nullable = false, length = 50)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "ETIQUETA")
     private String etiqueta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEtiqueta")
-    private Collection<EtiquetaEvento> etiquetaEventoCollection;
+    @OneToMany(mappedBy = "idEtiqueta")
+    private List<EtiquetaEvento> etiquetaEventoList;
 
     public Etiqueta() {
     }
@@ -77,12 +78,12 @@ public class Etiqueta implements Serializable {
     }
 
     @XmlTransient
-    public Collection<EtiquetaEvento> getEtiquetaEventoCollection() {
-        return etiquetaEventoCollection;
+    public List<EtiquetaEvento> getEtiquetaEventoList() {
+        return etiquetaEventoList;
     }
 
-    public void setEtiquetaEventoCollection(Collection<EtiquetaEvento> etiquetaEventoCollection) {
-        this.etiquetaEventoCollection = etiquetaEventoCollection;
+    public void setEtiquetaEventoList(List<EtiquetaEvento> etiquetaEventoList) {
+        this.etiquetaEventoList = etiquetaEventoList;
     }
 
     @Override
