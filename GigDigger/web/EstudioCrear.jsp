@@ -104,10 +104,10 @@ and open the template in the editor.
                     <input type="checkbox" name="usuariosSinEventos" > Usuarios sin eventos contratados <br>
                     <br>
 
-                    <input type="checkbox" name="usuariosMenoresDe18"> Usuarios menores de 18 aï¿½os <br>
+                    <input type="checkbox" name="usuariosMenoresDe18"> Usuarios menores de 18 años <br>
                     <br>
 
-                    <input type="checkbox" name="usuariosMayoresDe18"> Usuarios mayores de 18 aï¿½os <br>
+                    <input type="checkbox" name="usuariosMayoresDe18"> Usuarios mayores de 18 años <br>
                     <br>
 
                     <input type="checkbox" name="usuariosFemeninos" > Usuarios femeninos <br>
