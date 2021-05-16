@@ -112,6 +112,7 @@ public class NewChat extends HttpServlet {
                 nuevoChat.setIdTeleoperador(telFree);
                 Date date = new Date(System.currentTimeMillis());
                 nuevoChat.setFechaIni(date);
+                nuevoChat.setNotificaciones(0);
                 chatFacade.create(nuevoChat);
                 
                 /*ArrayList<Mensaje> mensajes = nuevoChat.getMensajeList();

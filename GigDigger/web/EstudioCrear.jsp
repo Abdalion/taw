@@ -85,7 +85,7 @@ and open the template in the editor.
                         <td><input type="text" name="nombre" maxlength="50" size="20"/></td>
                     </tr>
                     <tr>
-                        <td>Descripción: </td>
+                        <td>Descripciï¿½n: </td>
                         <td><input type="text" name="descripcion" maxlength="150" size="50"/></td>
                     </tr>
                 </table>
@@ -104,10 +104,10 @@ and open the template in the editor.
                     <input type="checkbox" name="usuariosSinEventos" > Usuarios sin eventos contratados <br>
                     <br>
 
-                    <input type="checkbox" name="usuariosMenoresDe18"> Usuarios menores de 18 años <br>
+                    <input type="checkbox" name="usuariosMenoresDe18"> Usuarios menores de 18 aï¿½os <br>
                     <br>
 
-                    <input type="checkbox" name="usuariosMayoresDe18"> Usuarios mayores de 18 años <br>
+                    <input type="checkbox" name="usuariosMayoresDe18"> Usuarios mayores de 18 aï¿½os <br>
                     <br>
 
                     <input type="checkbox" name="usuariosFemeninos" > Usuarios femeninos <br>
@@ -129,7 +129,7 @@ and open the template in the editor.
                     <input type="checkbox" name="eventosTerminados" > Eventos terminados <br>
                     <br>
 
-                    <input type="checkbox" name="eventosProximos" > Eventos próximos <br>
+                    <input type="checkbox" name="eventosProximos" > Eventos prï¿½ximos <br>
                     <br>
 
                     <input type="submit" name="Crear estudio" class="btn btn-primary" >

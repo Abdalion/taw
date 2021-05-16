@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author egonb
+ * @author jesus
  */
 @Entity
 @Table(name = "EVENTO")
@@ -53,9 +53,13 @@ public class Evento implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "TITULO")
     private String titulo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Column(name = "FECHA_EVENTO")

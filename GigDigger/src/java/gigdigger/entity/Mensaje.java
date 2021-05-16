@@ -136,7 +136,7 @@ public class Mensaje implements Serializable {
         }
         return true;
     }
-    
+
     public String fechaToString(){
         
         Date date = this.fecha; 
@@ -159,7 +159,7 @@ public class Mensaje implements Serializable {
         int h = 1;
         return Integer.toString(hour)+":"+Integer.toString(minutes);
     }
-
+    
     @Override
     public String toString() {
         return "gigdigger.entity.Mensaje[ id=" + id + " ]";
