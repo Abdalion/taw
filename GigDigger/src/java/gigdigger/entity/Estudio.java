@@ -50,19 +50,14 @@ public class Estudio implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
     @Column(name = "NOMBRE_ESTUDIO")
     private String nombreEstudio;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @Size(max = 10)
     @Column(name = "TIPO")
     private String tipo;
     @OneToMany(mappedBy = "idEstudio")
