@@ -9,7 +9,6 @@ import gigdigger.dao.EtiquetaFacade;
 import gigdigger.dao.UsuarioFacade;
 import gigdigger.entity.Etiqueta;
 import gigdigger.entity.Usuario;
-import static gigdigger.entity.UsuarioAuto_.usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

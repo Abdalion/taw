@@ -1,7 +1,7 @@
-Sun May 16 22:46:23 CEST 2021 : Servidor de red Apache Derby: Se ha iniciado 10.12.1.1 - (1704137) y está listo para aceptar las conexiones en el puerto 1527
+Tue May 25 18:16:41 CEST 2021 : Servidor de red Apache Derby: Se ha iniciado 10.12.1.1 - (1704137) y está listo para aceptar las conexiones en el puerto 1527
 ----------------------------------------------------------------
-Sun May 16 22:46:36 CEST 2021:
- Iniciando instancia a816c00e-0179-76ee-0e44-ffff97a6d16f de Derby, versión The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): 
+Tue May 25 18:16:47 CEST 2021:
+ Iniciando instancia a816c00e-0179-a450-600f-ffff97a6d16f de Derby, versión The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): 
 en el directorio de base de datos /Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/fasa con el cargador de clases sun.misc.Launcher$AppClassLoader@66d3c617
 Cargado desde file:/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/db-derby-10.12.1.1-bin/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -12,3 +12,9 @@ os.arch=x86_64
 os.version=10.15.7
 derby.system.home=/Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
+----------------------------------------------------------------
+Tue May 25 18:52:13 CEST 2021: cerrando motor de Derby
+----------------------------------------------------------------
+Tue May 25 18:52:13 CEST 2021:
+Cerrando la instancia a816c00e-0179-a450-600f-ffff97a6d16f en el directorio de base de datos /Users/ruben/Documents/TAW/TRABAJO/GigDigger/Derby/fasa con cargador de clases sun.misc.Launcher$AppClassLoader@66d3c617
+----------------------------------------------------------------
